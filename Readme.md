@@ -22,21 +22,21 @@ Our app will get all the data from the API connected to the individual portfolio
 
 
 
-![login](C:\Users\jonat\Desktop\workspace\stock-ed\doc\login.png)
+![login](doc\login.png)
 
-![signup](C:\Users\jonat\Desktop\workspace\stock-ed\doc\signup.png)
+![signup](doc\signup.png)
 
-![dashboard](C:\Users\jonat\Desktop\workspace\stock-ed\doc\dashboard.png)
+![dashboard](doc\dashboard.png)
 
-![stocks-overview](C:\Users\jonat\Desktop\workspace\stock-ed\doc\stocks-overview.png)
+![stocks-overview](doc\stocks-overview.png)
 
-![stock-details](C:\Users\jonat\Desktop\workspace\stock-ed\doc\stock-details.png)
+![stock-details](doc\stock-details.png)
 
-![stock-confirm](C:\Users\jonat\Desktop\workspace\stock-ed\doc\stock-confirm.png)
+![stock-confirm](doc\stock-confirm.png)
 
 
 
-![profile](C:\Users\jonat\Desktop\workspace\stock-ed\doc\profile.png)
+![profile](doc\profile.png)
 
 
 
