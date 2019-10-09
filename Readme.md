@@ -22,6 +22,24 @@ Our app will get all the data from the API connected to the individual portfolio
 
 
 
+![login](C:\Users\jonat\Desktop\workspace\stock-ed\doc\login.png)
+
+![signup](C:\Users\jonat\Desktop\workspace\stock-ed\doc\signup.png)
+
+![dashboard](C:\Users\jonat\Desktop\workspace\stock-ed\doc\dashboard.png)
+
+![stocks-overview](C:\Users\jonat\Desktop\workspace\stock-ed\doc\stocks-overview.png)
+
+![stock-details](C:\Users\jonat\Desktop\workspace\stock-ed\doc\stock-details.png)
+
+![stock-confirm](C:\Users\jonat\Desktop\workspace\stock-ed\doc\stock-confirm.png)
+
+
+
+![profile](C:\Users\jonat\Desktop\workspace\stock-ed\doc\profile.png)
+
+
+
 ## Run and build project locally
 
 In the project directory, you can run:
