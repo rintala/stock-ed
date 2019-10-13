@@ -1,0 +1,2 @@
+
+Reference for Firebase setup: https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial
