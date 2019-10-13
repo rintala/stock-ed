@@ -1,5 +1,20 @@
 # stock-ed
 
+## Firebase backend config
+
+Set the following environment variables on your system, in order to succesfully connect to the Firebase backend. The config variables can be found in your Firebase dashboard under 'Project settings':
+
+```
+const config = {
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
+};
+```
+
 ## Description
 
 This is a web app where you can set up your own virtual stock portfolio, see overall development on the portfolio as well as overtime development on specific stocks. The stocks can be bought with fake money and will then be added to a portfolio; thus, providing the user with the educational value of learning to trade and manage their assets, but without any associated risks. In addition, the user will possibly be given some sort of score according to ROI.
@@ -20,8 +35,6 @@ Our app will get all the data from the API connected to the individual portfolio
 
 ## Mockup
 
-
-
 ![login](doc/login.png)
 
 ![signup](doc/signup.png)
@@ -35,8 +48,6 @@ Our app will get all the data from the API connected to the individual portfolio
 ![stock-confirm](doc/stock-confirm.png)
 
 ![profile](doc/profile.png)
-
-
 
 ## Run and build project locally
 
