@@ -3,14 +3,13 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 
-class SignUpForm extends Component {
+class SignInForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       email: "",
-      pass1: "",
-      pass2: ""
+      pass1: ""
     };
   }
 
@@ -29,14 +28,12 @@ class SignUpForm extends Component {
   componentDidMount() {}
 
   onSubmit = event => {
-    console.log("this props", this.props);
     const { username, email, pass1 } = this.state;
     this.props.firebase
-      .doCreateUserWithEmailAndPassword(username, pass1)
-      .then(authUser => {
-        this.setState({ username: "", email: "", pass1: "", pass2: "" });
-        console.log("user signed up", authUser);
-        /* return <Redirect to="/home" push />; */
+      .doSignInWithEmailAndPassword(username, pass1)
+      .then(() => {
+        console.log("successful login");
+        this.setState({ username: "", email: "", pass1: "" });
         this.props.history.push("/home");
       })
       .catch(error => {
@@ -67,21 +64,13 @@ class SignUpForm extends Component {
           type="password"
           placeholder="Password.."
         ></input>
-        <label htmlFor="pass2">Confirm password: </label>
-        <input
-          id="pass2"
-          name="pass2"
-          value={this.state.pass2}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password.."
-        ></input>
+
         <button id="loginButton" type="submit">
-          >Signup
+          >Login
         </button>
       </form>
     );
   }
 }
 
-export default withRouter(SignUpForm);
+export default withRouter(SignInForm);
