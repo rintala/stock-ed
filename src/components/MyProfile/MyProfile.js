@@ -4,7 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import NavBar from "./../NavBar/NavBar";
 
-class Home extends Component {
+class MyProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,21 +53,16 @@ class Home extends Component {
                 <Link to="/home">
                   <h1>stock-ed</h1>
                 </Link>
-                <h2>HOME - My Portfolio</h2>
+                <h2>My Profile</h2>
                 <NavBar />
               </header>
             </div>{" "}
             <div className="contentBody" style={{ display: "flex" }}>
-              <div id="graphAndTextWrapper" style={{ width: "50%" }}>
-                <div>GRAPH 1</div>
+              <div>
                 <div>
-                  Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                  minim tempor velit sunt esse.
+                  <div>Name: Jonathan</div>
+                  <div>About: Hobby investor</div>
                 </div>
-              </div>
-              <div id="graphWrapper" style={{ width: "50%" }}>
-                <div>GRAPH 2</div>
-                <div>GRAPH 3</div>
               </div>
             </div>
           </div>
@@ -76,4 +71,4 @@ class Home extends Component {
     );
   }
 }
-export default withRouter(Home);
+export default withRouter(MyProfile);

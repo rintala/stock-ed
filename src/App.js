@@ -6,6 +6,8 @@ import * as ROUTES from "./constants/routes";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 import Home from "./components/Home/Home";
+import StocksSearch from "./components/StocksSearch/StocksSearch";
+import MyProfile from "./components/MyProfile/MyProfile";
 
 function App() {
   return (
@@ -15,6 +17,9 @@ function App() {
         <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
         {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
         <Route path={ROUTES.HOME} render={() => <Home history />} />
+        <Route path={ROUTES.SEARCH} render={() => <StocksSearch history />} />
+        <Route path={ROUTES.MY_PROFILE} render={() => <MyProfile history />} />
+
         <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
         <Route path={ROUTES.ADMIN} render={() => <SignIn history />} />
       </header>
