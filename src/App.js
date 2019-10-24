@@ -8,23 +8,43 @@ import SignUp from "./components/SignUp/SignUp";
 import Home from "./components/Home/Home";
 import StocksSearch from "./components/StocksSearch/StocksSearch";
 import MyProfile from "./components/MyProfile/MyProfile";
+import Error from "./components/Error/Error"
+import { setEnvVars } from "./constants/config"
+
+function isAllEnvVarSet() {
+  const envVars = setEnvVars()
+  return Object.keys(envVars).reduce((acc, key) => {
+    return envVars[key] && acc
+  }, true) //Initalize it to true
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
-        <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
-        {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
-        <Route path={ROUTES.HOME} render={() => <Home history />} />
-        <Route path={ROUTES.SEARCH} render={() => <StocksSearch history />} />
-        <Route path={ROUTES.MY_PROFILE} render={() => <MyProfile history />} />
+  if (!isAllEnvVarSet()) {
+    console.log('display error page')
+    return (
+      <div className="App">
+        <Error errors={setEnvVars()} />
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
+          <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
+          {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
+          <Route path={ROUTES.HOME} render={() => <Home history />} />
+          <Route path={ROUTES.SEARCH} render={() => <StocksSearch history />} />
+          <Route path={ROUTES.MY_PROFILE} render={() => <MyProfile history />} />
 
-        <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
-        <Route path={ROUTES.ADMIN} render={() => <SignIn history />} />
-      </header>
-    </div>
-  );
+          <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
+          <Route path={ROUTES.ADMIN} render={() => <SignIn history />} />
+        </header>
+      </div>
+    );
+  }
 }
+
+
 
 export default App;

@@ -7,3 +7,4 @@ export const MY_PROFILE = "/my-profile";
 export const ACCOUNT = "/account";
 export const ADMIN = "/admin";
 export const PASSWORD_FORGET = "/pw-forget";
+export const ERROR = "/error";
