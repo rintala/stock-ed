@@ -1,32 +1,47 @@
 import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
+import CheckIcon from '@material-ui/icons/Check';
+import ClearIcon from '@material-ui/icons/Clear';
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import { green, red } from "@material-ui/core/colors";
+
 
 
 class Error extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-
     }
 
     componentDidMount() { }
 
 
+
+
     render() {
         const errors = this.props.errors
         return (
-            <div>
-                <p>Enviroment variables is set for the following:</p>
-                <ul>
-                    {Object.keys(errors).map((key) =>
-                        <li key={key}>
-                            <p>{key}</p>
-                            <p>{String(errors[key])}</p>
-                        </li>
+            <Container maxWidth="sm">
+                <List subheader="Enviroment variables is set for the following:">
+
+                    {Object.keys(errors).map((key) => {
+                        return (
+                            <ListItem key={key}>
+                                <ListItemText primary={key} />
+                                <ListItemIcon >
+                                    {errors[key] ? <CheckIcon color={red[400]} /> : <ClearIcon color="error" />}
+                                </ListItemIcon>
+
+                            </ListItem>
+
+                        )
+                    }
                     )}
-                </ul>
-            </div>
+
+                </List>
+            </Container>
         )
     }
 }
