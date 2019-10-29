@@ -15,7 +15,7 @@ import Firebase, { FirebaseContext } from "./components/Firebase";
 
 function isAllEnvVarSet() {
   const envVars = setEnvVars();
-  console.log("envVars", envVars);
+
   return Object.keys(envVars).reduce((acc, key) => {
     return envVars[key] && acc;
   }, true); //Initalize it to true
