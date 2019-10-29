@@ -15,6 +15,7 @@ import Firebase, { FirebaseContext } from "./components/Firebase";
 
 function isAllEnvVarSet() {
   const envVars = setEnvVars();
+  console.log("envVars", envVars);
   return Object.keys(envVars).reduce((acc, key) => {
     return envVars[key] && acc;
   }, true); //Initalize it to true
@@ -30,6 +31,7 @@ function App() {
       </div>
     );
   } else {
+    console.log("return app");
     return (
       <FirebaseContext.Provider value={new Firebase()}>
         <BrowserRouter>

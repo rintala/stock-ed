@@ -33,9 +33,9 @@ class Error extends Component {
                 <ListItemText primary={key} />
                 <ListItemIcon>
                   {errors[key] ? (
-                    <CheckIcon color={red[400]} />
+                    <CheckIcon htmlColor={green[400]} />
                   ) : (
-                    <ClearIcon color="error" />
+                    <ClearIcon htmlColor={red[400]} />
                   )}
                 </ListItemIcon>
               </ListItem>
