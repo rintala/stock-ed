@@ -24,6 +24,9 @@ const HeaderTitle = styled.div`
   font-size: 2em;
   padding: 30px;
   font-weight: bold;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 `;
 
 const HeaderTitleLink = styled.a`
@@ -34,6 +37,9 @@ const HeaderTitleLink = styled.a`
 const HeaderSubTitle = styled.div`
   font-size: 20px;
   padding: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 `;
 
 const StocksWrapper = styled.div`
@@ -45,8 +51,13 @@ const StocksWrapper = styled.div`
 
 const PortfolioWrapper = styled.div`
   justify-content: center;
+  padding: 30px;
 `;
 
+const GraphAndTextWrapper = styled.div`
+  width: 50%;
+  padding: 30px;
+`;
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -112,17 +123,27 @@ class Home extends Component {
                     <StockCard stock={stock} />
                   ))}
                 </StocksWrapper>
-                <div id="graphAndTextWrapper" style={{ width: "50%" }}>
+                <GraphAndTextWrapper>
                   <div>GRAPH 1</div>
                   <div>
                     Ut aliqua officia duis voluptate adipisicing cillum ut minim
                     minim tempor velit sunt esse.
                   </div>
-                </div>
-                <div id="graphWrapper" style={{ width: "50%" }}>
-                  <div>GRAPH 2</div>
-                  <div>GRAPH 3</div>
-                </div>
+                </GraphAndTextWrapper>
+                <GraphAndTextWrapper>
+                  <div>GRAPH 1</div>
+                  <div>
+                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
+                    minim tempor velit sunt esse.
+                  </div>
+                </GraphAndTextWrapper>
+                <GraphAndTextWrapper>
+                  <div>GRAPH 1</div>
+                  <div>
+                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
+                    minim tempor velit sunt esse.
+                  </div>
+                </GraphAndTextWrapper>
               </PortfolioWrapper>
             </div>
           </div>
