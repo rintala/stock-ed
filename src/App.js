@@ -12,6 +12,7 @@ import Error from "./components/Error/Error";
 import { setEnvVars } from "./constants/config";
 import { BrowserRouter } from "react-router-dom";
 import Firebase, { FirebaseContext } from "./components/Firebase";
+import About from "./components/About/About";
 
 function isAllEnvVarSet() {
   const envVars = setEnvVars();
@@ -40,6 +41,7 @@ function App() {
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
             {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
             <Route path={ROUTES.HOME} render={() => <Home history />} />
+            <Route path={ROUTES.ABOUT} render={() => <About history />} />
             <Route
               path={ROUTES.SEARCH}
               render={() => <StocksSearch history />}

@@ -57,13 +57,20 @@ const StocksWrapper = styled.div`
 const PortfolioWrapper = styled.div`
   justify-content: center;
   padding: 30px;
+  display: flex;
+`;
+
+const AboutBody = styled.div`
+  width: 60vw;
+  text-align: center;
+  font-size: 24px;
 `;
 
 const GraphAndTextWrapper = styled.div`
   width: 50%;
   padding: 30px;
 `;
-class Home extends Component {
+class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -119,36 +126,20 @@ class Home extends Component {
                   </Link>
                 </HeaderTitle>
                 <NavBar />
-                <HeaderSubTitle>My Portfolio</HeaderSubTitle>
+                <HeaderSubTitle>About</HeaderSubTitle>
               </HeaderContainer>
 
               <PortfolioWrapper>
-                <StocksWrapper>
-                  {this.state.stocks.map(stock => (
-                    <StockCard stock={stock} />
-                  ))}
-                </StocksWrapper>
-                <GraphAndTextWrapper>
-                  <div>GRAPH 1</div>
-                  <div>
-                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                    minim tempor velit sunt esse.
-                  </div>
-                </GraphAndTextWrapper>
-                <GraphAndTextWrapper>
-                  <div>GRAPH 1</div>
-                  <div>
-                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                    minim tempor velit sunt esse.
-                  </div>
-                </GraphAndTextWrapper>
-                <GraphAndTextWrapper>
-                  <div>GRAPH 1</div>
-                  <div>
-                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                    minim tempor velit sunt esse.
-                  </div>
-                </GraphAndTextWrapper>
+                <AboutBody>
+                  Stock-ed is a project for a course at KTH.Non in cupidatat
+                  magna fugiat commodo commodo aliquip laboris consectetur qui
+                  dolor do id ad. Pariatur ad aliquip nostrud tempor laboris.
+                  Velit enim consectetur reprehenderit labore. Laboris in ex in
+                  ipsum velit proident aliquip incididunt aute. Nulla pariatur
+                  consequat id labore eu voluptate consequat duis nisi mollit.
+                  Dolore velit nisi quis ex nulla nisi voluptate incididunt
+                  laborum.
+                </AboutBody>
               </PortfolioWrapper>
             </div>
           </div>
@@ -157,4 +148,4 @@ class Home extends Component {
     );
   }
 }
-export default withRouter(Home);
+export default withRouter(About);

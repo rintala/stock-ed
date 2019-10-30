@@ -3,22 +3,13 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
-const animation = keyframes({
-  from: {
-    opacity: 0
-  },
-  to: {
-    opacity: 1
-  }
-});
-
 const Button = styled.div`
   background-color: var(--highlight);
   text-align: center;
   cursor: pointer;
   margin: 3px;
   padding: 5px
-  width: 30vw;
+  width: 20vw;
   
   &:hover {
     background-color: var(--on-hover);
@@ -52,6 +43,9 @@ class NavBar extends Component {
         </Link>
         <Link to="/my-profile">
           <Button>MY PROFILE</Button>
+        </Link>
+        <Link to="/about">
+          <Button>ABOUT</Button>
         </Link>
       </NavBarWrapper>
     );
