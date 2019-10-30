@@ -1,7 +1,6 @@
 import app from "firebase/app";
 import "firebase/auth";
-import { envVar } from "../../constants/config"
-console.log('Loading env variables? ')
+import { envVar } from "../../constants/config";
 
 // const config = {
 //   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,12 +11,16 @@ console.log('Loading env variables? ')
 //   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 // };
 
-console.log('Loading env variables? \nAPIKEY: ');
-console.log(envVar.apiKey);
-// Error handling if the env variables is missing. 
+const config = Object.keys(envVar).reduce((acc, key) => {
+  return Object.assign(acc, { [key]: envVar[key].value });
+}, {});
+/* 
+console.log("config", config);
+console.log(envVar.apiKey); */
+// Error handling if the env variables is missing.
 class Firebase {
   constructor() {
-    app.initializeApp(envVar);
+    app.initializeApp(config);
 
     this.auth = app.auth();
   }

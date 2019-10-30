@@ -13,6 +13,7 @@ const Header = styled.div`
   padding-bottom: 20px;
   text-align: left;
 `;
+
 class Error extends Component {
   constructor(props) {
     super(props);
