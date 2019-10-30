@@ -36,23 +36,21 @@ function App() {
       <FirebaseContext.Provider value={new Firebase()}>
         <BrowserRouter>
           <div className="App">
-            <header className="App-header">
-              <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
-              <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
-              {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
-              <Route path={ROUTES.HOME} render={() => <Home history />} />
-              <Route
-                path={ROUTES.SEARCH}
-                render={() => <StocksSearch history />}
-              />
-              <Route
-                path={ROUTES.MY_PROFILE}
-                render={() => <MyProfile history />}
-              />
+            <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
+            <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
+            {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
+            <Route path={ROUTES.HOME} render={() => <Home history />} />
+            <Route
+              path={ROUTES.SEARCH}
+              render={() => <StocksSearch history />}
+            />
+            <Route
+              path={ROUTES.MY_PROFILE}
+              render={() => <MyProfile history />}
+            />
 
-              <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
-              <Route path={ROUTES.ADMIN} render={() => <SignIn history />} />
-            </header>
+            <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
+            <Route path={ROUTES.ADMIN} render={() => <SignIn history />} />
           </div>
         </BrowserRouter>
       </FirebaseContext.Provider>

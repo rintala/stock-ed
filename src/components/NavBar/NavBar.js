@@ -1,7 +1,24 @@
 import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
+import styled from "styled-components";
 
+const Button = styled.div`
+  background-color: var(--highlight);
+  cursor: pointer;
+  margin: 3px;
+  padding: 5px
+  width: 30vw;
+  &:hover {
+    background-color: var(--on-hover);
+    color: white;
+  }
+`;
+
+const NavBarWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -11,17 +28,17 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div>
+      <NavBarWrapper>
         <Link to="/home">
-          <button>HOME</button>
+          <Button>MY PORTFOLIO</Button>
         </Link>
         <Link to="/search">
-          <button>SEARCH</button>
+          <Button>SEARCH</Button>
         </Link>
         <Link to="/my-profile">
-          <button>MY PROFILE</button>
+          <Button>MY PROFILE</Button>
         </Link>
-      </div>
+      </NavBarWrapper>
     );
   }
 }

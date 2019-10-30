@@ -27,6 +27,7 @@ const TypographyWrapperTitle = styled.div`
 `;
 const CardWrapper = styled.div`
   min-width: 275;
+  margin: 10px;
 `;
 class StockCard extends Component {
   constructor(props) {
@@ -47,15 +48,15 @@ class StockCard extends Component {
             <TypographyWrapperTitle>
               <StockHeader>
                 <Typography color="textSecondary" gutterBottom>
-                  BUY: 157.3
+                  BUY: {this.props.stock.buyPrice}
                 </Typography>
                 <Typography color="textSecondary" gutterBottom>
-                  SELL: 157.3
+                  SELL: {this.props.stock.sellPrice}
                 </Typography>
               </StockHeader>
             </TypographyWrapperTitle>
             <Typography variant="h5" component="h2">
-              OMX30
+              {this.props.stock.marker}
             </Typography>
             <TypographyWrapper>
               <Typography color="textSecondary">

@@ -21,17 +21,30 @@ const HeaderContainer = styled.div`
 `;
 
 const HeaderTitle = styled.div`
-  font-size: 30px;
+  font-size: 2em;
   padding: 30px;
+  font-weight: bold;
 `;
 
 const HeaderTitleLink = styled.a`
-  color: red;
+  text-decoration: none;
+  color: var(--global-link-color);
 `;
 
 const HeaderSubTitle = styled.div`
   font-size: 20px;
   padding: 10px;
+`;
+
+const StocksWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+`;
+
+const PortfolioWrapper = styled.div`
+  justify-content: center;
 `;
 
 class Home extends Component {
@@ -41,7 +54,11 @@ class Home extends Component {
       username: "",
       email: "",
       pass1: "",
-      pass2: ""
+      pass2: "",
+      stocks: [
+        { id: "1", marker: "OMX30", buyPrice: 30, sellPrice: 35 },
+        { id: "1", marker: "TSLA", buyPrice: 35, sellPrice: 40 }
+      ]
     };
   }
 
@@ -85,25 +102,28 @@ class Home extends Component {
                     <HeaderTitleLink>stock-ed</HeaderTitleLink>
                   </Link>
                 </HeaderTitle>
-
-                <HeaderSubTitle>HOME - My Portfolio</HeaderSubTitle>
                 <NavBar />
+                <HeaderSubTitle>My Portfolio</HeaderSubTitle>
               </HeaderContainer>
 
-              <div className="contentBody" style={{ display: "flex" }}>
+              <PortfolioWrapper>
+                <StocksWrapper>
+                  {this.state.stocks.map(stock => (
+                    <StockCard stock={stock} />
+                  ))}
+                </StocksWrapper>
                 <div id="graphAndTextWrapper" style={{ width: "50%" }}>
                   <div>GRAPH 1</div>
                   <div>
                     Ut aliqua officia duis voluptate adipisicing cillum ut minim
                     minim tempor velit sunt esse.
                   </div>
-                  <StockCard />
                 </div>
                 <div id="graphWrapper" style={{ width: "50%" }}>
                   <div>GRAPH 2</div>
                   <div>GRAPH 3</div>
                 </div>
-              </div>
+              </PortfolioWrapper>
             </div>
           </div>
         )}

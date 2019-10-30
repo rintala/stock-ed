@@ -1,12 +1,24 @@
+:root {
+  --global-bg-color: #fff;
+  --global-font-family: Verdana, sans-serif;
+  --global-text-color: #222;
+  --global-link-color: rgb(119, 0, 255);
+  --global-link-hover: rgb(103, 217, 255);
+  --highlight: rgb(143, 68, 93);
+  --on-hover: palevioletred;
+}
+
 .App {
   text-align: center;
   /* background-color: #282c34; */
+  align-items: center;
+  color: white;
 }
 
 .App-logo {
   height: 40vmin;
 }
-
+/* 
 .App-header {
   background-color: #282c34;
   min-height: 30vh;
@@ -16,8 +28,12 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .App-link {
   color: #09d3ac;
+}
+
+a {
+  text-decoration: none;
 }
