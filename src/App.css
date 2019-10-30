@@ -2,9 +2,9 @@
   --global-bg-color: #fff;
   --global-font-family: Verdana, sans-serif;
   --global-text-color: #222;
-  --global-link-color: rgb(119, 0, 255);
+  --global-link-color: #fff;
   --global-link-hover: rgb(103, 217, 255);
-  --highlight: rgb(143, 68, 93);
+  --highlight: rgb(219, 219, 219);
   --on-hover: palevioletred;
 }
 
