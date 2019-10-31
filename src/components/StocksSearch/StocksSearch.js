@@ -3,6 +3,8 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import NavBar from "./../NavBar/NavBar";
+import Header from "./../Header/Header";
+import styled from "styled-components";
 
 class StocksSearch extends Component {
   constructor(props) {
@@ -49,13 +51,7 @@ class StocksSearch extends Component {
         {firebase => (
           <div>
             <div className="App">
-              <header className="App-header">
-                <Link to="/home">
-                  <h1>stock-ed</h1>
-                </Link>
-                <h2>STOCKS SEARCH</h2>
-                <NavBar />
-              </header>
+              <Header currentPage={"Search view"} />
             </div>{" "}
             <div className="contentBody" style={{ display: "flex" }}>
               <div>

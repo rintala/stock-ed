@@ -3,6 +3,7 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import NavBar from "./../NavBar/NavBar";
+import Header from "../Header/Header";
 
 class MyProfile extends Component {
   constructor(props) {
@@ -48,15 +49,7 @@ class MyProfile extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
-            <div className="App">
-              <header className="App-header">
-                <Link to="/home">
-                  <h1>stock-ed</h1>
-                </Link>
-                <h2>My Profile</h2>
-                <NavBar />
-              </header>
-            </div>{" "}
+            <Header currentPage={"My profile"} />
             <div className="contentBody" style={{ display: "flex" }}>
               <div>
                 <div>

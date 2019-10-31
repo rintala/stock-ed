@@ -17,38 +17,7 @@ import {
   Button,
   CardActions
 } from "@material-ui/core";
-
-const HeaderContainer = styled.div`
-  padding-top: 25px;
-  padding-bottom: 25px;
-`;
-
-const HeaderTitle = styled.div`
-  font-size: 70px;
-  padding: 30px;
-  font-weight: bold;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-`;
-
-const HeaderTitleLink = styled.a`
-  text-decoration: none;
-  color: var(--global-link-color);
-
-  &:hover {
-    color: var(--on-hover);
-  }
-  transition: all 0.3s ease-in-out;
-`;
-
-const HeaderSubTitle = styled.div`
-  font-size: 20px;
-  padding: 10px;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-`;
+import Header from "../Header/Header";
 
 const StocksWrapper = styled.div`
   display: flex;
@@ -137,15 +106,7 @@ class Home extends Component {
         {firebase => (
           <div>
             <div className="App">
-              <HeaderContainer>
-                <HeaderTitle>
-                  <Link to="/home">
-                    <HeaderTitleLink>[stock-ed]</HeaderTitleLink>
-                  </Link>
-                </HeaderTitle>
-                <NavBar />
-                <HeaderSubTitle>My Portfolio</HeaderSubTitle>
-              </HeaderContainer>
+              <Header currentPage={"My portfolio"} />
 
               <PortfolioWrapper>
                 <StocksWrapper>
