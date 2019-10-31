@@ -3,9 +3,6 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 
-import "../../../node_modules/react-vis/dist/style.css";
-import { XYPlot, LineSeries } from "react-vis";
-
 import CheckIcon from "@material-ui/icons/Check";
 import NavBar from "./../NavBar/NavBar";
 import StockCard from "./../StockCard/StockCard";
@@ -24,7 +21,7 @@ const HeaderContainer = styled.div`
 `;
 
 const HeaderTitle = styled.div`
-  font-size: 70px;
+  font-size: 2em;
   padding: 30px;
   font-weight: bold;
   display: flex;
@@ -61,22 +58,19 @@ const PortfolioWrapper = styled.div`
   justify-content: center;
   padding: 30px;
   display: flex;
-  flex-wrap: wrap;
+`;
+
+const AboutBody = styled.div`
+  width: 60vw;
+  text-align: center;
+  font-size: 24px;
 `;
 
 const GraphAndTextWrapper = styled.div`
   width: 50%;
   padding: 30px;
 `;
-
-const GraphAndTextTitle = styled.div`
-  padding-top: 20px;
-  padding-bottom: 20px;
-  font-size: 30px;
-  font-weight: 600;
-  color: var(--global-link-color);
-`;
-class Home extends Component {
+class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -120,18 +114,6 @@ class Home extends Component {
   };
 
   render() {
-    const data = [
-      { x: 0, y: 8 },
-      { x: 1, y: 5 },
-      { x: 2, y: 4 },
-      { x: 3, y: 9 },
-      { x: 4, y: 1 },
-      { x: 5, y: 7 },
-      { x: 6, y: 6 },
-      { x: 7, y: 3 },
-      { x: 8, y: 2 },
-      { x: 9, y: 0 }
-    ];
     return (
       <FirebaseContext.Consumer>
         {firebase => (
@@ -140,41 +122,24 @@ class Home extends Component {
               <HeaderContainer>
                 <HeaderTitle>
                   <Link to="/home">
-                    <HeaderTitleLink>[stock-ed]</HeaderTitleLink>
+                    <HeaderTitleLink>stock-ed</HeaderTitleLink>
                   </Link>
                 </HeaderTitle>
                 <NavBar />
-                <HeaderSubTitle>My Portfolio</HeaderSubTitle>
+                <HeaderSubTitle>About</HeaderSubTitle>
               </HeaderContainer>
 
               <PortfolioWrapper>
-                <StocksWrapper>
-                  {this.state.stocks.map(stock => (
-                    <StockCard stock={stock} />
-                  ))}
-                </StocksWrapper>
-                <GraphAndTextWrapper>
-                  <GraphAndTextTitle>GRAPH 1</GraphAndTextTitle>
-                  <div>
-                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                    minim tempor velit sunt esse.
-                  </div>
-                </GraphAndTextWrapper>
-                <GraphAndTextWrapper>
-                  <GraphAndTextTitle>GRAPH 2</GraphAndTextTitle>
-                  <div>
-                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                    minim tempor velit sunt esse.
-                  </div>
-                </GraphAndTextWrapper>
-                <GraphAndTextWrapper>
-                  <GraphAndTextTitle>Portfolio Performance</GraphAndTextTitle>
-                  <div>
-                    <XYPlot height={300} width={300}>
-                      <LineSeries data={data} />
-                    </XYPlot>
-                  </div>
-                </GraphAndTextWrapper>
+                <AboutBody>
+                  Stock-ed is a project for a course at KTH.Non in cupidatat
+                  magna fugiat commodo commodo aliquip laboris consectetur qui
+                  dolor do id ad. Pariatur ad aliquip nostrud tempor laboris.
+                  Velit enim consectetur reprehenderit labore. Laboris in ex in
+                  ipsum velit proident aliquip incididunt aute. Nulla pariatur
+                  consequat id labore eu voluptate consequat duis nisi mollit.
+                  Dolore velit nisi quis ex nulla nisi voluptate incididunt
+                  laborum.
+                </AboutBody>
               </PortfolioWrapper>
             </div>
           </div>
@@ -183,4 +148,4 @@ class Home extends Component {
     );
   }
 }
-export default withRouter(Home);
+export default withRouter(About);

@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Button = styled.div`
   background-color: var(--highlight);
+  text-align: center;
   cursor: pointer;
   margin: 3px;
   padding: 5px
-  width: 30vw;
   text-align: center;
+  width: 20vw;
+  
   &:hover {
     /* background-color: var(--on-hover); */
     color: white;
@@ -40,6 +42,9 @@ class NavBar extends Component {
         </Link>
         <Link to="/my-profile">
           <Button>MY PROFILE</Button>
+        </Link>
+        <Link to="/about">
+          <Button>ABOUT</Button>
         </Link>
       </NavBarWrapper>
     );
