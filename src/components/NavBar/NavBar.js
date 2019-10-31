@@ -9,10 +9,13 @@ const Button = styled.div`
   margin: 3px;
   padding: 5px
   width: 30vw;
+  text-align: center;
   &:hover {
-    background-color: var(--on-hover);
+    /* background-color: var(--on-hover); */
     color: white;
+    box-shadow: 0px 1px 1px #888888;
   }
+  transition: all 0.6s ease;
 `;
 
 const NavBarWrapper = styled.div`

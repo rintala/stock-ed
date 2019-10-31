@@ -1,12 +1,15 @@
 :root {
-  --global-bg-color: #fff;
+  --global-bg-color: #003b2b;
   --global-font-family: Verdana, sans-serif;
   --global-text-color: #222;
-  --global-link-color: rgb(119, 0, 255);
+  --global-link-color: #00ffba;
   --global-link-hover: rgb(103, 217, 255);
-  --highlight: rgb(143, 68, 93);
-  --on-hover: palevioletred;
+  --highlight: #009666;
+  --foundation: #768984;
+  --on-hover: #768984;
 }
+
+/*https://www.colorhexa.com/00ffba*/
 
 .App {
   /* background-color: #282c34; */
@@ -17,17 +20,6 @@
 .App-logo {
   height: 40vmin;
 }
-/* 
-.App-header {
-  background-color: #282c34;
-  min-height: 30vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
 
 .App-link {
   color: #09d3ac;

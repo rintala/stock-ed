@@ -3,6 +3,9 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 
+import "../../../node_modules/react-vis/dist/style.css";
+import { XYPlot, LineSeries } from "react-vis";
+
 import CheckIcon from "@material-ui/icons/Check";
 import NavBar from "./../NavBar/NavBar";
 import StockCard from "./../StockCard/StockCard";
@@ -21,7 +24,7 @@ const HeaderContainer = styled.div`
 `;
 
 const HeaderTitle = styled.div`
-  font-size: 2em;
+  font-size: 70px;
   padding: 30px;
   font-weight: bold;
   display: flex;
@@ -52,11 +55,21 @@ const StocksWrapper = styled.div`
 const PortfolioWrapper = styled.div`
   justify-content: center;
   padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const GraphAndTextWrapper = styled.div`
   width: 50%;
   padding: 30px;
+`;
+
+const GraphAndTextTitle = styled.div`
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--global-link-color);
 `;
 class Home extends Component {
   constructor(props) {
@@ -102,6 +115,18 @@ class Home extends Component {
   };
 
   render() {
+    const data = [
+      { x: 0, y: 8 },
+      { x: 1, y: 5 },
+      { x: 2, y: 4 },
+      { x: 3, y: 9 },
+      { x: 4, y: 1 },
+      { x: 5, y: 7 },
+      { x: 6, y: 6 },
+      { x: 7, y: 3 },
+      { x: 8, y: 2 },
+      { x: 9, y: 0 }
+    ];
     return (
       <FirebaseContext.Consumer>
         {firebase => (
@@ -110,7 +135,7 @@ class Home extends Component {
               <HeaderContainer>
                 <HeaderTitle>
                   <Link to="/home">
-                    <HeaderTitleLink>stock-ed</HeaderTitleLink>
+                    <HeaderTitleLink>[stock-ed]</HeaderTitleLink>
                   </Link>
                 </HeaderTitle>
                 <NavBar />
@@ -124,24 +149,25 @@ class Home extends Component {
                   ))}
                 </StocksWrapper>
                 <GraphAndTextWrapper>
-                  <div>GRAPH 1</div>
+                  <GraphAndTextTitle>GRAPH 1</GraphAndTextTitle>
                   <div>
                     Ut aliqua officia duis voluptate adipisicing cillum ut minim
                     minim tempor velit sunt esse.
                   </div>
                 </GraphAndTextWrapper>
                 <GraphAndTextWrapper>
-                  <div>GRAPH 1</div>
+                  <GraphAndTextTitle>GRAPH 2</GraphAndTextTitle>
                   <div>
                     Ut aliqua officia duis voluptate adipisicing cillum ut minim
                     minim tempor velit sunt esse.
                   </div>
                 </GraphAndTextWrapper>
                 <GraphAndTextWrapper>
-                  <div>GRAPH 1</div>
+                  <GraphAndTextTitle>Portfolio Performance</GraphAndTextTitle>
                   <div>
-                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                    minim tempor velit sunt esse.
+                    <XYPlot height={300} width={300}>
+                      <LineSeries data={data} />
+                    </XYPlot>
                   </div>
                 </GraphAndTextWrapper>
               </PortfolioWrapper>
