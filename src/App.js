@@ -7,6 +7,7 @@ import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 import Home from "./components/Home/Home";
 import StocksSearch from "./components/StocksSearch/StocksSearch";
+import StockDetails from "./components/StockDetails/stockDetails";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Error from "./components/Error/Error";
 import { setEnvVars } from "./constants/config";
@@ -41,6 +42,7 @@ function App() {
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
             {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
             <Route path={ROUTES.HOME} render={() => <Home history />} />
+            <Route path={ROUTES.STOCK_DETAILS + '/:stockID'} render={() => <StockDetails history />} />
             <Route path={ROUTES.ABOUT} render={() => <About history />} />
             <Route
               path={ROUTES.SEARCH}

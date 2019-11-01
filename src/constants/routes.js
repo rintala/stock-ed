@@ -9,3 +9,4 @@ export const ACCOUNT = "/account";
 export const ADMIN = "/admin";
 export const PASSWORD_FORGET = "/pw-forget";
 export const ERROR = "/error";
+export const STOCK_DETAILS = "/stockDetails";

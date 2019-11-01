@@ -42,9 +42,9 @@ class Header extends Component {
     return (
       <HeaderContainer>
         <HeaderTitle>
-          <Link to="/home">
-            <HeaderTitleLink>[stock-ed]</HeaderTitleLink>
-          </Link>
+
+          <HeaderTitleLink to="/home">[stock-ed]</HeaderTitleLink>
+
         </HeaderTitle>
         <NavBar />
         <HeaderSubTitle>{this.props.currentPage}</HeaderSubTitle>

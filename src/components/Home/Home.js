@@ -3,6 +3,8 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 
+
+
 import "../../../node_modules/react-vis/dist/style.css";
 import { XYPlot, LineSeries } from "react-vis";
 
@@ -55,7 +57,7 @@ class Home extends Component {
       pass2: "",
       stocks: [
         { id: "1", marker: "OMX30", buyPrice: 30, sellPrice: 35 },
-        { id: "1", marker: "TSLA", buyPrice: 35, sellPrice: 40 }
+        { id: "2", marker: "TSLA", buyPrice: 35, sellPrice: 40 }
       ]
     };
   }
@@ -72,7 +74,7 @@ class Home extends Component {
     });
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   onSubmit = event => {
     const { username, email, passwordOne } = this.state;
@@ -107,11 +109,13 @@ class Home extends Component {
           <div>
             <div className="App">
               <Header currentPage={"My portfolio"} />
-
+              <Link to="/details/testID">
+                <Button className="">Details about testStock</Button>
+              </Link>
               <PortfolioWrapper>
                 <StocksWrapper>
                   {this.state.stocks.map(stock => (
-                    <StockCard stock={stock} />
+                    <StockCard stock={stock} key={stock.id} />
                   ))}
                 </StocksWrapper>
                 <GraphAndTextWrapper>
