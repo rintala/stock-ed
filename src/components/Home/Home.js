@@ -47,6 +47,7 @@ const GraphAndTextTitle = styled.div`
   font-weight: 600;
   color: var(--global-link-color);
 `;
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -109,7 +110,7 @@ class Home extends Component {
           <div>
             <div className="App">
               <Header currentPage={"My portfolio"} />
-              <Link to="/details/testID">
+              <Link to="/stockDetails/testID">
                 <Button className="">Details about testStock</Button>
               </Link>
               <PortfolioWrapper>
