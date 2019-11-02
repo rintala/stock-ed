@@ -51,7 +51,14 @@ class MyProfile extends Component {
           <div>
             <Header currentPage={"My profile"} />
             <div className="contentBody" style={{ display: "flex" }}>
-              <div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: "24px"
+                }}
+              >
                 <div>
                   <div>Name: Jonathan</div>
                   <div>About: Hobby investor</div>
