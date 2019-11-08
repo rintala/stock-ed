@@ -33,16 +33,23 @@ function App() {
       </div>
     );
   } else {
-    console.log("return app");
+    const firebase = new Firebase();
+
     return (
-      <FirebaseContext.Provider value={new Firebase()}>
+      <FirebaseContext.Provider value={firebase}>
         <BrowserRouter>
           <div className="App">
             <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
             {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
-            <Route path={ROUTES.HOME} render={() => <Home history />} />
-            <Route path={ROUTES.STOCK_DETAILS + '/:stockID'} render={() => <StockDetails history />} />
+            <Route
+              path={ROUTES.HOME}
+              render={() => <Home history firebase={firebase} />}
+            />
+            <Route
+              path={ROUTES.STOCK_DETAILS + "/:stockID"}
+              render={() => <StockDetails history />}
+            />
             <Route path={ROUTES.ABOUT} render={() => <About history />} />
             <Route
               path={ROUTES.SEARCH}

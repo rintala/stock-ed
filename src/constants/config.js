@@ -23,6 +23,14 @@ export const envVar = {
   messagingSenderId: {
     name: "REACT_APP_MESSAGING_SENDER_ID",
     value: process.env.REACT_APP_MESSAGING_SENDER_ID
+  },
+  appId: {
+    name: "REACT_APP_APP_ID",
+    value: process.env.REACT_APP_APP_ID
+  },
+  measurementId: {
+    name: "REACT_APP_MEASUREMENT_ID",
+    value: process.env.REACT_APP_MEASUREMENT_ID
   }
 };
 

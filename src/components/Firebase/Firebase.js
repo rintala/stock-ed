@@ -1,28 +1,42 @@
 import app from "firebase/app";
 import "firebase/auth";
+import firebase from "firebase";
 import { envVar } from "../../constants/config";
-
-// const config = {
-//   apiKey: process.env.REACT_APP_API_KEY,
-//   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-//   databaseURL: process.env.REACT_APP_DATABASE_URL,
-//   projectId: process.env.REACT_APP_PROJECT_ID,
-//   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-//   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
-// };
 
 const config = Object.keys(envVar).reduce((acc, key) => {
   return Object.assign(acc, { [key]: envVar[key].value });
 }, {});
-/* 
-console.log("config", config);
-console.log(envVar.apiKey); */
-// Error handling if the env variables is missing.
+
 class Firebase {
   constructor() {
-    app.initializeApp(config);
+    console.log("onfig", config);
+    this.app = firebase.initializeApp(config);
+    this.database = firebase.database;
+    /* .ref()
+      .child("user")
+      .on("value", function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          var childData = childSnapshot.val();
+          console.log("cx", childData);
+        });
+      }); */
 
-    this.auth = app.auth();
+    /*   console.log("app", app);
+    this.database = app.database(); */
+    console.log("database:", this.database, app);
+    this.auth = firebase.auth();
+  }
+
+  componentDidMount() {
+    /* this.getUserData(); */
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // check on previous state
+    // only write when it's different with the new state
+    if (prevState !== this.state) {
+      this.writeUserData();
+    }
   }
 
   // *** Auth API ***
@@ -30,12 +44,47 @@ class Firebase {
     return this.auth.createUserWithEmailAndPassword(email, password);
   };
 
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+  doSignInWithEmailAndPassword = (email, password) => {
+    return this.auth
+      .signInWithEmailAndPassword(email, password)
+      .then(function(firebaseUser) {
+        // Success
+        this.auth.updateCurrentUser(firebaseUser);
+      })
+      .catch(function(error) {
+        // Error Handling
+      });
+  };
 
   doSignOut = () => this.auth.signOut();
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
+
+  writeUserData = () => {
+    this.database()
+      .ref("/")
+      .set(this.state);
+    console.log("DATA SAVED");
+  };
+
+  getUserData = user => {
+    /* let ref = this.database().ref("/"); */
+
+    let ref = this.database()
+      .ref()
+      .child(user.uid);
+    ref.on("value", snapshot => {
+      snapshot.forEach(childSnapshot => {
+        var childData = childSnapshot.val();
+        console.log("cx", childData);
+      });
+      /*  const state = snapshot.val();
+      this.setState(state);
+ */
+      console.log("sn", snapshot.val());
+    });
+    console.log("DATA RETRIEVED");
+  };
 }
 export default Firebase;

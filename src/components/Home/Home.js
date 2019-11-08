@@ -3,8 +3,6 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 
-
-
 import "../../../node_modules/react-vis/dist/style.css";
 import { XYPlot, LineSeries } from "react-vis";
 
@@ -52,6 +50,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUser: {},
       username: "",
       email: "",
       pass1: "",
@@ -67,15 +66,31 @@ class Home extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  componentDidMount() {
+  /*   componentDidMount() {
     this.props.firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("user logged");
       }
     });
-  }
 
-  componentDidMount() { }
+    console.log("firebase", this.props.firebase);
+  } */
+  componentDidMount = () => {
+    console.log("firebase", this.props.firebase);
+    /* const user = this.props.firebase.getUserData(); */
+
+    console.log("htis, auth curr user", this.props.firebase.auth.currentUser);
+    if (this.props.firebase.auth.currentUser) {
+      this.props.firebase.getUserData(this.props.firebase.auth.currentUser);
+    }
+    console.log("HSI");
+    /* const currentUser = this.props.firebase.auth.currentUser;
+    if (currentUser) {
+      console.log("currentUserId", currentUser.uid);
+
+    } */
+    /*     console.log("user", user); */
+  };
 
   onSubmit = event => {
     const { username, email, passwordOne } = this.state;
@@ -104,10 +119,12 @@ class Home extends Component {
       { x: 8, y: 2 },
       { x: 9, y: 0 }
     ];
+
     return (
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
+            {console.log("firebase,", firebase)}
             <div className="App">
               <Header currentPage={"My portfolio"} />
               <Link to="/stockDetails/testID">
