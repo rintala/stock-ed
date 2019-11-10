@@ -21,14 +21,17 @@ class MyProfile extends Component {
   };
 
   componentDidMount() {
+    console.log("mounted my profile ocmpoentn");
     this.props.firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("user logged");
+        console.log("User", user);
+        this.setState({ email: user.email });
       }
     });
   }
 
-  componentDidMount() {}
+  /*   componentDidMount() {} */
 
   onSubmit = event => {
     const { username, email, passwordOne } = this.state;
@@ -61,6 +64,7 @@ class MyProfile extends Component {
               >
                 <div>
                   <div>Name: Jonathan</div>
+                  <div>Email: {this.state.email}</div>
                   <div>About: Hobby investor</div>
                 </div>
               </div>

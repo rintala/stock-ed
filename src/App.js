@@ -57,7 +57,7 @@ function App() {
             />
             <Route
               path={ROUTES.MY_PROFILE}
-              render={() => <MyProfile history />}
+              render={() => <MyProfile history firebase={firebase} />}
             />
 
             <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
