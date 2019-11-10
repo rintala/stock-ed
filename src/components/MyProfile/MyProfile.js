@@ -9,10 +9,7 @@ class MyProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      email: "",
-      pass1: "",
-      pass2: ""
+      user: {}
     };
   }
 
@@ -22,30 +19,24 @@ class MyProfile extends Component {
 
   componentDidMount() {
     console.log("mounted my profile ocmpoentn");
-    this.props.firebase.auth().onAuthStateChanged(user => {
+    this.props.firebase.auth.onAuthStateChanged(user => {
       if (user) {
         console.log("user logged");
         console.log("User", user);
-        this.setState({ email: user.email });
+
+        const userData = this.props.firebase.getUserData(user);
+        this.setState(
+          {
+            user: {
+              ...userData,
+              email: user.email
+            }
+          },
+          console.log("uthisr", this.state)
+        );
       }
     });
   }
-
-  /*   componentDidMount() {} */
-
-  onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, passwordOne)
-      .then(() => {
-        console.log("successful login");
-        this.setState({ username: "", email: "", pass1: "", pass2: "" });
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
-    event.preventDefault();
-  };
 
   render() {
     return (
@@ -63,9 +54,10 @@ class MyProfile extends Component {
                 }}
               >
                 <div>
-                  <div>Name: Jonathan</div>
-                  <div>Email: {this.state.email}</div>
-                  <div>About: Hobby investor</div>
+                  <div>First name: {this.state.user.firstName}</div>
+                  <div>Last name: {this.state.user.lastName}</div>
+                  <div>Email: {this.state.user.email}</div>
+                  <div>About: {this.state.user.about}</div>
                 </div>
               </div>
             </div>

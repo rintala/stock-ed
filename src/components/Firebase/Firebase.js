@@ -2,6 +2,7 @@ import app from "firebase/app";
 import "firebase/auth";
 import firebase from "firebase";
 import { envVar } from "../../constants/config";
+import { userInfo } from "os";
 
 const config = Object.keys(envVar).reduce((acc, key) => {
   return Object.assign(acc, { [key]: envVar[key].value });
@@ -70,21 +71,25 @@ class Firebase {
 
   getUserData = user => {
     /* let ref = this.database().ref("/"); */
-
-    let ref = this.database()
+    console.log("user inside get", user);
+    let userInfoFromDb = this.database()
       .ref()
       .child(user.uid);
-    ref.on("value", snapshot => {
+
+    let userInfoToState = {};
+    userInfoFromDb.once("value", snapshot => {
       snapshot.forEach(childSnapshot => {
+        console.log("childsnap", childSnapshot.key);
         var childData = childSnapshot.val();
         console.log("cx", childData);
+        const childKey = childSnapshot.key;
+        userInfoToState[childKey] = childData;
       });
-      /*  const state = snapshot.val();
-      this.setState(state);
- */
-      console.log("sn", snapshot.val());
     });
-    console.log("DATA RETRIEVED");
+    /* console.log("sn", snapshot.val()); */
+    console.log("DATA RETRIEVED", userInfoFromDb);
+    console.log("DATA RETRIEVED", userInfoToState);
+    return userInfoToState;
   };
 }
 export default Firebase;
