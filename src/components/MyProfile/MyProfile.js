@@ -24,16 +24,18 @@ class MyProfile extends Component {
         console.log("user logged");
         console.log("User", user);
 
-        const userData = this.props.firebase.getUserData(user);
-        this.setState(
-          {
-            user: {
-              ...userData,
-              email: user.email
-            }
-          },
-          console.log("uthisr", this.state)
-        );
+        this.props.firebase.getUserData(user).then(userData => {
+          console.log("userdata,", userData);
+          this.setState(
+            {
+              user: {
+                ...userData,
+                email: user.email
+              }
+            },
+            console.log("uthisr", this.state)
+          );
+        });
       }
     });
   }

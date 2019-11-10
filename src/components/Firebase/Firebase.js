@@ -70,26 +70,20 @@ class Firebase {
   };
 
   getUserData = user => {
-    /* let ref = this.database().ref("/"); */
     console.log("user inside get", user);
     let userInfoFromDb = this.database()
       .ref()
       .child(user.uid);
 
-    let userInfoToState = {};
-    userInfoFromDb.once("value", snapshot => {
-      snapshot.forEach(childSnapshot => {
-        console.log("childsnap", childSnapshot.key);
-        var childData = childSnapshot.val();
-        console.log("cx", childData);
-        const childKey = childSnapshot.key;
-        userInfoToState[childKey] = childData;
+    return new Promise((resolve, reject) => {
+      userInfoFromDb.once("value", snapshot => {
+        let users = {};
+        Object.keys(snapshot.val()).forEach(key => {
+          users[key] = snapshot.val()[key];
+        });
+        resolve(users);
       });
     });
-    /* console.log("sn", snapshot.val()); */
-    console.log("DATA RETRIEVED", userInfoFromDb);
-    console.log("DATA RETRIEVED", userInfoToState);
-    return userInfoToState;
   };
 }
 export default Firebase;
