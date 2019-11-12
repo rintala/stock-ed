@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import NavBar from "./../NavBar/NavBar";
 import styled from "styled-components";
 import moneyImg from "./../../img/money.png";
+
 const HeaderContainer = styled.div`
   padding-top: 25px;
   padding-bottom: 25px;
@@ -42,9 +43,7 @@ class Header extends Component {
     return (
       <HeaderContainer>
         <HeaderTitle>
-
           <HeaderTitleLink to="/home">[stock-ed]</HeaderTitleLink>
-
         </HeaderTitle>
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
