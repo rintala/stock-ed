@@ -128,7 +128,7 @@ class Home extends Component {
             <div className="App">
               <Header currentPage={"My portfolio"} />
               <Link to="/stockDetails/testID">
-                <Button className="">Details about testStock</Button>
+                <Button color='primary' className="">Details about testStock</Button>
               </Link>
               <PortfolioWrapper>
                 <StocksWrapper>

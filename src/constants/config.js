@@ -31,8 +31,13 @@ export const envVar = {
   measurementId: {
     name: "REACT_APP_MEASUREMENT_ID",
     value: process.env.REACT_APP_MEASUREMENT_ID
+  },
+  alphaVantageApiKey: {
+    name: "ALPHA_VANTAGE_API_KEY",
+    value: "RQ6Q4I28I9NUI8CH"
   }
 };
+
 
 export const setEnvVars = () => {
   return Object.keys(envVar).reduce((acc, key) => {
