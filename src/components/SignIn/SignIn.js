@@ -3,6 +3,8 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import SignInForm from "./SignInForm";
+import Header from "../Header/Header";
+
 
 class SignIn extends Component {
   constructor(props) {
@@ -26,18 +28,13 @@ class SignIn extends Component {
       }
     });
   }
-
-  componentDidMount() {}
+  componentDidMount() { }
 
   render() {
     return (
       <FirebaseContext.Consumer>
         {firebase => (
           <div className="App">
-            <header className="App-header">
-              <h1>stock-ed</h1>
-              <h2>Sign-in</h2>
-            </header>
             <SignInForm firebase={firebase} />
           </div>
         )}

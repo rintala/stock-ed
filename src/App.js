@@ -41,7 +41,7 @@ function App() {
           <div className="App">
             <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
-            {/* <Route path={ROUTES.LANDING} render={() => <SignIn history />} /> */}
+            <Route path={ROUTES.LANDING} render={() => <SignIn history />} />
             <Route
               path={ROUTES.HOME}
               render={() => <Home history firebase={firebase} />}
