@@ -22,109 +22,7 @@ class StocksSearch extends Component {
       showMenu: false,
       searchQuery: 'Search query',
       searchDone: false,
-      searchResults: {
-        "bestMatches": [
-          {
-            "1. symbol": "BA",
-            "2. name": "The Boeing Company",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "1.0000"
-          },
-          {
-            "1. symbol": "BABA",
-            "2. name": "Alibaba Group Holding Limited",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "0.8000"
-          },
-          {
-            "1. symbol": "BSVN",
-            "2. name": "Bank7 Corp.",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "0.8000"
-          },
-          {
-            "1. symbol": "BHC",
-            "2. name": "Bausch Health Companies Inc.",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "0.6667"
-          },
-          {
-            "1. symbol": "BAC",
-            "2. name": "Bank of America Corporation",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "0.4000"
-          },
-          {
-            "1. symbol": "BIDU",
-            "2. name": "Baidu Inc.",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "0.3333"
-          },
-          {
-            "1. symbol": "BAX",
-            "2. name": "Baxter International Inc.",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "0.3333"
-          },
-          {
-            "1. symbol": "GOLD",
-            "2. name": "Barrick Gold Corporation",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "0.3333"
-          },
-          {
-            "1. symbol": "BLDP",
-            "2. name": "Ballard Power Systems Inc.",
-            "3. type": "Equity",
-            "4. region": "United States",
-            "5. marketOpen": "09:30",
-            "6. marketClose": "16:00",
-            "7. timezone": "UTC-05",
-            "8. currency": "USD",
-            "9. matchScore": "0.1538"
-          }
-        ]
-      }
+      searchResults: []
     };
 
     this.debounceCounter = 0;
@@ -176,12 +74,13 @@ class StocksSearch extends Component {
   };
 
   apiCall() {
-    console.log('this is an api call', this.state.searchQuery)
-    // TODO: On callback from api disable search header
-    this.setState({ searchDone: true })
-    alphaVantageApiCall.stockSearch('BA').then((response) => {
-      console.log(response.json())
-    })
+    if (this.state.searchQuery.length !== 0) {
+      alphaVantageApiCall.stockSearch(this.state.searchQuery).then((response) => {
+        response.json().then((data) => {
+          this.setState({ searchResults: data['bestMatches'], searchDone: true })
+        })
+      })
+    }
   }
 
   render() {
@@ -198,7 +97,7 @@ class StocksSearch extends Component {
                 <Table>
                   <TableHead style={{ display: this.state.searchDone ? 'none' : 'block' }}>Searching for:{this.state.searchQuery}...</TableHead>
                   <TableBody>
-                    {this.state.searchResults["bestMatches"].map((searchResult) => {
+                    {this.state.searchResults.map((searchResult) => {
                       return (
                         <TableRow key={searchResult["1. symbol"]}>
                           <TableCell>{searchResult["1. symbol"]}</TableCell>
