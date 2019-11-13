@@ -29,6 +29,17 @@ const CardWrapper = styled.div`
   min-width: 275;
   margin: 10px;
 `;
+
+const LearnMoreContainer = styled.div`
+  color: black;
+  paddingtop: 10px;
+  paddingbottom: 10px;
+`;
+
+const CardActionsInside = styled.div`
+  height: ${props => !props.learnMore && "40px"};
+`;
+
 class StockCard extends Component {
   constructor(props) {
     super(props);
@@ -36,39 +47,65 @@ class StockCard extends Component {
       username: "",
       email: "",
       pass1: "",
-      pass2: ""
+      pass2: "",
+      learnMore: false
     };
   }
 
   render() {
+    console.log("stock card", this.props.stock);
     return (
       <CardWrapper>
-        <Card>
+        <Card style={{ backgroundColor: "var(--global-link-color)" }}>
           <CardContent>
             <TypographyWrapperTitle>
               <StockHeader>
                 <Typography color="textSecondary" gutterBottom>
-                  BUY: {this.props.stock.buyPrice}
+                  BUY: {this.props.stock.buy}
                 </Typography>
                 <Typography color="textSecondary" gutterBottom>
-                  SELL: {this.props.stock.sellPrice}
+                  SELL: {this.props.stock.sell}
                 </Typography>
               </StockHeader>
             </TypographyWrapperTitle>
             <Typography variant="h5" component="h2">
-              {this.props.stock.marker}
+              {this.props.stock.quote}
             </Typography>
             <TypographyWrapper>
               <Typography color="textSecondary">
-                NUMBER OF STOCKS: 30
+                NUMBER OF STOCKS: {this.props.stock.numberOwned}
               </Typography>
             </TypographyWrapper>
+            {
+              //TODO: calculate return in our "backend"
+            }
             <Typography variant="body2" component="p">
               Return: +20%
             </Typography>
           </CardContent>
+
           <CardActions>
-            <Button size="small">Learn More</Button>
+            <CardActionsInside learnMore={this.state.learnMore}>
+              {this.props.stock.about && (
+                <div>
+                  <Button
+                    size="small"
+                    onClick={() =>
+                      this.setState(prevState => ({
+                        learnMore: !prevState.learnMore
+                      }))
+                    }
+                  >
+                    {this.state.learnMore ? "Show less" : "Learn More"}
+                  </Button>
+                  {this.state.learnMore && (
+                    <LearnMoreContainer>
+                      {this.props.stock.about}
+                    </LearnMoreContainer>
+                  )}
+                </div>
+              )}
+            </CardActionsInside>
           </CardActions>
         </Card>
       </CardWrapper>

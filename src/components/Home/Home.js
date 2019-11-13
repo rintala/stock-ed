@@ -50,6 +50,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: {},
       currentUser: {},
       username: "",
       email: "",
@@ -76,6 +77,26 @@ class Home extends Component {
     console.log("firebase", this.props.firebase);
   } */
   componentDidMount = () => {
+    this.props.firebase.auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log("user logged");
+        console.log("User", user);
+
+        this.props.firebase.getUserData(user).then(userData => {
+          console.log("userdata,", userData);
+          this.setState(
+            {
+              user: {
+                ...userData,
+                email: user.email
+              }
+            },
+            console.log("uthisr", this.state)
+          );
+        });
+      }
+    });
+
     console.log("firebase", this.props.firebase);
     /* const user = this.props.firebase.getUserData(); */
 
@@ -119,7 +140,7 @@ class Home extends Component {
       { x: 8, y: 2 },
       { x: 9, y: 0 }
     ];
-
+    console.log("this.state.user.portfolio", this.state.user.portfolio);
     return (
       <FirebaseContext.Consumer>
         {firebase => (
@@ -128,13 +149,19 @@ class Home extends Component {
             <div className="App">
               <Header currentPage={"My portfolio"} />
               <Link to="/stockDetails/testID">
-                <Button color='primary' className="">Details about testStock</Button>
+                <Button color="primary" className="">
+                  Details about testStock
+                </Button>
               </Link>
               <PortfolioWrapper>
                 <StocksWrapper>
-                  {this.state.stocks.map(stock => (
-                    <StockCard stock={stock} key={stock.id} />
-                  ))}
+                  {this.state.user.portfolio &&
+                    Object.keys(this.state.user.portfolio).map(stockKey => (
+                      <StockCard
+                        stock={this.state.user.portfolio[stockKey]}
+                        key={stockKey}
+                      />
+                    ))}
                 </StocksWrapper>
                 <GraphAndTextWrapper>
                   <GraphAndTextTitle>GRAPH 1</GraphAndTextTitle>

@@ -4,6 +4,20 @@ import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import NavBar from "./../NavBar/NavBar";
 import Header from "../Header/Header";
+import basicAvatar from "../../img/basic-avatar-color.png";
+import styled from "styled-components";
+
+const AvatarImage = styled.div`
+  background-image: url(${basicAvatar});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  width: 100px;
+`;
+
+const UserInfoContainer = styled.div`
+  margin-left: 20px;
+`;
 
 class MyProfile extends Component {
   constructor(props) {
@@ -55,12 +69,13 @@ class MyProfile extends Component {
                   fontSize: "24px"
                 }}
               >
-                <div>
+                <AvatarImage />
+                <UserInfoContainer>
                   <div>First name: {this.state.user.firstName}</div>
                   <div>Last name: {this.state.user.lastName}</div>
                   <div>Email: {this.state.user.email}</div>
                   <div>About: {this.state.user.about}</div>
-                </div>
+                </UserInfoContainer>
               </div>
             </div>
           </div>
