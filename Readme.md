@@ -1,5 +1,10 @@
 # stock-ed
 
+## Deployed app is live on
+<a href="https://stock-ed.netlify.com/">https://stock-ed.netlify.com/</a>
+
+Use the login username and password provided in the submission comment in Canvas or ask for them by sending a mail to jrintala@kth.se.
+
 ## Run and build project locally
 
 ### Firebase backend config
