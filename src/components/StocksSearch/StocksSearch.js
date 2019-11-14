@@ -20,8 +20,8 @@ class StocksSearch extends Component {
       pass1: "",
       pass2: "",
       showMenu: false,
-      searchQuery: 'Search query',
-      searchDone: false,
+      searchQuery: '',
+      searchDone: true,
       searchResults: []
     };
 
@@ -83,6 +83,7 @@ class StocksSearch extends Component {
     }
   }
 
+
   render() {
     return (
       <FirebaseContext.Consumer>
@@ -92,16 +93,24 @@ class StocksSearch extends Component {
               <Header currentPage={"Search view"} />
             </div>
             <div className="contentBody">
-              <TextField onChange={(event) => this.searchOnChangeEvent(event)} fullWidth={true} placeholder="Search here" style={{ maring: 'auto' }}>TextField</TextField>
-              <Paper style={{ display: this.state.showMenu ? 'block' : 'none', position: 'absolute' }}>
+              <Paper style={{ width: '80%', margin: 'auto' }}>
+                <TextField onChange={(event) => this.searchOnChangeEvent(event)} fullWidth={true} placeholder="Search here" style={{ maring: 'auto' }}>TextField</TextField>
                 <Table>
-                  <TableHead style={{ display: this.state.searchDone ? 'none' : 'block' }}>Searching for:{this.state.searchQuery}...</TableHead>
-                  <TableBody>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Symbol</TableCell>
+                      <TableCell align="right">Name</TableCell>
+                      <TableCell align="right">Region</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  {/* style={{ display: this.state.showMenu ? 'block' : 'none' }} */}
+                  <TableBody >
                     {this.state.searchResults.map((searchResult) => {
                       return (
-                        <TableRow key={searchResult["1. symbol"]}>
+                        <TableRow >
                           <TableCell>{searchResult["1. symbol"]}</TableCell>
-                          <TableCell>{searchResult["2. name"]}</TableCell>
+                          <TableCell align="right">{searchResult["2. name"]}</TableCell>
+                          <TableCell align="right">{searchResult["4. region"]}</TableCell>
                         </TableRow>
                       )
                     }
