@@ -148,11 +148,6 @@ class Home extends Component {
             {console.log("firebase,", firebase)}
             <div className="App">
               <Header currentPage={"My portfolio"} />
-              <Link to="/stockDetails/testID">
-                <Button color="primary" className="">
-                  Details about testStock
-                </Button>
-              </Link>
               <PortfolioWrapper>
                 <StocksWrapper>
                   {this.state.user.portfolio &&
