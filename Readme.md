@@ -6,18 +6,23 @@
 
 Set the following environment variables on your system, in order to succesfully connect to the Firebase backend. The config variables can be found in your Firebase dashboard under 'Project settings':
 
-```
-const config = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
-};
-```
 
+* REACT_APP_AUTH_DOMAIN  
+* REACT_APP_DATABASE_URL
+* REACT_APP_PROJECT_ID
+* REACT_APP_STORAGE_BUCKET
+* REACT_APP_MEASUREMENT_ID
+* REACT_APP_APP_ID
+* REACT_APP_MESSAGING_SENDER_ID
+* REACT_APP_API_KEY
+* ALPHA_VANTAGE_API_KEY
+
+The name have to match exactly the above <br>
+For the Alpha Vantage Api Key, you'll have to contact us. 
+- - - -
 In the project directory, you can run:
+### `npm install`
+This will install all the dependencies
 
 ### `npm start`
 
@@ -35,25 +40,25 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-# Project proposal
+# The project
 
 ## Description
 
-This is a web app where you can set up your own virtual stock portfolio, see overall development on the portfolio as well as overtime development on specific stocks. The stocks can be bought with fake money and will then be added to a portfolio; thus, providing the user with the educational value of learning to trade and manage their assets, but without any associated risks. In addition, the user will possibly be given some sort of score according to ROI.
+This is a web app where you can set up your own virtual stock portfolio, see overall development on the portfolio as well as overtime development on specific stocks. The stocks can be bought with fake money and will then be added to a personal portfolio. Thus, providing the user with the educational value of learning to trade and manage their assets, but without any associated risks. In addition, the user will possibly be given some sort of score according to ROI.
 
 ## Stack
 
-The app will be built in React, with a backend in Firebase for data storage as well as authentication. Also, some Bootstrap will most likely be used for simplifying styling.
+The app will be built in React, with a backend in Firebase for data storage as well as authentication. Also, Material UI will be used for simplifying styling.
 
 ## API
 
-Nordnet External API will be used to access all data concerning the stock information, such as stock buy/sell price and historical data. Nordnet has a reliable and widely used test API, which is simple to register for and utilize.
+Alpha Vantage will be used to access all data concerning the stock information, such as stock buy/sell price and historical data. Alpha Vantage has a reliable and widely used test API, which is simple to register for and utilize.
 
-Reference: https://api.test.nordnet.se/
+Reference: https://www.alphavantage.co/documentation/
 
 ## Data
 
-Our app will get all the data from the API connected to the individual portfolio, such as stocks in portfolio, purchase price, stock id, date of purchase and quantity. The users and their related information will be stored in the backend, and thus not retrieved via the Nordnet API.
+Our app will get all the data from the API connected to the individual portfolio, such as stocks in portfolio, purchase price, stock id, date of purchase and quantity. The users and their related information will be stored in the backend, and thus not retrieved via the Alpha Vantage API.
 
 ## Mockup
 
@@ -70,3 +75,12 @@ Our app will get all the data from the API connected to the individual portfolio
 ![stock-confirm](doc/stock-confirm.png)
 
 ![profile](doc/profile.png)
+
+
+## Progress
+
+All of the different pages are created and most of them have the most basic functionality they're intended to have. The log in page and sign up page work almost correctly, there are some minor bugs such as it redirects when typing wrong password. The search page do fetch data from from Alpha Vantage API, but only get the name, more detailed information is not available yet. All of the pages need more styling, and some pages need to have more API calls to get more detailed data. 
+
+The logic for stock purchases/selling and general portfolio handeling is not done yet. This have to be implemented! 
+
+The file structure is based on the purpose of the file. For example the components and api calls are two different thing, hence exists in two different folders. The components are class based. 
