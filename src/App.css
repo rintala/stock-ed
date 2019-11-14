@@ -10,6 +10,9 @@
   --button: "red";
 }
 
+a {
+  color: var(--global-text-color);
+}
 /*https://www.colorhexa.com/00ffba*/
 
 .App {
