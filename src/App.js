@@ -14,6 +14,7 @@ import { setEnvVars } from "./constants/config";
 import { BrowserRouter } from "react-router-dom";
 import Firebase, { FirebaseContext } from "./components/Firebase";
 import About from "./components/About/About";
+import Header from "./components/Header/Header";
 
 function isAllEnvVarSet() {
   const envVars = setEnvVars();
@@ -37,9 +38,10 @@ function App() {
       <FirebaseContext.Provider value={firebase}>
         <BrowserRouter>
           <div className="App">
+            <Route path={ROUTES.LANDING} render={() => <SignIn history />} />
+            <Header currentPage={"My profile"} />
             <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
-            <Route path={ROUTES.LANDING} render={() => <SignIn history />} />
             <Route
               path={ROUTES.HOME}
               render={() => <Home history firebase={firebase} />}
@@ -57,7 +59,6 @@ function App() {
               path={ROUTES.MY_PROFILE}
               render={() => <MyProfile history firebase={firebase} />}
             />
-
             <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
             <Route path={ROUTES.ADMIN} render={() => <SignIn history />} />
           </div>

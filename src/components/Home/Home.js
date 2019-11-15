@@ -67,15 +67,6 @@ class Home extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  /*   componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged");
-      }
-    });
-
-    console.log("firebase", this.props.firebase);
-  } */
   componentDidMount = () => {
     this.props.firebase.auth.onAuthStateChanged(user => {
       if (user) {
@@ -147,7 +138,6 @@ class Home extends Component {
           <div>
             {console.log("firebase,", firebase)}
             <div className="App">
-              <Header currentPage={"My portfolio"} />
               <PortfolioWrapper>
                 <StocksWrapper>
                   {this.state.user.portfolio &&

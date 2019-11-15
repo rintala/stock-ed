@@ -88,7 +88,6 @@ class About extends Component {
         {firebase => (
           <div>
             <div className="App">
-              <Header currentPage={"About"} />
               <PortfolioWrapper>
                 <AboutBody>
                   Stock-ed is a project for a course at KTH.Non in cupidatat

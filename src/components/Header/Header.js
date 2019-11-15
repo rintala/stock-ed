@@ -51,7 +51,6 @@ class Header extends Component {
           <img src={moneyImg} style={{ width: "10vw" }} />
         </div>
         <NavBar />
-        <HeaderSubTitle>{this.props.currentPage}</HeaderSubTitle>
       </HeaderContainer>
     );
   }

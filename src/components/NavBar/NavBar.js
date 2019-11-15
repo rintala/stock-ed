@@ -3,8 +3,9 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
-const Button = styled.div`
-  background-color: var(--highlight);
+const Button = styled.div`  
+  background-color: ${props =>
+    props.isSelected ? "palevioletred" : "var(--highlight)"};
   text-align: center;
   cursor: pointer;
   margin: 3px;
@@ -17,6 +18,7 @@ const Button = styled.div`
     color: white;
     box-shadow: 0px 1px 1px #888888;
   }
+  
   transition: all 0.6s ease;
 `;
 
@@ -24,9 +26,13 @@ const NavBarWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isSelected: "home"
+    };
   }
 
   componentDidMount() {}
@@ -35,16 +41,52 @@ class NavBar extends Component {
     return (
       <NavBarWrapper>
         <Link to="/home">
-          <Button>MY PORTFOLIO</Button>
+          <Button
+            onClick={() =>
+              this.setState({
+                isSelected: "home"
+              })
+            }
+            isSelected={this.state.isSelected === "home"}
+          >
+            MY PORTFOLIO
+          </Button>
         </Link>
         <Link to="/search">
-          <Button>SEARCH</Button>
+          <Button
+            onClick={() =>
+              this.setState({
+                isSelected: "search"
+              })
+            }
+            isSelected={this.state.isSelected === "search"}
+          >
+            SEARCH
+          </Button>
         </Link>
         <Link to="/my-profile">
-          <Button>MY PROFILE</Button>
+          <Button
+            onClick={() =>
+              this.setState({
+                isSelected: "my-profile"
+              })
+            }
+            isSelected={this.state.isSelected === "my-profile"}
+          >
+            MY PROFILE
+          </Button>
         </Link>
         <Link to="/about">
-          <Button>ABOUT</Button>
+          <Button
+            onClick={() =>
+              this.setState({
+                isSelected: "about"
+              })
+            }
+            isSelected={this.state.isSelected === "about"}
+          >
+            ABOUT
+          </Button>
         </Link>
       </NavBarWrapper>
     );
