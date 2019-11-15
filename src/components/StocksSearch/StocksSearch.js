@@ -70,7 +70,7 @@ class StocksSearch extends Component {
     // console.log(event)
     if (event.ctrlKey || event.metaKey) {
       console.log('cmd click, opening in tab')
-      window.open('http://localhost:3000/search')
+      window.open('/stockDetails/' + symbol)
     } else {
       this.props.history.push('/stockDetails/' + symbol);
     }
