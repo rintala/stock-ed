@@ -19,11 +19,14 @@ const HeaderTitle = styled.div`
   width: 100%;
   justify-content: center;
 `;
+/* 
+const Link = ({ className, children }) => (
+  <a className={className}>{children}</a>
+); */
 
-const HeaderTitleLink = styled.a`
+const HeaderTitleLink = styled(Link)`
   text-decoration: none;
   color: var(--global-link-color);
-
   &:hover {
     color: var(--on-hover);
   }
@@ -39,18 +42,29 @@ const HeaderSubTitle = styled.div`
 `;
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isHomeSelected: false
+    };
+  }
   render() {
     return (
       <HeaderContainer>
         <HeaderTitle>
-          <HeaderTitleLink to="/home">[stock-ed]</HeaderTitleLink>
+          <HeaderTitleLink
+            onClick={() => this.setState({ isHomeSelected: true })}
+            to="/home"
+          >
+            [stock-ed]
+          </HeaderTitleLink>
         </HeaderTitle>
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
           <img src={moneyImg} style={{ width: "10vw" }} />
         </div>
-        <NavBar />
+        <NavBar isHomeSelected={this.state.isHomeSelected} />
       </HeaderContainer>
     );
   }

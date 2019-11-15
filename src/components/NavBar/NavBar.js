@@ -35,7 +35,9 @@ class NavBar extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentWillReceiveProps(nextProps) {
+    this.props.isHomeSelected && this.setState({ isSelected: "home" });
+  }
 
   render() {
     return (
