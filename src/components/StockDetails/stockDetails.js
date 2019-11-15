@@ -9,7 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import { Table, TableBody, TableCell, TableHead, TableRow, Button } from '@material-ui/core';
 import { XYPlot, LineSeries } from "react-vis";
 
-import { stockMock } from './../../mockdata/mockdata';
 import red from '@material-ui/core/colors/red';
 
 
@@ -71,9 +70,9 @@ class StockDetails extends Component {
                             </Grid>
                             <Grid item xs={8} >
                                 <Paper centered>
-                                    <XYPlot height={300} width={300}>
+                                    {/* <XYPlot height={300} width={300}>
                                         <LineSeries data={stockMock[this.state.stockID].historyData} />
-                                    </XYPlot>
+                                    </XYPlot> */}
 
                                 </Paper>
                             </Grid>

@@ -24,9 +24,7 @@ function isAllEnvVarSet() {
 }
 
 function App() {
-  console.log("app is run", isAllEnvVarSet());
   if (!isAllEnvVarSet()) {
-    console.log("display error page");
     return (
       <div className="App">
         <Error errors={setEnvVars()} />

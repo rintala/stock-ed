@@ -1,15 +1,16 @@
-import React, { Component, createElement } from "react";
+import React, { Component } from "react";
 import "./../../App.css";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
-import NavBar from "./../NavBar/NavBar";
+// import NavBar from "./../NavBar/NavBar";
 import Header from "./../Header/Header";
-import styled from "styled-components";
+// import styled from "styled-components";
+import SearchIcon from '@material-ui/icons/Search';
 import { TextField } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import { alphaVantageApiCall } from '../../api/api'
-
 
 class StocksSearch extends Component {
   constructor(props) {
@@ -24,28 +25,10 @@ class StocksSearch extends Component {
       searchDone: true,
       searchResults: []
     };
-
     this.debounceCounter = 0;
 
     //Need to bind "this" due to the delayed call. 
     this.apiCall = this.apiCall.bind(this);
-  }
-
-  // onChange = event => {
-  //   this.setState({ [event.target.name]: event.target.value });
-  // };
-
-  // componentDidMount() {
-  //   this.props.firebase.auth().onAuthStateChanged(user => {
-  //     if (user) {
-  //       console.log("user logged");
-  //     }
-  //   });
-  // }
-
-  menu() {
-    console.log('Menu moved to separate function.')
-
   }
 
   searchOnChangeEvent(event) {
@@ -56,7 +39,7 @@ class StocksSearch extends Component {
     } else {
       this.setState({ showMenu: false })
     }
-    this.debounce(this.apiCall, 500)
+    this.debounce(this.apiCall, 1500)
   }
 
   debounce(event, wait) {
@@ -69,7 +52,6 @@ class StocksSearch extends Component {
         console.log('fireing request')
         event()
       }
-
     }, wait)
   };
 
@@ -83,6 +65,16 @@ class StocksSearch extends Component {
     }
   }
 
+  tableOnClick(event, symbol) {
+    event.stopPropagation();
+    // console.log(event)
+    if (event.ctrlKey || event.metaKey) {
+      console.log('cmd click, opening in tab')
+      window.open('http://localhost:3000/search')
+    } else {
+      this.props.history.push('/stockDetails/' + symbol);
+    }
+  }
 
   render() {
     return (
@@ -93,35 +85,48 @@ class StocksSearch extends Component {
               <Header currentPage={"Search view"} />
             </div>
             <div className="contentBody">
-              <Paper style={{ width: '80%', margin: 'auto' }}>
-                <TextField onChange={(event) => this.searchOnChangeEvent(event)} fullWidth={true} placeholder="Search here" style={{ maring: 'auto' }}>TextField</TextField>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Symbol</TableCell>
-                      <TableCell align="right">Name</TableCell>
-                      <TableCell align="right">Region</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  {/* style={{ display: this.state.showMenu ? 'block' : 'none' }} */}
-                  <TableBody >
-                    {this.state.searchResults.map((searchResult) => {
-                      return (
-                        <TableRow >
-                          <TableCell>{searchResult["1. symbol"]}</TableCell>
-                          <TableCell align="right">{searchResult["2. name"]}</TableCell>
-                          <TableCell align="right">{searchResult["4. region"]}</TableCell>
-                        </TableRow>
-                      )
-                    }
-                    )}
-                  </TableBody>
-                </Table>
-              </Paper>
+              <Paper style={{ width: '80%', padding: '0.5rem 1rem 1rem', margin: 'auto', marginBottom: '1rem', background: 'rgba(255, 255, 255, 0.7)' }}>
+                <Grid container spacing={1}>
+                  <Grid item xs={1} style={{ alignItems: 'center', textAlign: 'center' }}>
+                    <SearchIcon style={{ marginTop: '1.2rem' }} color='primary' />
+                  </Grid>
+                  <Grid item xs={11}>
+                    <TextField
+                      fullWidth={true}
+                      onChange={(event) => this.searchOnChangeEvent(event)}
+                      label="Search"
+                      margin="none"
+                      style={{ marginRight: '1rem' }} />
 
+                  </Grid>
+                </Grid>
+              </Paper>
+              <Table style={{ width: '80%', margin: 'auto' }}>
+                <TableHead>
+                  <TableRow >
+                    <TableCell>Symbol</TableCell>
+                    <TableCell align="left">Name</TableCell>
+                    <TableCell align="left">Region</TableCell>
+                  </TableRow>
+                </TableHead>
+                {/* style={{ display: this.state.showMenu ? 'block' : 'none' }} */}
+                <TableBody >
+                  {this.state.searchResults.map((searchResult) => {
+                    return (
+                      <TableRow className="tableRow" onClick={(event) => { this.tableOnClick(event, searchResult["1. symbol"]) }} key={searchResult["1. symbol"]} >
+                        <TableCell>{searchResult["1. symbol"]}</TableCell>
+                        <TableCell align="left">{searchResult["2. name"]}</TableCell>
+                        <TableCell align="left">{searchResult["4. region"]}</TableCell>
+                      </TableRow>
+                    )
+                  }
+                  )}
+                </TableBody>
+              </Table>
             </div>
           </div>
-        )}
+        )
+        }
       </FirebaseContext.Consumer>
     );
   }

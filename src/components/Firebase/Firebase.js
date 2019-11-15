@@ -10,7 +10,6 @@ const config = Object.keys(envVar).reduce((acc, key) => {
 
 class Firebase {
   constructor() {
-    console.log("onfig", config);
     this.app = firebase.initializeApp(config);
     this.database = firebase.database;
     /* .ref()
@@ -24,7 +23,7 @@ class Firebase {
 
     /*   console.log("app", app);
     this.database = app.database(); */
-    console.log("database:", this.database, app);
+    // console.log("database:", this.database, app);
     this.auth = firebase.auth();
   }
 
@@ -48,11 +47,11 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) => {
     return this.auth
       .signInWithEmailAndPassword(email, password)
-      .then(function(firebaseUser) {
+      .then(function (firebaseUser) {
         // Success
         this.auth.updateCurrentUser(firebaseUser);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // Error Handling
       });
   };
