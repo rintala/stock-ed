@@ -63,7 +63,7 @@ class StocksSearch extends Component {
 
   apiCall() {
     if (this.state.searchQuery.length !== 0) {
-      alphaVantageApiCall.stockSearch(this.state.searchQuery).then(response => {
+      alphaVantageApiCall({ query: this.state.searchQuery, type: 'stockSearch' }).then(response => {
         response.json().then(data => {
           this.setState({
             searchResults: data["bestMatches"],
