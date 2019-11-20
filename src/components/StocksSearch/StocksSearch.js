@@ -28,7 +28,7 @@ class StocksSearch extends Component {
       pass2: "",
       showMenu: false,
       searchQuery: "",
-      searchDone: true,
+      searchDone: false,
       searchResults: []
     };
     this.debounceCounter = 0;
@@ -84,6 +84,50 @@ class StocksSearch extends Component {
       this.props.history.push("/stockDetails/" + symbol);
     }
   }
+  getSearchResults() {
+    console.log('getting search results', this.state.searchDone, this.state.searchQuery.length)
+    if (this.state.searchResults.length > 0 && this.state.searchQuery.length > 0 && this.state.searchDone) {
+      return this.state.searchResults.map(searchResult => {
+        return (
+          <TableRow
+            className="tableRow"
+            onClick={event => {
+              this.tableOnClick(event, searchResult["1. symbol"]);
+            }}
+            key={searchResult["1. symbol"]}
+          >
+            <TableCell>{searchResult["1. symbol"]}</TableCell>
+            <TableCell align="left">
+              {searchResult["2. name"]}
+            </TableCell>
+            <TableCell align="left">
+              {searchResult["4. region"]}
+            </TableCell>
+          </TableRow>
+        );
+      })
+    } else {
+      if (this.state.searchQuery.length > 0 && !this.state.searchDone) {
+        console.log('searching')
+        return (
+          <TableRow>
+            <TableCell>Searching..</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        )
+      } else if (this.state.searchDone && this.state.searchQuery.length > 0) {
+        console.log('no mathce')
+        return (
+          <TableRow>
+            <TableCell>No matches</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        )
+      }
+    }
+  }
 
   render() {
     return (
@@ -132,25 +176,7 @@ class StocksSearch extends Component {
                 </TableHead>
                 {/* style={{ display: this.state.showMenu ? 'block' : 'none' }} */}
                 <TableBody>
-                  {this.state.searchResults.map(searchResult => {
-                    return (
-                      <TableRow
-                        className="tableRow"
-                        onClick={event => {
-                          this.tableOnClick(event, searchResult["1. symbol"]);
-                        }}
-                        key={searchResult["1. symbol"]}
-                      >
-                        <TableCell>{searchResult["1. symbol"]}</TableCell>
-                        <TableCell align="left">
-                          {searchResult["2. name"]}
-                        </TableCell>
-                        <TableCell align="left">
-                          {searchResult["4. region"]}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                  {this.getSearchResults()}
                 </TableBody>
               </Table>
             </div>
