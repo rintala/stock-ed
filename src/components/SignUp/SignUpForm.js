@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
+import { TextField, Button, Paper, Icon } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
 
 class SignUpForm extends Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class SignUpForm extends Component {
     }); */
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   onSubmit = event => {
     console.log("this props", this.props);
@@ -48,38 +50,49 @@ class SignUpForm extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <label htmlFor="username">User: </label>
-        <input
-          id="username"
-          name="username"
-          value={this.state.username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email.."
-        ></input>
+        {/* <label htmlFor="username">User: </label> */}
+        <Paper style={{ padding: '1rem', width: '10rem' }}>
+          <h2>Sign Up</h2>
+          <TextField
+            id="username"
+            name="username"
+            value={this.state.username}
+            onChange={this.onChange}
+            type="text"
+            label="Email"
+            style={{ display: 'block' }}
+          ></TextField>
 
-        <label htmlFor="pass1">Password: </label>
-        <input
-          id="pass1"
-          name="pass1"
-          value={this.state.pass1}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password.."
-        ></input>
-        <label htmlFor="pass2">Confirm password: </label>
-        <input
-          id="pass2"
-          name="pass2"
-          value={this.state.pass2}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password.."
-        ></input>
-        <button id="loginButton" type="submit">
-          >Signup
-        </button>
-      </form>
+          {/* <label htmlFor="pass1">Password: </label> */}
+          <TextField
+            id="pass1"
+            name="pass1"
+            value={this.state.pass1}
+            onChange={this.onChange}
+            type="password"
+            label="Password"
+            style={{ display: 'block' }}
+          ></TextField>
+          {/* <label htmlFor="pass2">Confirm password: </label> */}
+          <TextField
+            id="pass2"
+            name="pass2"
+            value={this.state.pass2}
+            onChange={this.onChange}
+            type="password"
+            label="Confirm password"
+            style={{ display: 'block', paddingBottom: '1rem' }}
+          ></TextField>
+          <Button
+            id="loginButton"
+            type="submit"
+            variant="outlined"
+            endIcon={<SendIcon />}
+          >
+            Signup
+        </Button>
+        </Paper>
+      </form >
     );
   }
 }
