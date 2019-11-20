@@ -59,7 +59,6 @@ class MyProfile extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
-            <Header currentPage={"My profile"} />
             <div className="contentBody" style={{ display: "flex" }}>
               <div
                 style={{
