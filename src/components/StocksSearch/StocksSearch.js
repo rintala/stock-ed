@@ -85,7 +85,7 @@ class StocksSearch extends Component {
     }
   }
   getSearchResults() {
-    console.log('getting search results', this.state.searchDone, this.state.searchQuery.length)
+    // console.log('getting search results', this.state.searchDone, this.state.searchQuery.length)
     if (this.state.searchResults.length > 0 && this.state.searchQuery.length > 0 && this.state.searchDone) {
       return this.state.searchResults.map(searchResult => {
         return (
@@ -108,7 +108,7 @@ class StocksSearch extends Component {
       })
     } else {
       if (this.state.searchQuery.length > 0 && !this.state.searchDone) {
-        console.log('searching')
+        // console.log('searching')
         return (
           <TableRow>
             <TableCell>Searching..</TableCell>
@@ -117,7 +117,7 @@ class StocksSearch extends Component {
           </TableRow>
         )
       } else if (this.state.searchDone && this.state.searchQuery.length > 0) {
-        console.log('no mathce')
+        // console.log('no mathce')
         return (
           <TableRow>
             <TableCell>No matches</TableCell>
