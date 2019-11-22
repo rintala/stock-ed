@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { Route, Link } from "react-router-dom";
@@ -39,7 +39,7 @@ function App() {
         <BrowserRouter>
           <div className="App">
             <Route path={ROUTES.LANDING} render={() => <SignIn history />} />
-            <Header currentPage={"My profile"} />
+            <Header />
             <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
             <Route
