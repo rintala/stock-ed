@@ -19,10 +19,6 @@ const HeaderTitle = styled.div`
   width: 100%;
   justify-content: center;
 `;
-/* 
-const Link = ({ className, children }) => (
-  <a className={className}>{children}</a>
-); */
 
 const HeaderTitleLink = styled(Link)`
   text-decoration: none;

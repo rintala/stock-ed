@@ -82,7 +82,6 @@ class StockDetails extends Component {
     console.log("writing new stock to user:", this.state.currentUserId);
     console.log("user data:", this.state.currentData, this.props.firebase);
 
-    // send to firebase backend
     this.props.firebase.writeNewStock(
       this.state.currentUserId,
       this.state.currentUser,
@@ -95,9 +94,6 @@ class StockDetails extends Component {
           parseInt(this.state.amountToBuy) * parseInt(this.state.priceToBuyAt)
       }
     );
-
-    /* this.state.amountToBuy,
-    this.state.priceToBuyAt */
   };
 
   sellExistingStock = () => {

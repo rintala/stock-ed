@@ -40,33 +40,39 @@ class SignInForm extends Component {
         this.setState({ error });
       });
     event.preventDefault();
+    this.props.setIsAuthenticated(true);
   };
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <label htmlFor="username">User: </label>
-        <input
-          id="username"
-          name="username"
-          value={this.state.username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email.."
-        ></input>
-
-        <label htmlFor="pass1">Password: </label>
-        <input
-          id="pass1"
-          name="pass1"
-          value={this.state.pass1}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password.."
-        ></input>
+      <form onSubmit={this.onSubmit} style={{ textAlign: "center" }}>
+        <div style={{ padding: "10px" }}>
+          <label htmlFor="username">User: </label>
+          <input
+            id="username"
+            name="username"
+            value={this.state.username}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email.."
+            style={{ marginLeft: "45px" }}
+          ></input>
+        </div>
+        <div style={{ paddingBottom: "20px" }}>
+          <label htmlFor="pass1">Password: </label>
+          <input
+            id="pass1"
+            name="pass1"
+            value={this.state.pass1}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password.."
+            style={{ marginLeft: "10px" }}
+          ></input>
+        </div>
 
         <button id="loginButton" type="submit">
-          >Login
+          Login
         </button>
       </form>
     );

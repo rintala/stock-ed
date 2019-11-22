@@ -25,6 +25,8 @@ function isAllEnvVarSet() {
 }
 
 function App() {
+  const [setIsAuthenticated, isAuthenticated] = useState(false);
+
   if (!isAllEnvVarSet()) {
     return (
       <div className="App">
@@ -38,8 +40,20 @@ function App() {
       <FirebaseContext.Provider value={firebase}>
         <BrowserRouter>
           <div className="App">
-            <Route path={ROUTES.LANDING} render={() => <SignIn history />} />
-            <Header />
+            {isAuthenticated ? (
+              <Route
+                path={ROUTES.LANDING}
+                render={props => (
+                  <SignIn
+                    {...props}
+                    setIsAuthenticated={auth => props.setIsAuthenticated(auth)}
+                    history
+                  />
+                )}
+              />
+            ) : (
+              <Header />
+            )}
             <Route path={ROUTES.SIGN_IN} render={() => <SignIn history />} />
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
             <Route
@@ -50,17 +64,22 @@ function App() {
               path={ROUTES.STOCK_DETAILS + "/:stockName/:stockID"}
               render={() => <StockDetails history firebase={firebase} />}
             />
-            <Route path={ROUTES.ABOUT} render={() => <About history />} />
+            <Route
+              path={ROUTES.ABOUT}
+              firebase={firebase}
+              render={() => <About history />}
+            />
             <Route
               path={ROUTES.SEARCH}
+              firebase={firebase}
               render={() => <StocksSearch history />}
             />
             <Route
               path={ROUTES.MY_PROFILE}
               render={() => <MyProfile history firebase={firebase} />}
             />
-            <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
-            <Route path={ROUTES.ADMIN} render={() => <SignIn history />} />
+            {/*  <Route path={ROUTES.ACCOUNT} render={() => <SignIn history />} />
+            <Route path={ROUTES.ADMIN} render={() => <SignIn history />} /> */}
           </div>
         </BrowserRouter>
       </FirebaseContext.Provider>

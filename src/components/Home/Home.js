@@ -4,7 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 
 import "../../../node_modules/react-vis/dist/style.css";
-import { XYPlot, LineSeries } from "react-vis";
+import { XYPlot, LineSeries, RadialChart } from "react-vis";
 
 import CheckIcon from "@material-ui/icons/Check";
 import NavBar from "./../NavBar/NavBar";
@@ -56,10 +56,8 @@ class Home extends Component {
       email: "",
       pass1: "",
       pass2: "",
-      stocks: [
-        { id: "1", marker: "OMX30", buyPrice: 30, sellPrice: 35 },
-        { id: "2", marker: "TSLA", buyPrice: 35, sellPrice: 40 }
-      ]
+      stocks: [],
+      pieChartData: []
     };
   }
 
@@ -82,7 +80,7 @@ class Home extends Component {
                 email: user.email
               }
             },
-            console.log("uthisr", this.state)
+            () => this.generatePieChartData()
           );
         });
       }
@@ -95,13 +93,6 @@ class Home extends Component {
     if (this.props.firebase.auth.currentUser) {
       this.props.firebase.getUserData(this.props.firebase.auth.currentUser);
     }
-    console.log("HSI");
-    /* const currentUser = this.props.firebase.auth.currentUser;
-    if (currentUser) {
-      console.log("currentUserId", currentUser.uid);
-
-    } */
-    /*     console.log("user", user); */
   };
 
   onSubmit = event => {
@@ -118,6 +109,19 @@ class Home extends Component {
     event.preventDefault();
   };
 
+  generatePieChartData = () => {
+    let pieChartData = [];
+    Object.keys(this.state.user.portfolio).map(stockKey => {
+      console.log("stock pie", this.state.user.portfolio[stockKey]);
+      // todo: calc actual angle by summing up portfolio value and dividing on number stocks
+      pieChartData.push({
+        angle: 3,
+        label: this.state.user.portfolio[stockKey].stockId
+      });
+    });
+    this.setState({ pieChartData: pieChartData });
+  };
+
   render() {
     const data = [
       { x: 0, y: 8 },
@@ -131,6 +135,7 @@ class Home extends Component {
       { x: 8, y: 2 },
       { x: 9, y: 0 }
     ];
+
     console.log("this.state.user.portfolio", this.state.user.portfolio);
     return (
       <FirebaseContext.Consumer>
@@ -145,14 +150,32 @@ class Home extends Component {
                       <StockCard
                         stock={this.state.user.portfolio[stockKey]}
                         key={stockKey}
+                        onCardClick={() =>
+                          this.props.history.push(
+                            "/stockDetails/" +
+                              this.state.user.portfolio[stockKey].stockName +
+                              "/" +
+                              this.state.user.portfolio[stockKey].stockId
+                          )
+                        }
                       />
                     ))}
                 </StocksWrapper>
                 <GraphAndTextWrapper>
-                  <GraphAndTextTitle>GRAPH 1</GraphAndTextTitle>
+                  <GraphAndTextTitle>Portfolio value split</GraphAndTextTitle>
                   <div>
-                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                    minim tempor velit sunt esse.
+                    <RadialChart
+                      data={this.state.pieChartData}
+                      width={300}
+                      height={300}
+                      showLabels
+                      animation
+                      labelsStyle={{
+                        fontSize: "30px",
+                        padding: "10px"
+                      }}
+                      labelsRadiusMultiplier={0.8}
+                    />
                   </div>
                 </GraphAndTextWrapper>
                 <GraphAndTextWrapper>

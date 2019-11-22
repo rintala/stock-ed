@@ -12,7 +12,8 @@ import {
   Typography,
   CardContent,
   Button,
-  CardActions
+  CardActions,
+  CardActionArea
 } from "@material-ui/core";
 
 const StockHeader = styled.div`
@@ -28,6 +29,7 @@ const TypographyWrapperTitle = styled.div`
 const CardWrapper = styled.div`
   min-width: 275;
   margin: 10px;
+  cursor: pointer;
 `;
 
 const LearnMoreContainer = styled.div`
@@ -55,67 +57,77 @@ class StockCard extends Component {
   render() {
     console.log("stock card", this.props.stock);
     return (
-      <CardWrapper>
-        <Card style={{ backgroundColor: "var(--global-link-color)" }}>
-          <CardContent>
-            <TypographyWrapperTitle>
-              <StockHeader>
-                <Typography color="textSecondary" gutterBottom>
-                  Last traded: {this.props.stock.currentData.lastTraded}
+      <CardWrapper onClick={this.props.onCardClick}>
+        <Card
+          square={true}
+          style={{
+            backgroundColor: "var(--global-link-color)",
+            card: {
+              maxWidth: 345
+            }
+          }}
+        >
+          <CardActionArea>
+            <CardContent>
+              <TypographyWrapperTitle>
+                <StockHeader>
+                  <Typography color="textSecondary" gutterBottom>
+                    Last traded: {this.props.stock.currentData.lastTraded}
+                  </Typography>
+                  <Typography color="textSecondary" gutterBottom>
+                    {/* SELL: {this.props.stock.sell} */}
+                  </Typography>
+                </StockHeader>
+              </TypographyWrapperTitle>
+              <Typography variant="h5" component="h2">
+                {this.props.stock.stockId}
+              </Typography>
+              <Typography variant="h7" component="h2">
+                {this.props.stock.stockName}
+              </Typography>
+              <TypographyWrapper style={{ paddingTop: "10px" }}>
+                <Typography color="textSecondary">
+                  NUMBER OF STOCKS: {this.props.stock.totNumberBought}
                 </Typography>
-                <Typography color="textSecondary" gutterBottom>
-                  {/* SELL: {this.props.stock.sell} */}
+              </TypographyWrapper>
+              <TypographyWrapper style={{ paddingTop: "10px" }}>
+                <Typography color="textSecondary">
+                  TOTAL VALUE: {this.props.stock.totAmountInvested}
                 </Typography>
-              </StockHeader>
-            </TypographyWrapperTitle>
-            <Typography variant="h5" component="h2">
-              {this.props.stock.stockId}
-            </Typography>
-            <Typography variant="h7" component="h2">
-              {this.props.stock.stockName}
-            </Typography>
-            <TypographyWrapper style={{ paddingTop: "10px" }}>
-              <Typography color="textSecondary">
-                NUMBER OF STOCKS: {this.props.stock.totNumberBought}
-              </Typography>
-            </TypographyWrapper>
-            <TypographyWrapper style={{ paddingTop: "10px" }}>
-              <Typography color="textSecondary">
-                TOTAL VALUE: {this.props.stock.totAmountInvested}
-              </Typography>
-            </TypographyWrapper>
-            <TypographyWrapper style={{ paddingTop: "10px" }}>
-              <Typography color="textSecondary">
-                AVG PRICE:{" "}
-                {parseInt(this.props.stock.totAmountInvested) /
-                  parseInt(this.props.stock.totNumberBought)}
-              </Typography>
-            </TypographyWrapper>
-          </CardContent>
+              </TypographyWrapper>
+              <TypographyWrapper style={{ paddingTop: "10px" }}>
+                <Typography color="textSecondary">
+                  AVG PRICE:{" "}
+                  {parseInt(this.props.stock.totAmountInvested) /
+                    parseInt(this.props.stock.totNumberBought)}
+                </Typography>
+              </TypographyWrapper>
+            </CardContent>
 
-          <CardActions>
-            <CardActionsInside learnMore={this.state.learnMore}>
-              {this.props.stock.about && (
-                <div>
-                  <Button
-                    size="small"
-                    onClick={() =>
-                      this.setState(prevState => ({
-                        learnMore: !prevState.learnMore
-                      }))
-                    }
-                  >
-                    {this.state.learnMore ? "Show less" : "Learn More"}
-                  </Button>
-                  {this.state.learnMore && (
-                    <LearnMoreContainer>
-                      {this.props.stock.about}
-                    </LearnMoreContainer>
-                  )}
-                </div>
-              )}
-            </CardActionsInside>
-          </CardActions>
+            <CardActions>
+              <CardActionsInside learnMore={this.state.learnMore}>
+                {this.props.stock.about && (
+                  <div>
+                    <Button
+                      size="small"
+                      onClick={() =>
+                        this.setState(prevState => ({
+                          learnMore: !prevState.learnMore
+                        }))
+                      }
+                    >
+                      {this.state.learnMore ? "Show less" : "Learn More"}
+                    </Button>
+                    {this.state.learnMore && (
+                      <LearnMoreContainer>
+                        {this.props.stock.about}
+                      </LearnMoreContainer>
+                    )}
+                  </div>
+                )}
+              </CardActionsInside>
+            </CardActions>
+          </CardActionArea>
         </Card>
       </CardWrapper>
     );
