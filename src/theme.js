@@ -38,6 +38,14 @@ export const theme = createMuiTheme({
                     color: grey[800],
                 }
             }
+        },
+        MuiPaper: {
+            root: {
+                padding: "0.5rem 1rem 1rem",
+                margin: "auto",
+                marginBottom: "1rem",
+                background: "rgba(255, 255, 255, 0.7)"
+            }
         }
-    },
+    }
 })

@@ -39,3 +39,8 @@ a {
 a {
   text-decoration: none;
 }
+
+.contentBody{
+  width: 80%;
+  margin: auto;
+}

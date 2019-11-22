@@ -74,14 +74,14 @@ class StocksSearch extends Component {
     }
   }
 
-  tableOnClick(event, symbol) {
+  tableOnClick(event, name, symbol) {
     event.stopPropagation();
     // console.log(event)
     if (event.ctrlKey || event.metaKey) {
       console.log("cmd click, opening in tab");
       window.open("/stockDetails/" + symbol);
     } else {
-      this.props.history.push("/stockDetails/" + symbol);
+      this.props.history.push("/stockDetails/" + name + "/" + symbol);
     }
   }
   getSearchResults() {
@@ -92,7 +92,7 @@ class StocksSearch extends Component {
           <TableRow
             className="tableRow"
             onClick={event => {
-              this.tableOnClick(event, searchResult["1. symbol"]);
+              this.tableOnClick(event, searchResult["2. name"], searchResult["1. symbol"]);
             }}
             key={searchResult["1. symbol"]}
           >
@@ -135,15 +135,7 @@ class StocksSearch extends Component {
         {firebase => (
           <div>
             <div className="contentBody">
-              <Paper
-                style={{
-                  width: "80%",
-                  padding: "0.5rem 1rem 1rem",
-                  margin: "auto",
-                  marginBottom: "1rem",
-                  background: "rgba(255, 255, 255, 0.7)"
-                }}
-              >
+              <Paper>
                 <Grid container spacing={1}>
                   <Grid
                     item
@@ -166,7 +158,7 @@ class StocksSearch extends Component {
                   </Grid>
                 </Grid>
               </Paper>
-              <Table style={{ width: "80%", margin: "auto" }}>
+              <Table >
                 <TableHead>
                   <TableRow>
                     <TableCell>Symbol</TableCell>

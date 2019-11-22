@@ -47,7 +47,7 @@ function App() {
               render={() => <Home history firebase={firebase} />}
             />
             <Route
-              path={ROUTES.STOCK_DETAILS + "/:stockID"}
+              path={ROUTES.STOCK_DETAILS + "/:stockName/:stockID"}
               render={() => <StockDetails history />}
             />
             <Route path={ROUTES.ABOUT} render={() => <About history />} />
