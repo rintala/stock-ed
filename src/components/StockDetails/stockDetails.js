@@ -100,6 +100,15 @@ class StockDetails extends Component {
     this.state.priceToBuyAt */
   };
 
+  sellExistingStock = () => {
+    this.props.firebase.sellExistingStock(
+      this.state.currentUserId,
+      this.state.stockID,
+      this.state.amountToBuy,
+      this.state.priceToBuyAt
+    );
+  };
+
   updateStockData() {
     console.log("chartData");
     return new Promise(resolve => {
@@ -215,7 +224,12 @@ class StockDetails extends Component {
                   <Button style={{ width: "50%" }} onClick={this.buyStock}>
                     Buy
                   </Button>
-                  <Button style={{ width: "50%" }}>Sell</Button>
+                  <Button
+                    style={{ width: "50%" }}
+                    onClick={this.sellExistingStock}
+                  >
+                    Sell
+                  </Button>
                 </Paper>
               </Grid>
               <Grid item xs={7}>

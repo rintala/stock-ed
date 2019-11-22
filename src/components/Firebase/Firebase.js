@@ -77,9 +77,11 @@ class Firebase {
 
     thisPostRef.once("value", snapshot => {
       let currentStocks = {};
+      let hasMatch = false;
       Object.keys(snapshot.val()).forEach(key => {
         currentStocks[key] = snapshot.val()[key];
         if (currentStocks[key].stockId === newStock.stockId) {
+          hasMatch = true;
           snapshot.ref.child(key).update({
             totNumberBought:
               parseInt(currentStocks[key].totNumberBought) +
@@ -88,8 +90,34 @@ class Firebase {
               parseInt(currentStocks[key].totAmountInvested) +
               parseInt(newStock.totAmountInvested)
           });
-        } else {
+        }
+        if (hasMatch === false) {
           thisPostRef.push().set(newStock);
+        }
+      });
+    });
+  };
+
+  sellExistingStock = (userId, stockId, sellNumber, sellPrice) => {
+    let thisPostRef = this.database()
+      .ref()
+      .child(userId)
+      .child("portfolio");
+
+    thisPostRef.once("value", snapshot => {
+      let currentStocks = {};
+
+      Object.keys(snapshot.val()).forEach(key => {
+        currentStocks[key] = snapshot.val()[key];
+        if (currentStocks[key].stockId === stockId) {
+          snapshot.ref.child(key).update({
+            totNumberBought:
+              parseInt(currentStocks[key].totNumberBought) -
+              parseInt(sellNumber),
+            totAmountInvested:
+              parseInt(currentStocks[key].totAmountInvested) -
+              parseInt(sellNumber) * parseInt(sellPrice)
+          });
         }
       });
     });
