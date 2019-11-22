@@ -45,9 +45,14 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isHomeSelected: false
+      isHomeSelected: false,
+      isCurrentlySelected:
+        localStorage.getItem("currentPage") != null
+          ? localStorage.getItem("currentPage")
+          : ""
     };
   }
+
   render() {
     return (
       <HeaderContainer>
@@ -64,7 +69,15 @@ class Header extends Component {
         >
           <img src={moneyImg} style={{ width: "10vw" }} />
         </div>
-        <NavBar isHomeSelected={this.state.isHomeSelected} />
+        <NavBar
+          isCurrentlySelected={this.state.isCurrentlySelected}
+          setIsCurrentlySelected={subPage => {
+            localStorage.setItem("currentPage", subPage);
+            this.setState({
+              isCurrentlySelected: subPage
+            });
+          }}
+        />
       </HeaderContainer>
     );
   }
