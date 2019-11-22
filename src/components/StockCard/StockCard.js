@@ -61,27 +61,36 @@ class StockCard extends Component {
             <TypographyWrapperTitle>
               <StockHeader>
                 <Typography color="textSecondary" gutterBottom>
-                  BUY: {this.props.stock.buy}
+                  Last traded: {this.props.stock.currentData.lastTraded}
                 </Typography>
                 <Typography color="textSecondary" gutterBottom>
-                  SELL: {this.props.stock.sell}
+                  {/* SELL: {this.props.stock.sell} */}
                 </Typography>
               </StockHeader>
             </TypographyWrapperTitle>
             <Typography variant="h5" component="h2">
-              {this.props.stock.quote}
+              {this.props.stock.stockId}
             </Typography>
-            <TypographyWrapper>
+            <Typography variant="h7" component="h2">
+              {this.props.stock.stockName}
+            </Typography>
+            <TypographyWrapper style={{ paddingTop: "10px" }}>
               <Typography color="textSecondary">
-                NUMBER OF STOCKS: {this.props.stock.numberOwned}
+                NUMBER OF STOCKS: {this.props.stock.totNumberBought}
               </Typography>
             </TypographyWrapper>
-            {
-              //TODO: calculate return in our "backend"
-            }
-            <Typography variant="body2" component="p">
-              Return: +20%
-            </Typography>
+            <TypographyWrapper style={{ paddingTop: "10px" }}>
+              <Typography color="textSecondary">
+                TOTAL VALUE: {this.props.stock.totAmountInvested}
+              </Typography>
+            </TypographyWrapper>
+            <TypographyWrapper style={{ paddingTop: "10px" }}>
+              <Typography color="textSecondary">
+                AVG PRICE:{" "}
+                {parseInt(this.props.stock.totAmountInvested) /
+                  parseInt(this.props.stock.totNumberBought)}
+              </Typography>
+            </TypographyWrapper>
           </CardContent>
 
           <CardActions>
