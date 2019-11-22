@@ -47,11 +47,11 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) => {
     return this.auth
       .signInWithEmailAndPassword(email, password)
-      .then(function (firebaseUser) {
+      .then(function(firebaseUser) {
         // Success
         this.auth.updateCurrentUser(firebaseUser);
       })
-      .catch(function (error) {
+      .catch(function(error) {
         // Error Handling
       });
   };
@@ -66,6 +66,33 @@ class Firebase {
       .ref("/")
       .set(this.state);
     console.log("DATA SAVED");
+  };
+
+  writeNewStock = (userId, user, newStock) => {
+    console.log("writingnewstock", user, newStock);
+    let thisPostRef = this.database()
+      .ref()
+      .child(userId)
+      .child("portfolio");
+
+    thisPostRef.once("value", snapshot => {
+      let currentStocks = {};
+      Object.keys(snapshot.val()).forEach(key => {
+        currentStocks[key] = snapshot.val()[key];
+        if (currentStocks[key].stockId === newStock.stockId) {
+          snapshot.ref.child(key).update({
+            totNumberBought:
+              parseInt(currentStocks[key].totNumberBought) +
+              parseInt(newStock.totNumberBought),
+            totAmountInvested:
+              parseInt(currentStocks[key].totAmountInvested) +
+              parseInt(newStock.totAmountInvested)
+          });
+        } else {
+          thisPostRef.push().set(newStock);
+        }
+      });
+    });
   };
 
   getUserData = user => {

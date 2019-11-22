@@ -7,7 +7,7 @@ import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 import Home from "./components/Home/Home";
 import StocksSearch from "./components/StocksSearch/StocksSearch";
-import StockDetails from "./components/StockDetails/stockDetails";
+import StockDetails from "./components/StockDetails/StockDetails";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Error from "./components/Error/Error";
 import { setEnvVars } from "./constants/config";
@@ -48,7 +48,7 @@ function App() {
             />
             <Route
               path={ROUTES.STOCK_DETAILS + "/:stockName/:stockID"}
-              render={() => <StockDetails history />}
+              render={() => <StockDetails history firebase={firebase} />}
             />
             <Route path={ROUTES.ABOUT} render={() => <About history />} />
             <Route
