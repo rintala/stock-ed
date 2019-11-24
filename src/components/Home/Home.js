@@ -54,6 +54,7 @@ const GraphAndTextTitle = styled.div`
 const GraphAndTextTitleCard = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
+  padding: 10px;
   font-size: 30px;
   font-weight: 600;
   color: var(--global-link-color);
@@ -204,43 +205,48 @@ class Home extends Component {
               <GraphAndTextTitleCard>
                 Funds available: $ {this.state.user.fundsAvailable}
               </GraphAndTextTitleCard>
-              <GraphAndTextTitle>Stocks</GraphAndTextTitle>
-              <StocksWrapper>
-                {this.state.user.portfolio &&
-                  Object.keys(this.state.user.portfolio).map(stockKey => (
-                    <StockCard
-                      stock={this.state.user.portfolio[stockKey]}
-                      key={stockKey}
-                      onCardClick={() =>
-                        this.props.history.push(
-                          "/stockDetails/" +
-                            this.state.user.portfolio[stockKey].stockName +
-                            "/" +
-                            this.state.user.portfolio[stockKey].stockId
-                        )
-                      }
-                    />
-                  ))}
-              </StocksWrapper>{" "}
+              {this.state.user.portfolio && (
+                <div>
+                  <GraphAndTextTitle>Stocks</GraphAndTextTitle>
+                  <StocksWrapper>
+                    {Object.keys(this.state.user.portfolio).map(stockKey => (
+                      <StockCard
+                        stock={this.state.user.portfolio[stockKey]}
+                        key={stockKey}
+                        onCardClick={() =>
+                          this.props.history.push(
+                            "/stockDetails/" +
+                              this.state.user.portfolio[stockKey].stockName +
+                              "/" +
+                              this.state.user.portfolio[stockKey].stockId
+                          )
+                        }
+                      />
+                    ))}
+                  </StocksWrapper>
+                </div>
+              )}
             </GraphAndTextWrapper>
 
-            <GraphAndTextWrapper>
-              <GraphAndTextTitle>Portfolio value split</GraphAndTextTitle>
-              <div>
-                <RadialChart
-                  data={this.state.pieChartData}
-                  width={300}
-                  height={300}
-                  showLabels
-                  animation
-                  labelsStyle={{
-                    fontSize: "15px",
-                    padding: "10px"
-                  }}
-                  labelsRadiusMultiplier={0.8}
-                />
-              </div>
-            </GraphAndTextWrapper>
+            {this.state.user.portfolio && (
+              <GraphAndTextWrapper>
+                <GraphAndTextTitle>Portfolio value split</GraphAndTextTitle>
+                <div>
+                  <RadialChart
+                    data={this.state.pieChartData}
+                    width={300}
+                    height={300}
+                    showLabels
+                    animation
+                    labelsStyle={{
+                      fontSize: "15px",
+                      padding: "10px"
+                    }}
+                    labelsRadiusMultiplier={0.8}
+                  />
+                </div>
+              </GraphAndTextWrapper>
+            )}
             {/* <GraphAndTextWrapper>
               <GraphAndTextTitle>GRAPH 2</GraphAndTextTitle>
               <div>

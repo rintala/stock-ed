@@ -35,10 +35,38 @@ const AboutBody = styled.div`
   font-size: 24px;
 `;
 
+const ProfileImage = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: var(--global-link-color);
+  margin: 20px;
+  background-image: url(${props => props.imageUrl});
+  background-size: contain;
+`;
+
 const GraphAndTextWrapper = styled.div`
   width: 50%;
   padding: 30px;
 `;
+
+const ProfileImagesContainer = styled.div`
+  justify-content: center;
+  display: flex;
+`;
+const profileImages = [
+  {
+    github: "rintala",
+    linkedin:
+      "https://media.licdn.com/dms/image/C4E03AQHFg3NH9wK3tA/profile-displayphoto-shrink_200_200/0?e=1580342400&v=beta&t=1vtTgsWpi-QUBOqCDQESUf6TXaQmFAp-9OixUOUGNbo"
+  },
+  {
+    github: "Cedervall",
+    linkedin:
+      "https://media.licdn.com/dms/image/C4E03AQHSBtXas4RPsg/profile-displayphoto-shrink_200_200/0?e=1580342400&v=beta&t=SIU-WYKD9ShMwjsuAzPFSOUbkVH0OXLCN48FTSFmInI"
+  }
+];
 class About extends Component {
   constructor(props) {
     super(props);
@@ -72,13 +100,21 @@ class About extends Component {
         <div className="App">
           <PortfolioWrapper>
             <AboutBody>
-              Stock-ed is a project for a course at KTH.Non in cupidatat magna
-              fugiat commodo commodo aliquip laboris consectetur qui dolor do id
-              ad. Pariatur ad aliquip nostrud tempor laboris. Velit enim
-              consectetur reprehenderit labore. Laboris in ex in ipsum velit
-              proident aliquip incididunt aute. Nulla pariatur consequat id
-              labore eu voluptate consequat duis nisi mollit. Dolore velit nisi
-              quis ex nulla nisi voluptate incididunt laborum.
+              Stock-ed is an educational stock application, displaying real data
+              from the Alpha Vantage API. Part of course DH2642 at KTH.{" "}
+              <a href="https://github.com/rintala/stock-ed">
+                Check out the source code at github.
+              </a>
+              <ProfileImagesContainer>
+                {profileImages.map(profileImage => (
+                  <div>
+                    <ProfileImage imageUrl={profileImage.linkedin} />
+                    <a href={"https://github.com/" + profileImage.github}>
+                      @{profileImage.github}
+                    </a>
+                  </div>
+                ))}
+              </ProfileImagesContainer>
             </AboutBody>
           </PortfolioWrapper>
         </div>

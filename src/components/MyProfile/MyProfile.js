@@ -19,6 +19,12 @@ const UserInfoContainer = styled.div`
   margin-left: 20px;
 `;
 
+const ProfileWrapper = styled.div`
+  justify-content: center;
+  padding: 30px;
+  display: flex;
+`;
+
 class MyProfile extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +38,6 @@ class MyProfile extends Component {
   };
 
   componentDidMount() {
-    console.log("mounted my profile ocmpoentn");
     this.props.firebase.auth.onAuthStateChanged(authUser => {
       if (authUser) {
         authUser
@@ -60,7 +65,7 @@ class MyProfile extends Component {
       <FirebaseContext.Consumer>
         {firebase => (
           <div>
-            <div className="contentBody" style={{ display: "flex" }}>
+            <ProfileWrapper>
               <div
                 style={{
                   width: "100%",
@@ -77,7 +82,7 @@ class MyProfile extends Component {
                   <div>About: {this.state.user.about}</div>
                 </UserInfoContainer>
               </div>
-            </div>
+            </ProfileWrapper>
           </div>
         )}
       </FirebaseContext.Consumer>
