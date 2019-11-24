@@ -12,6 +12,7 @@ const Button = styled.div`
   padding: 5px
   text-align: center;
   width: 20vw;
+  color: #222;
   
   &:hover {
     /* background-color: var(--on-hover); */
