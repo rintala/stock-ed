@@ -55,36 +55,31 @@ class SignIn extends Component {
   };
 
   componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged");
-      }
-    });
+    console.log("THISPROPS", this.props);
+    console.log("firebasee", this.props.firebase);
   }
-  componentDidMount() {}
-
   render() {
     return (
-      <FirebaseContext.Consumer>
-        {firebase => (
-          <div className="App" style={{ alignItems: "center" }}>
-            <HeaderContainer>
-              <HeaderTitle>
-                <HeaderTitleLink
-                  onClick={() => this.setState({ isHomeSelected: true })}
-                  to="/home"
-                >
-                  [stock-ed]
-                </HeaderTitleLink>
-              </HeaderTitle>
-            </HeaderContainer>
-            <SignInForm
-              setIsAuthenticated={auth => this.props.setIsAuthenticated(auth)}
-              firebase={firebase}
-            />
-          </div>
-        )}
-      </FirebaseContext.Consumer>
+      /*  <FirebaseContext.Consumer>
+        {firebase => ( */
+      <div className="App" style={{ alignItems: "center" }}>
+        <HeaderContainer>
+          <HeaderTitle>
+            <HeaderTitleLink
+              onClick={() => this.setState({ isHomeSelected: true })}
+              to="/home"
+            >
+              [stock-ed]
+            </HeaderTitleLink>
+          </HeaderTitle>
+        </HeaderContainer>
+        <SignInForm
+          setIsAuthenticated={auth => this.props.setIsAuthenticated(auth)}
+          firebase={this.props.firebase}
+        />
+      </div>
+      /*   )}
+      </FirebaseContext.Consumer> */
     );
   }
 }

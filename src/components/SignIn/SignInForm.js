@@ -25,8 +25,6 @@ class SignInForm extends Component {
     }); */
   }
 
-  componentDidMount() {}
-
   onSubmit = event => {
     const { username, email, pass1 } = this.state;
     this.props.firebase
@@ -34,13 +32,14 @@ class SignInForm extends Component {
       .then(() => {
         console.log("successful login");
         this.setState({ username: "", email: "", pass1: "" });
+        this.props.setIsAuthenticated(true);
         this.props.history.push("/home");
       })
       .catch(error => {
+        console.log("login error", error);
         this.setState({ error });
       });
     event.preventDefault();
-    this.props.setIsAuthenticated(true);
   };
 
   render() {
@@ -74,6 +73,9 @@ class SignInForm extends Component {
         <button id="loginButton" type="submit">
           Login
         </button>
+        <Link to="/signup">
+          <button id="signupButton">Signup</button>
+        </Link>
       </form>
     );
   }

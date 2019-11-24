@@ -34,16 +34,33 @@ const PortfolioWrapper = styled.div`
 `;
 
 const GraphAndTextWrapper = styled.div`
-  width: 50%;
   padding: 30px;
 `;
 
+const GraphAndText = styled.div`
+  font-size: 30px;
+  font-weight: 700;
+  color: #2dffc6;
+`;
 const GraphAndTextTitle = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   font-size: 30px;
   font-weight: 600;
   color: var(--global-link-color);
+  text-align: center;
+`;
+
+const GraphAndTextTitleCard = styled.div`
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--global-link-color);
+  background-color: var(--dark-bg);
+  border-style: solid;
+  border-color: var(--global-link-color);
+  text-align: center;
 `;
 
 class Home extends Component {
@@ -57,7 +74,8 @@ class Home extends Component {
       pass1: "",
       pass2: "",
       stocks: [],
-      pieChartData: []
+      pieChartData: [],
+      isFlushed: false
     };
   }
 
@@ -66,6 +84,8 @@ class Home extends Component {
   };
 
   componentDidMount = () => {
+    console.log("home mounted", this.props);
+
     this.props.firebase.auth.onAuthStateChanged(user => {
       if (user) {
         console.log("user logged");
@@ -80,7 +100,7 @@ class Home extends Component {
                 email: user.email
               }
             },
-            () => this.generatePieChartData()
+            () => this.state.user.portfolio && this.generatePieChartData()
           );
         });
       }
@@ -94,6 +114,43 @@ class Home extends Component {
       this.props.firebase.getUserData(this.props.firebase.auth.currentUser);
     }
   };
+
+  /* componentDidUpdate(prevProps, prevState) {
+    let user = this.props.firebase.auth.currentUser;
+    console.log("User comp did update", user);
+    let newUser = {
+      user: {
+        ...user,
+        email: user.email
+      }
+    };
+    console.log(
+      "newUserr",
+      this.props.location.state,
+      prevProps.location.state
+    );
+
+    if (this.props.location.state !== prevProps.location.state) {
+      this.setState({ locationState: this.props.location.state });
+    }
+    if (prevState.locationState !== this.state.locationState) {
+      console.log("user logged");
+      console.log("User", user);
+
+      this.props.firebase.getUserData(user).then(userData => {
+        console.log("userdata,", userData);
+        this.setState(
+          {
+            user: {
+              ...userData,
+              email: user.email
+            }
+          },
+          () => this.generatePieChartData()
+        );
+      });
+    }
+  } */
 
   onSubmit = event => {
     const { username, email, passwordOne } = this.state;
@@ -138,66 +195,69 @@ class Home extends Component {
 
     console.log("this.state.user.portfolio", this.state.user.portfolio);
     return (
-      <FirebaseContext.Consumer>
-        {firebase => (
-          <div>
-            {console.log("firebase,", firebase)}
-            <div className="App">
-              <PortfolioWrapper>
-                <StocksWrapper>
-                  {this.state.user.portfolio &&
-                    Object.keys(this.state.user.portfolio).map(stockKey => (
-                      <StockCard
-                        stock={this.state.user.portfolio[stockKey]}
-                        key={stockKey}
-                        onCardClick={() =>
-                          this.props.history.push(
-                            "/stockDetails/" +
-                              this.state.user.portfolio[stockKey].stockName +
-                              "/" +
-                              this.state.user.portfolio[stockKey].stockId
-                          )
-                        }
-                      />
-                    ))}
-                </StocksWrapper>
-                <GraphAndTextWrapper>
-                  <GraphAndTextTitle>Portfolio value split</GraphAndTextTitle>
-                  <div>
-                    <RadialChart
-                      data={this.state.pieChartData}
-                      width={300}
-                      height={300}
-                      showLabels
-                      animation
-                      labelsStyle={{
-                        fontSize: "30px",
-                        padding: "10px"
-                      }}
-                      labelsRadiusMultiplier={0.8}
+      <div>
+        {console.log("firebase,", this.props.firebase)}
+        <div className="App">
+          <PortfolioWrapper>
+            <GraphAndTextWrapper>
+              <GraphAndTextTitleCard>
+                Funds available: $ {this.state.user.fundsAvailable}
+              </GraphAndTextTitleCard>
+              <GraphAndTextTitle>Stocks</GraphAndTextTitle>
+              <StocksWrapper>
+                {this.state.user.portfolio &&
+                  Object.keys(this.state.user.portfolio).map(stockKey => (
+                    <StockCard
+                      stock={this.state.user.portfolio[stockKey]}
+                      key={stockKey}
+                      onCardClick={() =>
+                        this.props.history.push(
+                          "/stockDetails/" +
+                            this.state.user.portfolio[stockKey].stockName +
+                            "/" +
+                            this.state.user.portfolio[stockKey].stockId
+                        )
+                      }
                     />
-                  </div>
-                </GraphAndTextWrapper>
-                <GraphAndTextWrapper>
-                  <GraphAndTextTitle>GRAPH 2</GraphAndTextTitle>
-                  <div>
-                    Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                    minim tempor velit sunt esse.
-                  </div>
-                </GraphAndTextWrapper>
-                <GraphAndTextWrapper>
-                  <GraphAndTextTitle>Portfolio Performance</GraphAndTextTitle>
-                  <div>
-                    <XYPlot height={300} width={300}>
-                      <LineSeries data={data} />
-                    </XYPlot>
-                  </div>
-                </GraphAndTextWrapper>
-              </PortfolioWrapper>
-            </div>
-          </div>
-        )}
-      </FirebaseContext.Consumer>
+                  ))}
+              </StocksWrapper>{" "}
+            </GraphAndTextWrapper>
+
+            <GraphAndTextWrapper>
+              <GraphAndTextTitle>Portfolio value split</GraphAndTextTitle>
+              <div>
+                <RadialChart
+                  data={this.state.pieChartData}
+                  width={300}
+                  height={300}
+                  showLabels
+                  animation
+                  labelsStyle={{
+                    fontSize: "15px",
+                    padding: "10px"
+                  }}
+                  labelsRadiusMultiplier={0.8}
+                />
+              </div>
+            </GraphAndTextWrapper>
+            {/* <GraphAndTextWrapper>
+              <GraphAndTextTitle>GRAPH 2</GraphAndTextTitle>
+              <div>
+                Ut aliqua officia duis voluptate adipisicing cillum ut minim
+                minim tempor velit sunt esse.
+              </div>
+            </GraphAndTextWrapper> */}
+            {/*  <GraphAndTextWrapper>
+              <GraphAndTextTitle>Portfolio Performance</GraphAndTextTitle>
+              <div>
+                <XYPlot height={300} width={300}>
+                  <LineSeries data={data} />
+                </XYPlot>
+              </div>
+            </GraphAndTextWrapper> */}
+          </PortfolioWrapper>
+        </div>
+      </div>
     );
   }
 }

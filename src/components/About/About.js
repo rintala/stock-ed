@@ -47,10 +47,7 @@ class About extends Component {
       email: "",
       pass1: "",
       pass2: "",
-      stocks: [
-        { id: "1", marker: "OMX30", buyPrice: 30, sellPrice: 35 },
-        { id: "1", marker: "TSLA", buyPrice: 35, sellPrice: 40 }
-      ]
+      stocks: []
     };
   }
 
@@ -59,51 +56,31 @@ class About extends Component {
   };
 
   componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged(user => {
+    this.props.firebase.auth.onAuthStateChanged(user => {
       if (user) {
         console.log("user logged");
       }
     });
+    console.log("mounted about", this.props);
   }
-
-  componentDidMount() {}
-
-  onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, passwordOne)
-      .then(() => {
-        console.log("successful login");
-        this.setState({ username: "", email: "", pass1: "", pass2: "" });
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
-    event.preventDefault();
-  };
 
   render() {
     return (
-      <FirebaseContext.Consumer>
-        {firebase => (
-          <div>
-            <div className="App">
-              <PortfolioWrapper>
-                <AboutBody>
-                  Stock-ed is a project for a course at KTH.Non in cupidatat
-                  magna fugiat commodo commodo aliquip laboris consectetur qui
-                  dolor do id ad. Pariatur ad aliquip nostrud tempor laboris.
-                  Velit enim consectetur reprehenderit labore. Laboris in ex in
-                  ipsum velit proident aliquip incididunt aute. Nulla pariatur
-                  consequat id labore eu voluptate consequat duis nisi mollit.
-                  Dolore velit nisi quis ex nulla nisi voluptate incididunt
-                  laborum.
-                </AboutBody>
-              </PortfolioWrapper>
-            </div>
-          </div>
-        )}
-      </FirebaseContext.Consumer>
+      <div>
+        <div className="App">
+          <PortfolioWrapper>
+            <AboutBody>
+              Stock-ed is a project for a course at KTH.Non in cupidatat magna
+              fugiat commodo commodo aliquip laboris consectetur qui dolor do id
+              ad. Pariatur ad aliquip nostrud tempor laboris. Velit enim
+              consectetur reprehenderit labore. Laboris in ex in ipsum velit
+              proident aliquip incididunt aute. Nulla pariatur consequat id
+              labore eu voluptate consequat duis nisi mollit. Dolore velit nisi
+              quis ex nulla nisi voluptate incididunt laborum.
+            </AboutBody>
+          </PortfolioWrapper>
+        </div>
+      </div>
     );
   }
 }

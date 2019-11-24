@@ -30,9 +30,6 @@ const NavBarWrapper = styled.div`
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isSelected: "home"
-    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,35 +39,37 @@ class NavBar extends Component {
   render() {
     return (
       <NavBarWrapper>
-        <Link to="/home">
-          <Button
-            onClick={() => this.props.setIsCurrentlySelected("home")}
-            isSelected={this.props.isCurrentlySelected === "home"}
-          >
+        <Link
+          to="/home"
+          onClick={() => this.props.setIsCurrentlySelected("home")}
+        >
+          <Button isSelected={this.props.isCurrentlySelected === "home"}>
             MY PORTFOLIO
           </Button>
         </Link>
-        <Link to="/search">
-          <Button
-            onClick={() => this.props.setIsCurrentlySelected("search")}
-            isSelected={this.props.isCurrentlySelected === "search"}
-          >
+
+        <Link
+          to="/search"
+          onClick={() => this.props.setIsCurrentlySelected("search")}
+        >
+          <Button isSelected={this.props.isCurrentlySelected === "search"}>
             SEARCH
           </Button>
         </Link>
-        <Link to="/my-profile">
-          <Button
-            onClick={() => this.props.setIsCurrentlySelected("my-profile")}
-            isSelected={this.props.isCurrentlySelected === "my-profile"}
-          >
+
+        <Link
+          to="/my-profile"
+          onClick={() => this.props.setIsCurrentlySelected("my-profile")}
+        >
+          <Button isSelected={this.props.isCurrentlySelected === "my-profile"}>
             MY PROFILE
           </Button>
         </Link>
-        <Link to="/about">
-          <Button
-            onClick={() => this.props.setIsCurrentlySelected("about")}
-            isSelected={this.props.isCurrentlySelected === "about"}
-          >
+        <Link
+          to="/about"
+          onClick={() => this.props.setIsCurrentlySelected("about")}
+        >
+          <Button isSelected={this.props.isCurrentlySelected === "about"}>
             ABOUT
           </Button>
         </Link>

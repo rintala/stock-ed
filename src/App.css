@@ -8,6 +8,7 @@
   --foundation: #768984;
   --on-hover: #bdbdbd;
   --button: "red";
+  --dark-bg: #282828;
 }
 
 a {
@@ -16,9 +17,9 @@ a {
 /*https://www.colorhexa.com/00ffba*/
 
 .tableRow:hover {
-  background-color:  var(--on-hover);
+  background-color: var(--on-hover);
   transition: all 0.3s ease-in-out;
-  padding-left: 14px !important; 
+  padding-left: 14px !important;
 }
 
 .App {
@@ -29,7 +30,6 @@ a {
 
 .App-logo {
   height: 40vmin;
-  
 }
 
 .App-link {
@@ -40,7 +40,7 @@ a {
   text-decoration: none;
 }
 
-.contentBody{
+.contentBody {
   width: 80%;
   margin: auto;
 }

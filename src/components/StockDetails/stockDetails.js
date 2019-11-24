@@ -205,6 +205,7 @@ class StockDetails extends Component {
                     <TextField
                       label="Amount"
                       style={{ width: "45%" }}
+                      value={this.state.amountToBuy || ""}
                       onChange={e =>
                         this.setState({ amountToBuy: e.target.value })
                       }
@@ -212,17 +213,29 @@ class StockDetails extends Component {
                     <TextField
                       label="Price"
                       style={{ width: "45%" }}
+                      value={this.state.priceToBuyAt || ""}
                       onChange={e =>
                         this.setState({ priceToBuyAt: e.target.value })
                       }
                     ></TextField>
                   </div>
-                  <Button style={{ width: "50%" }} onClick={this.buyStock}>
+
+                  <Button
+                    onClick={() => {
+                      this.setState({ amountToBuy: 0, priceToBuyAt: 0 });
+                      this.buyStock();
+                    }}
+                    style={{ width: "50%" }}
+                  >
                     Buy
                   </Button>
+
                   <Button
+                    onClick={() => {
+                      this.sellExistingStock();
+                      this.setState({ amountToBuy: 0, priceToBuyAt: 0 });
+                    }}
                     style={{ width: "50%" }}
-                    onClick={this.sellExistingStock}
                   >
                     Sell
                   </Button>

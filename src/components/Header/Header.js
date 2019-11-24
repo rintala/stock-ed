@@ -54,7 +54,10 @@ class Header extends Component {
       <HeaderContainer>
         <HeaderTitle>
           <HeaderTitleLink
-            onClick={() => this.setState({ isHomeSelected: true })}
+            onClick={() => {
+              localStorage.setItem("currentPage", "home");
+              this.setState({ isCurrentlySelected: "home" });
+            }}
             to="/home"
           >
             [stock-ed]
@@ -63,7 +66,7 @@ class Header extends Component {
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          <img src={moneyImg} style={{ width: "10vw" }} />
+          <img alt="money-bag" src={moneyImg} style={{ width: "10vw" }} />
         </div>
         <NavBar
           isCurrentlySelected={this.state.isCurrentlySelected}
