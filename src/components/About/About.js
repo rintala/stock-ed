@@ -56,9 +56,11 @@ class About extends Component {
   };
 
   componentDidMount() {
-    this.props.firebase.auth.onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged");
+    this.props.firebase.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        authUser
+          ? localStorage.setItem("authUser", JSON.stringify(authUser))
+          : localStorage.removeItem("authUser");
       }
     });
     console.log("mounted about", this.props);

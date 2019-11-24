@@ -35,7 +35,7 @@ export default class App extends React.Component {
       isAuthenticated: false,
       firebase: null,
       isAllEnvVarSet: false,
-      authUser: null
+      authUser: JSON.parse(localStorage.getItem("authUser"))
     };
   }
 
@@ -78,9 +78,7 @@ export default class App extends React.Component {
       <FirebaseContext.Provider value={this.state.firebase}>
         <BrowserRouter>
           <div className="App">
-            {this.state.isAuthenticated && (
-              <Header isCurrentlySelected={"home"} />
-            )}
+            {this.state.authUser && <Header isCurrentlySelected={"home"} />}
             <Route
               path={ROUTES.SIGN_IN}
               render={props => (

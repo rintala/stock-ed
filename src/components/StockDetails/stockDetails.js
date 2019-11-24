@@ -55,12 +55,14 @@ class StockDetails extends Component {
       });
     });
 
-    this.props.firebase.auth.onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged");
-        console.log("User", user);
-        this.setState({ currentUserId: user.uid });
-        this.props.firebase.getUserData(user).then(userData => {
+    this.props.firebase.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        authUser
+          ? localStorage.setItem("authUser", JSON.stringify(authUser))
+          : localStorage.removeItem("authUser");
+
+        this.setState({ currentUserId: authUser.uid });
+        this.props.firebase.getUserData(authUser).then(userData => {
           this.setState({ currentUser: userData });
         });
       } else {

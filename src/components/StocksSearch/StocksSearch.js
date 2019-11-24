@@ -63,7 +63,10 @@ class StocksSearch extends Component {
 
   apiCall() {
     if (this.state.searchQuery.length !== 0) {
-      alphaVantageApiCall({ query: this.state.searchQuery, type: 'stockSearch' }).then(response => {
+      alphaVantageApiCall({
+        query: this.state.searchQuery,
+        type: "stockSearch"
+      }).then(response => {
         response.json().then(data => {
           this.setState({
             searchResults: data["bestMatches"],
@@ -86,26 +89,30 @@ class StocksSearch extends Component {
   }
   getSearchResults() {
     // console.log('getting search results', this.state.searchDone, this.state.searchQuery.length)
-    if (this.state.searchResults.length > 0 && this.state.searchQuery.length > 0 && this.state.searchDone) {
+    if (
+      this.state.searchResults.length > 0 &&
+      this.state.searchQuery.length > 0 &&
+      this.state.searchDone
+    ) {
       return this.state.searchResults.map(searchResult => {
         return (
           <TableRow
             className="tableRow"
             onClick={event => {
-              this.tableOnClick(event, searchResult["2. name"], searchResult["1. symbol"]);
+              this.tableOnClick(
+                event,
+                searchResult["2. name"],
+                searchResult["1. symbol"]
+              );
             }}
             key={searchResult["1. symbol"]}
           >
             <TableCell>{searchResult["1. symbol"]}</TableCell>
-            <TableCell align="left">
-              {searchResult["2. name"]}
-            </TableCell>
-            <TableCell align="left">
-              {searchResult["4. region"]}
-            </TableCell>
+            <TableCell align="left">{searchResult["2. name"]}</TableCell>
+            <TableCell align="left">{searchResult["4. region"]}</TableCell>
           </TableRow>
         );
-      })
+      });
     } else {
       if (this.state.searchQuery.length > 0 && !this.state.searchDone) {
         // console.log('searching')
@@ -115,7 +122,7 @@ class StocksSearch extends Component {
             <TableCell></TableCell>
             <TableCell></TableCell>
           </TableRow>
-        )
+        );
       } else if (this.state.searchDone && this.state.searchQuery.length > 0) {
         // console.log('no mathce')
         return (
@@ -124,11 +131,19 @@ class StocksSearch extends Component {
             <TableCell></TableCell>
             <TableCell></TableCell>
           </TableRow>
-        )
+        );
       }
     }
   }
-
+  componentDidMount() {
+    this.props.firebase.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        authUser
+          ? localStorage.setItem("authUser", JSON.stringify(authUser))
+          : localStorage.removeItem("authUser");
+      }
+    });
+  }
   render() {
     return (
       <FirebaseContext.Consumer>
@@ -158,7 +173,7 @@ class StocksSearch extends Component {
                   </Grid>
                 </Grid>
               </Paper>
-              <Table >
+              <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell>Symbol</TableCell>
@@ -167,9 +182,7 @@ class StocksSearch extends Component {
                   </TableRow>
                 </TableHead>
                 {/* style={{ display: this.state.showMenu ? 'block' : 'none' }} */}
-                <TableBody>
-                  {this.getSearchResults()}
-                </TableBody>
+                <TableBody>{this.getSearchResults()}</TableBody>
               </Table>
             </div>
           </div>

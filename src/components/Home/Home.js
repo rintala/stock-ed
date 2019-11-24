@@ -86,18 +86,19 @@ class Home extends Component {
   componentDidMount = () => {
     console.log("home mounted", this.props);
 
-    this.props.firebase.auth.onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged");
-        console.log("User", user);
+    this.props.firebase.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        authUser
+          ? localStorage.setItem("authUser", JSON.stringify(authUser))
+          : localStorage.removeItem("authUser");
 
-        this.props.firebase.getUserData(user).then(userData => {
+        this.props.firebase.getUserData(authUser).then(userData => {
           console.log("userdata,", userData);
           this.setState(
             {
               user: {
                 ...userData,
-                email: user.email
+                email: authUser.email
               }
             },
             () => this.state.user.portfolio && this.generatePieChartData()
