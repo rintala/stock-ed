@@ -1,6 +1,7 @@
 # stock-ed
 
 ## Deployed app is live on
+
 <a href="https://stock-ed.netlify.com/">https://stock-ed.netlify.com/</a>
 
 Use the login username and password provided in the submission comment in Canvas or ask for them by sending a mail to jrintala@kth.se.
@@ -11,22 +12,25 @@ Use the login username and password provided in the submission comment in Canvas
 
 Set the following environment variables on your system, in order to succesfully connect to the Firebase backend. The config variables can be found in your Firebase dashboard under 'Project settings':
 
-
-* REACT_APP_AUTH_DOMAIN  
-* REACT_APP_DATABASE_URL
-* REACT_APP_PROJECT_ID
-* REACT_APP_STORAGE_BUCKET
-* REACT_APP_MEASUREMENT_ID
-* REACT_APP_APP_ID
-* REACT_APP_MESSAGING_SENDER_ID
-* REACT_APP_API_KEY
-* ALPHA_VANTAGE_API_KEY
+- REACT_APP_AUTH_DOMAIN
+- REACT_APP_DATABASE_URL
+- REACT_APP_PROJECT_ID
+- REACT_APP_STORAGE_BUCKET
+- REACT_APP_MEASUREMENT_ID
+- REACT_APP_APP_ID
+- REACT_APP_MESSAGING_SENDER_ID
+- REACT_APP_API_KEY
+- REACT_APP_SECRET_API_KEY
 
 The name have to match exactly the above <br>
-For the Alpha Vantage Api Key, you'll have to contact us. 
-- - - -
+For the Alpha Vantage Api Key, you'll have to contact us.
+
+---
+
 In the project directory, you can run:
+
 ### `npm install`
+
 This will install all the dependencies
 
 ### `npm start`
@@ -81,11 +85,10 @@ Our app will get all the data from the API connected to the individual portfolio
 
 ![profile](doc/profile.png)
 
-
 ## Progress
 
-All of the different pages are created and most of them have the most basic functionality they're intended to have. The log in page and sign up page work almost correctly, there are some minor bugs such as it redirects when typing wrong password. The search page do fetch data from from Alpha Vantage API, but only get the name, more detailed information is not available yet. All of the pages need more styling, and some pages need to have more API calls to get more detailed data. 
+All of the different pages are created and most of them have the most basic functionality they're intended to have. The log in page and sign up page work almost correctly, there are some minor bugs such as it redirects when typing wrong password. The search page do fetch data from from Alpha Vantage API, but only get the name, more detailed information is not available yet. All of the pages need more styling, and some pages need to have more API calls to get more detailed data.
 
-The logic for stock purchases/selling and general portfolio handeling is not done yet. This have to be implemented! 
+The logic for stock purchases/selling and general portfolio handeling is not done yet. This have to be implemented!
 
-The file structure is based on the purpose of the file. For example the components and api calls are two different thing, hence exists in two different folders. The components are class based. 
+The file structure is based on the purpose of the file. For example the components and api calls are two different thing, hence exists in two different folders. The components are class based.
