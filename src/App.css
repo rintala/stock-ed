@@ -20,6 +20,7 @@ a {
   background-color: var(--on-hover);
   transition: all 0.3s ease-in-out;
   padding-left: 14px !important;
+  cursor:pointer;
 }
 
 .App {
