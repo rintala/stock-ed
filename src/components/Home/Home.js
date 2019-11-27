@@ -42,6 +42,7 @@ const GraphAndText = styled.div`
   font-weight: 700;
   color: #2dffc6;
 `;
+
 const GraphAndTextTitle = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
@@ -173,8 +174,15 @@ class Home extends Component {
     Object.keys(this.state.user.portfolio).map(stockKey => {
       console.log("stock pie", this.state.user.portfolio[stockKey]);
       // todo: calc actual angle by summing up portfolio value and dividing on number stocks
+      console.log(
+        "totamount*totnumberobugh",
+        parseInt(this.state.user.portfolio[stockKey].totAmountInvested) *
+          parseInt(this.state.user.portfolio[stockKey].totNumberBought)
+      );
       pieChartData.push({
-        angle: 3,
+        angle:
+          parseInt(this.state.user.portfolio[stockKey].totAmountInvested) *
+          parseInt(this.state.user.portfolio[stockKey].totNumberBought),
         label: this.state.user.portfolio[stockKey].stockId
       });
     });

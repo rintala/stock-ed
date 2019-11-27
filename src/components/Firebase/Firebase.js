@@ -51,10 +51,13 @@ class Firebase {
       .signInWithEmailAndPassword(email, password)
       .then(function(firebaseUser) {
         // Success
+        window.location.href = "/home";
         this.auth.updateCurrentUser(firebaseUser);
       })
-      .catch(function(error) {
+      .catch(error => {
         // Error Handling
+        console.log("error ocurred", error);
+        /* this.props.history.push("/signin"); */
       });
   };
 
@@ -71,50 +74,72 @@ class Firebase {
   };
 
   writeNewStock = (userId, user, newStock) => {
-    console.log("writingnewstock", user, newStock);
-    let thisPostRef = this.database()
-      .ref()
-      .child(userId)
-      .child("portfolio");
-
-    thisPostRef.once("value", snapshot => {
-      let currentStocks = {};
-      let hasMatch = false;
-      snapshot.val() &&
-        Object.keys(snapshot.val()).forEach(key => {
-          currentStocks[key] = snapshot.val()[key];
-          if (currentStocks[key].stockId === newStock.stockId) {
-            hasMatch = true;
-            snapshot.ref.child(key).update({
-              totNumberBought:
-                parseInt(currentStocks[key].totNumberBought) +
-                parseInt(newStock.totNumberBought),
-              totAmountInvested:
-                parseInt(currentStocks[key].totAmountInvested) +
-                parseInt(newStock.totAmountInvested)
-            });
-          }
-        });
-
-      let oldFundsAvailable = this.database()
+    if (newStock.totAmountInvested > 0 && newStock.totNumberBought > 0) {
+      console.log("writingnewstock", user, newStock);
+      let thisPostRef = this.database()
         .ref()
-        .child(userId);
+        .child(userId)
+        .child("portfolio");
 
-      oldFundsAvailable.once("value", snapshot => {
-        console.log("snapshot", snapshot);
-        console.log("snapshot ref", snapshot.ref);
-        console.log("snapshot", snapshot.val());
-        snapshot.ref.update({
-          fundsAvailable:
-            parseInt(snapshot.child("fundsAvailable").val()) -
-            parseInt(newStock.totAmountInvested)
-        });
+      thisPostRef.once("value", snapshot => {
+        let oldFundsAvailable = this.database()
+          .ref()
+          .child(userId);
+        let totFunds = -1;
+        oldFundsAvailable
+          .once("value", snapshot => {
+            console.log("snapshot", snapshot);
+            console.log("snapshot ref", snapshot.ref);
+            console.log("snapshot", snapshot.val());
+
+            let prevFunds = parseInt(snapshot.child("fundsAvailable").val());
+            let leftFunds = prevFunds - parseInt(newStock.totAmountInvested);
+            totFunds = leftFunds;
+            console.log("Snapshot", snapshot);
+            if (leftFunds > 0) {
+              snapshot.ref.update({
+                fundsAvailable:
+                  parseInt(snapshot.child("fundsAvailable").val()) -
+                  parseInt(newStock.totAmountInvested)
+              });
+            }
+          })
+          .then(data => {
+            let hasMatch = false;
+            console.log("tot funds", totFunds);
+            if (totFunds >= 0) {
+              let currentStocks = {};
+              snapshot.val() &&
+                Object.keys(snapshot.val()).forEach(key => {
+                  currentStocks[key] = snapshot.val()[key];
+                  console.log("key", key);
+                  console.log(
+                    "currentStocks[key].stockId",
+                    currentStocks[key].stockId
+                  );
+                  console.log("newStock.stockId", newStock.stockId);
+                  if (currentStocks[key].stockId === newStock.stockId) {
+                    if (parseInt(newStock.totAmountInvested) > 0) {
+                      hasMatch = true;
+                      snapshot.ref.child(key).update({
+                        totNumberBought:
+                          parseInt(currentStocks[key].totNumberBought) +
+                          parseInt(newStock.totNumberBought),
+                        totAmountInvested:
+                          parseInt(currentStocks[key].totAmountInvested) +
+                          parseInt(newStock.totAmountInvested)
+                      });
+                    }
+                  }
+                });
+            }
+
+            if (hasMatch === false) {
+              thisPostRef.push().set(newStock);
+            }
+          });
       });
-
-      if (hasMatch === false) {
-        thisPostRef.push().set(newStock);
-      }
-    });
+    }
   };
 
   sellExistingStock = (userId, stockId, sellNumber, sellPrice) => {
@@ -160,6 +185,7 @@ class Firebase {
           console.log("snapshot", snapshot);
           console.log("snapshot ref", snapshot.ref);
           console.log("snapshot", snapshot.val());
+          console.log("snapshot child", snapshot.child("fundsAvailable").val());
           snapshot.ref.update({
             fundsAvailable:
               parseInt(snapshot.child("fundsAvailable").val()) +

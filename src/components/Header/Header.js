@@ -52,6 +52,17 @@ class Header extends Component {
   render() {
     return (
       <HeaderContainer>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <button
+            style={{ height: "30px" }}
+            onClick={() => {
+              console.log("logging out..");
+              this.props.firebase.doSignOut();
+            }}
+          >
+            Logout
+          </button>
+        </div>
         <HeaderTitle>
           <HeaderTitleLink
             onClick={() => {
