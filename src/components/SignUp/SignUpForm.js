@@ -4,6 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import { TextField, Button, Paper, Icon } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
+import ArrowbackIcon from '@material-ui/icons/ArrowBack';
 
 class SignUpForm extends Component {
   constructor(props) {
@@ -92,9 +93,11 @@ class SignUpForm extends Component {
           <div style={{ padding: "10px" }}>
             <Link to="/signin">
               <Button
+                style={{ color: 'grey' }}
                 id="backButton"
-                variant="outlined"
-              // endIcon={<SendIcon />}
+                size="small"
+                // variant="outlined"
+                startIcon={<ArrowbackIcon />}
               >
                 Back
               </Button>

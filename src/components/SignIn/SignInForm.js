@@ -3,6 +3,11 @@ import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import { TextField, Button, Paper, Icon } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
+import CreateIcon from '@material-ui/icons/Create';
+
+
+
 
 class SignInForm extends Component {
   constructor(props) {
@@ -56,28 +61,8 @@ class SignInForm extends Component {
               type="text"
               label="Username"
             ></TextField>
-            {/* <label htmlFor="username">User: </label>
-          <input
-            id="username"
-            name="username"
-            value={this.state.username}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Email.."
-            style={{ marginLeft: "45px" }}
-          ></input> */}
           </div>
           <div style={{ paddingBottom: "20px" }}>
-            {/* <label htmlFor="pass1">Password: </label>
-          <input
-            id="pass1"
-            name="pass1"
-            value={this.state.pass1}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Password.."
-            style={{ marginLeft: "10px" }}
-          ></input> */}
             <TextField
               id="pass1"
               name="pass1"
@@ -87,12 +72,12 @@ class SignInForm extends Component {
               label="Password"
             ></TextField>
           </div>
-
-          <Button id="loginButton" type="submit">
+          <Button id="loginButton" type="submit" variant="outlined" endIcon={<SendIcon />}
+          >
             Login
-        </Button>
+        </Button >
           <Link to="/signup">
-            <Button id="signupButton">Signup</Button>
+            <Button id="signupButton" endIcon={<CreateIcon />} variant="outlined">Signup</Button>
           </Link>
         </Paper>
       </form>
