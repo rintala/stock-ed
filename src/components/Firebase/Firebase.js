@@ -32,7 +32,18 @@ class Firebase {
 
   // *** Auth API ***
   doCreateUserWithEmailAndPassword = (email, password) => {
-    return this.auth.createUserWithEmailAndPassword(email, password);
+    return this.auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredential =>
+        this.database()
+          .ref(userCredential.user.uid)
+          .set({
+            about: "Avid fan of investing.",
+            firstName: "Will",
+            lastName: "Powell",
+            fundsAvailable: 20000
+          })
+      );
   };
 
   doSignInWithEmailAndPassword = (email, password) => {
@@ -169,6 +180,7 @@ class Firebase {
       userInfoFromDb.once("value", snapshot => {
         let users = {};
         Object.keys(snapshot.val()).forEach(key => {
+          console.log("key", key);
           users[key] = snapshot.val()[key];
         });
         resolve(users);
