@@ -98,7 +98,6 @@ class StocksSearch extends Component {
     }
   }
   getSearchResults() {
-    // console.log('getting search results', this.state.searchDone, this.state.searchQuery.length)
     if (
       this.state.searchResults.length > 0 &&
       this.state.searchQuery.length > 0 &&
