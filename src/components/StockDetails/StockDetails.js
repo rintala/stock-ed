@@ -13,7 +13,9 @@ import {
     Button,
     TextField
 } from "@material-ui/core";
-import { FlexibleXYPlot, LineSeries } from "react-vis";
+import {
+    FlexibleXYPlot, LineSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis
+} from "react-vis";
 import { alphaVantageApiCall } from "../../api/api";
 
 class StockDetails extends Component {
@@ -41,24 +43,19 @@ class StockDetails extends Component {
             currentUserId: null,
             interval: '5',
             outputsize: 'compact',
+            graphPeriod: 'today',
             errorMsg: false
         };
         this.courtage = 0.15 //in percent
     }
 
     componentDidMount() {
-        // console.log("stockDetails mounted:");
         this.updateStockData()
             .then(() => {
-                // console.log("stock data added, fethcing chart data");
                 this.getChartData().then(response => {
-                    // console.log('response chartdata', response.status)
                     response.json().then(data => {
-                        // console.log("chart data fetched");
-                        // console.log(data) //change here
                         if (this.responseChecker(data)) {
                             this.setState({ graphData: this.filterData(data) });
-                            // // console.log("state: ", this.state);
                         } else {
                             this.noValidData()
                         }
@@ -66,7 +63,7 @@ class StockDetails extends Component {
                 });
             })
             .catch((error) => {
-                // console.log(error)
+                console.log(error)
                 this.noValidData()
             });
 
@@ -81,7 +78,7 @@ class StockDetails extends Component {
                     this.setState({ currentUser: userData });
                 });
             } else {
-                // console.log("user not logged in");
+                console.log("user not logged in");
             }
         });
     }
@@ -97,14 +94,23 @@ class StockDetails extends Component {
     }
 
     noValidData() {
-        console.log('%cThere is no valid data', 'color:red, font-size:1rem')
         this.setState({ errorMsg: true })
     }
 
     getChartData() {
+        const dataChart = {
+            today: {
+                type: "stockDetailsToday",
+                interval: 5,
+                symbol: this.state.stockID,
+                outputsize: this.state.outputsize
+            },
+
+        }
+
         return alphaVantageApiCall({
-            type: "stockDetails",
-            interval: this.state.interval,
+            type: "stockDetailsToday",
+            interval: 5,
             symbol: this.state.stockID,
             outputsize: this.state.outputsize
         });
@@ -184,13 +190,28 @@ class StockDetails extends Component {
             }
         );
         return filteredTimeStamps.map(timeStamp => {
+            console.log(timeStamp)
+            const indexEndOfDate = timeStamp.indexOf(" ")
+            const timeStampNoDate = timeStamp.substring(indexEndOfDate, timeStamp.length - 2) //removes the two 0s at the end
+            console.log('Sendning timestamp:', timeStampNoDate.replace(/[: ]+/g, "").trim())
             return {
-                x: timeStamp.replace(/[-:\s ]+/g, "").trim(),
+                x: timeStampNoDate.replace(/[: ]+/g, "").trim(),
                 y: data["Time Series (5min)"][timeStamp]["1. open"]
             };
         });
     }
-
+    labelFormatter(input) {
+        console.log(input)
+        const inputString = input.toString()
+        if (this.state.graphPeriod === "today") {
+            if (inputString.length === 3) {
+                return "0" + inputString.substring(0, 1) + "." + inputString.substring(1, 3)
+            } else {
+                return inputString.substring(0, 2) + "." + inputString.substring(2, 4)
+            }
+        }
+        return input
+    }
     render() {
         return (
             <FirebaseContext.Consumer>
@@ -250,7 +271,7 @@ class StockDetails extends Component {
                                         />
                                         <TextField
                                             label="Price"
-                                            defaultValue={this.state.currentData.open}
+                                            value={this.state.currentData.open}
                                             style={{ width: "45%" }}
                                             disabled={true}
                                         // onChange={e =>
@@ -292,6 +313,10 @@ class StockDetails extends Component {
                                         </p>
                                     </div>
                                     <FlexibleXYPlot style={{ position: "relative" }}>
+                                        <VerticalGridLines />
+                                        <HorizontalGridLines />
+                                        <XAxis tickLabelAngle={-90} tickFormat={v => this.labelFormatter(v)} />
+                                        <YAxis />
                                         <LineSeries data={this.state.graphData} />
                                     </FlexibleXYPlot>
                                     <div
@@ -314,7 +339,8 @@ class StockDetails extends Component {
                             </Grid>
                         </Grid>
                     </div>
-                )}
+                )
+                }
             </FirebaseContext.Consumer>
         );
     }

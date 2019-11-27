@@ -4,7 +4,7 @@ import { envVar } from "./../constants/config";
 function getURL(options) {
     const urls = {
         stockSearch: `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${options.query}&apikey=${envVar.alphaVantageApiKey}`,
-        stockDetails: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&outputsize=${options.outputsize}&interval=${options.interval}min&symbol=${options.symbol}&apikey=${envVar.alphaVantageApiKey}`,
+        stockDetailsToday: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&outputsize=${options.outputsize}&interval=${options.interval}min&symbol=${options.symbol}&apikey=${envVar.alphaVantageApiKey}`,
         stockQuote: `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${options.symbol}&apikey=${envVar.alphaVantageApiKey}`
     }
 

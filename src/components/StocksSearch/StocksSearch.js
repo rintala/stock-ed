@@ -69,12 +69,22 @@ class StocksSearch extends Component {
       }).then(response => {
         response.json().then(data => {
           this.setState({
-            searchResults: data["bestMatches"],
+            searchResults: this.filterSearchResults(data),
             searchDone: true
           });
         });
       });
     }
+  }
+
+  filterSearchResults(data) {
+    return data["bestMatches"].filter((stock) => {
+      if (stock["1. symbol"].indexOf(".") > -1) {
+        return null
+      } else {
+        return stock
+      }
+    })
   }
 
   tableOnClick(event, name, symbol) {
