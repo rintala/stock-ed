@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
+import { TextField, Button, Paper, Icon } from '@material-ui/core';
 
 class SignInForm extends Component {
   constructor(props) {
@@ -45,8 +46,17 @@ class SignInForm extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit} style={{ textAlign: "center" }}>
-        <div style={{ padding: "10px" }}>
-          <label htmlFor="username">User: </label>
+        <Paper>
+          <div style={{ padding: "10px" }}>
+            <TextField
+              id="username"
+              name="username"
+              value={this.state.username}
+              onChange={this.onChange}
+              type="text"
+              label="Username"
+            ></TextField>
+            {/* <label htmlFor="username">User: </label>
           <input
             id="username"
             name="username"
@@ -55,10 +65,10 @@ class SignInForm extends Component {
             type="text"
             placeholder="Email.."
             style={{ marginLeft: "45px" }}
-          ></input>
-        </div>
-        <div style={{ paddingBottom: "20px" }}>
-          <label htmlFor="pass1">Password: </label>
+          ></input> */}
+          </div>
+          <div style={{ paddingBottom: "20px" }}>
+            {/* <label htmlFor="pass1">Password: </label>
           <input
             id="pass1"
             name="pass1"
@@ -67,15 +77,24 @@ class SignInForm extends Component {
             type="password"
             placeholder="Password.."
             style={{ marginLeft: "10px" }}
-          ></input>
-        </div>
+          ></input> */}
+            <TextField
+              id="pass1"
+              name="pass1"
+              value={this.state.pass1}
+              onChange={this.onChange}
+              type="password"
+              label="Password"
+            ></TextField>
+          </div>
 
-        <button id="loginButton" type="submit">
-          Login
-        </button>
-        <Link to="/signup">
-          <button id="signupButton">Signup</button>
-        </Link>
+          <Button id="loginButton" type="submit">
+            Login
+        </Button>
+          <Link to="/signup">
+            <Button id="signupButton">Signup</Button>
+          </Link>
+        </Paper>
       </form>
     );
   }

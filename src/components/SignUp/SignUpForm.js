@@ -49,48 +49,66 @@ class SignUpForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit} style={{ textAlign: "center" }}>
         {/* <label htmlFor="username">User: </label> */}
-        <Paper style={{ padding: '1rem', width: '10rem' }}>
+        <Paper style={{ padding: '1rem' }}>
           <h2>Sign Up</h2>
-          <TextField
-            id="username"
-            name="username"
-            value={this.state.username}
-            onChange={this.onChange}
-            type="text"
-            label="Email"
-            style={{ display: 'block' }}
-          ></TextField>
+          <div style={{ padding: "10px" }}>
 
-          {/* <label htmlFor="pass1">Password: </label> */}
-          <TextField
-            id="pass1"
-            name="pass1"
-            value={this.state.pass1}
-            onChange={this.onChange}
-            type="password"
-            label="Password"
-            style={{ display: 'block' }}
-          ></TextField>
-          {/* <label htmlFor="pass2">Confirm password: </label> */}
-          <TextField
-            id="pass2"
-            name="pass2"
-            value={this.state.pass2}
-            onChange={this.onChange}
-            type="password"
-            label="Confirm password"
-            style={{ display: 'block', paddingBottom: '1rem' }}
-          ></TextField>
-          <Button
-            id="loginButton"
-            type="submit"
-            variant="outlined"
-            endIcon={<SendIcon />}
-          >
-            Signup
+            <TextField
+              id="username"
+              name="username"
+              value={this.state.username}
+              onChange={this.onChange}
+              type="text"
+              label="Email"
+            ></TextField>
+          </div>
+          <div style={{ padding: "10px" }}>
+
+
+            {/* <label htmlFor="pass1">Password: </label> */}
+            <TextField
+              id="pass1"
+              name="pass1"
+              value={this.state.pass1}
+              onChange={this.onChange}
+              type="password"
+              label="Password"
+            ></TextField>
+          </div>
+          <div style={{ padding: "10px" }}>
+
+            {/* <label htmlFor="pass2">Confirm password: </label> */}
+            <TextField
+              id="pass2"
+              name="pass2"
+              value={this.state.pass2}
+              onChange={this.onChange}
+              type="password"
+              label="Confirm password"
+            ></TextField>
+          </div>
+          <div style={{ padding: "10px" }}>
+            <Link to="/signin">
+              <Button
+                id="backButton"
+                variant="outlined"
+              // endIcon={<SendIcon />}
+              >
+                Back
+              </Button>
+            </Link>
+            <Button
+              id="loginButton"
+              type="submit"
+              variant="outlined"
+              endIcon={<SendIcon />}
+            >
+              Signup
         </Button>
+          </div>
+
         </Paper>
       </form >
     );
