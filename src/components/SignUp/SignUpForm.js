@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
-import { TextField, Button, Paper, Icon } from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
-import ArrowbackIcon from '@material-ui/icons/ArrowBack';
+import { TextField, Button, Paper, Icon } from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
+import ArrowbackIcon from "@material-ui/icons/ArrowBack";
 
 class SignUpForm extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class SignUpForm extends Component {
     }); */
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   onSubmit = event => {
     console.log("this props", this.props);
@@ -50,12 +50,28 @@ class SignUpForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit} style={{ textAlign: "center" }}>
+      <form
+        onSubmit={this.onSubmit}
+        style={{
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "center"
+        }}
+      >
         {/* <label htmlFor="username">User: </label> */}
-        <Paper style={{ padding: '1rem' }}>
+        <div
+          style={{
+            backgroundColor: "white",
+            borderColor: "var(--global-link-color)",
+            borderStyle: "solid",
+            width: "50vw",
+            margin: "30px",
+            paddingTop: "20px",
+            paddingBottom: "40px"
+          }}
+        >
           <h2>Sign Up</h2>
           <div style={{ padding: "10px" }}>
-
             <TextField
               id="username"
               name="username"
@@ -66,8 +82,6 @@ class SignUpForm extends Component {
             ></TextField>
           </div>
           <div style={{ padding: "10px" }}>
-
-
             {/* <label htmlFor="pass1">Password: </label> */}
             <TextField
               id="pass1"
@@ -79,7 +93,6 @@ class SignUpForm extends Component {
             ></TextField>
           </div>
           <div style={{ padding: "10px" }}>
-
             {/* <label htmlFor="pass2">Confirm password: </label> */}
             <TextField
               id="pass2"
@@ -93,7 +106,7 @@ class SignUpForm extends Component {
           <div style={{ padding: "10px" }}>
             <Link to="/signin">
               <Button
-                style={{ color: 'grey' }}
+                style={{ color: "grey" }}
                 id="backButton"
                 size="small"
                 // variant="outlined"
@@ -109,11 +122,10 @@ class SignUpForm extends Component {
               endIcon={<SendIcon />}
             >
               Signup
-        </Button>
+            </Button>
           </div>
-
-        </Paper>
-      </form >
+        </div>
+      </form>
     );
   }
 }

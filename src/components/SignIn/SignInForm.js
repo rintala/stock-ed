@@ -51,8 +51,26 @@ class SignInForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit} style={{ textAlign: "center" }}>
-        <Paper>
+      <form
+        onSubmit={this.onSubmit}
+        style={{
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "center"
+        }}
+      >
+        {/* <Paper style={{ backgroundColor: "none" }}> */}
+        <div
+          style={{
+            backgroundColor: "white",
+            borderColor: "var(--global-link-color)",
+            borderStyle: "solid",
+            width: "50vw",
+            margin: "30px",
+            paddingTop: "40px",
+            paddingBottom: "40px"
+          }}
+        >
           <div style={{ padding: "10px" }}>
             <TextField
               id="username"
@@ -90,7 +108,8 @@ class SignInForm extends Component {
               Signup
             </Button>
           </Link>
-        </Paper>
+        </div>
+        {/*  </Paper> */}
       </form>
     );
   }

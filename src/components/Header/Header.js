@@ -54,7 +54,7 @@ class Header extends Component {
       <HeaderContainer>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <button
-            style={{ height: "30px" }}
+            style={{ height: "30px", cursor: "pointer" }}
             onClick={() => {
               console.log("logging out..");
               this.props.firebase.doSignOut();
