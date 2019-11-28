@@ -37,6 +37,26 @@ const HeaderSubTitle = styled.div`
   justify-content: center;
 `;
 
+const LogoutButton = styled.div`
+  height: 30px;
+  padding-right: 10px;
+  padding-left: 5px;
+  cursor: pointer;
+  background-color: var(--highlight-red);
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  color: var(--global-text-color);
+  &:hover {
+    color: var(--global-text-hover);
+    box-shadow: 0px 1px 1px #888888;
+  }
+
+  transition: all 0.6s ease;
+`;
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -52,6 +72,15 @@ class Header extends Component {
   render() {
     return (
       <HeaderContainer>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <LogoutButton
+            onClick={() => {
+              this.props.firebase.doSignOut();
+            }}
+          >
+            LOGOUT
+          </LogoutButton>
+        </div>
         <HeaderTitle>
           <HeaderTitleLink
             onClick={() => {

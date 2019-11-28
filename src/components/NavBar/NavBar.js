@@ -5,14 +5,16 @@ import styled, { keyframes } from "styled-components";
 
 const Button = styled.div`  
   background-color: ${props =>
-    props.isSelected ? "palevioletred" : "var(--highlight)"};
+    props.isSelected ? "var(--highlight-red)" : "var(--highlight)"};
   text-align: center;
   cursor: pointer;
   margin: 3px;
   padding: 5px
   text-align: center;
   width: 20vw;
-  color: #222;
+  color: var(--global-text-color);
+  font-size:20px;
+  font-weight: 700;
   
   &:hover {
     /* background-color: var(--on-hover); */

@@ -2,13 +2,15 @@
   --global-bg-color: #003b2b;
   --global-font-family: Verdana, sans-serif;
   --global-text-color: #222;
+  --global-text-hover: white;
   --global-link-color: #00ffba;
   --global-link-hover: rgb(103, 217, 255);
   --highlight: #009666;
   --foundation: #768984;
   --on-hover: #bdbdbd;
-  --button: "red";
+  --button: red;
   --dark-bg: #282828;
+  --highlight-red: palevioletred;
 }
 
 a {
@@ -20,11 +22,11 @@ a {
   background-color: var(--on-hover);
   transition: all 0.3s ease-in-out;
   padding-left: 14px !important;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .App {
-  /* background-color: #282c34; */
+  background-color: #282c34;
   align-items: center;
   color: white;
 }
