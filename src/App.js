@@ -100,7 +100,7 @@ export default class App extends React.Component {
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
             <PrivateRoute
               authUser={this.state.authUser}
-              path={[ROUTES.HOME, ROUTES.LANDING]}
+              path={ROUTES.HOME}
               key={this.randomGen()}
               keyProp={this.randomGen()}
               component={props => (

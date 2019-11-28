@@ -60,8 +60,6 @@ class SignUp extends Component {
     }); */
   }
 
-  componentDidMount() {}
-
   onSubmit = event => {
     console.log("this props", this.props);
     const { username, email, passwordOne } = this.state;
