@@ -233,15 +233,23 @@ class StockDetails extends Component {
         {firebase => (
           <div className="contentBody">
             <h2>{this.state.stockName}</h2>
-            <p
-              style={{
-                color: "red",
-                display: this.state.errorMsg ? "block" : "none"
-              }}
-            >
-              Due to limitation in the API we could not fetch the data, please
-              wait a minute and then refresh
-            </p>
+
+            {this.state.errorMsg && (
+              <div
+                style={{
+                  backgroundColor: "var(--highlight-red)",
+                  color: "var(--global-text-color)",
+                  fontSize: "20px",
+                  fontWeight: 400,
+                  padding: "10px",
+                  marginTop: 10,
+                  marginBottom: 10
+                }}
+              >
+                Due to limitation in the API we could not fetch the data, please
+                wait a minute and then refresh.
+              </div>
+            )}
             <Grid container spacing={2}>
               <Grid item xs={5}>
                 <Table>
@@ -346,18 +354,42 @@ class StockDetails extends Component {
                     <LineSeries data={this.state.graphData} />
                   </FlexibleXYPlot>
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginTop: "20px"
+                    }}
                   >
-                    <Button style={{ width: "20%", backgroundColor: "red" }}>
+                    <Button
+                      style={{
+                        width: "20%",
+                        backgroundColor: "var(--highlight-red)"
+                      }}
+                    >
                       Today
                     </Button>
-                    <Button style={{ width: "20%", backgroundColor: "red" }}>
+                    <Button
+                      style={{
+                        width: "20%",
+                        backgroundColor: "var(--highlight-red)"
+                      }}
+                    >
                       Week
                     </Button>
-                    <Button style={{ width: "20%", backgroundColor: "red" }}>
+                    <Button
+                      style={{
+                        width: "20%",
+                        backgroundColor: "var(--highlight-red)"
+                      }}
+                    >
                       Month
                     </Button>
-                    <Button style={{ width: "20%", backgroundColor: "red" }}>
+                    <Button
+                      style={{
+                        width: "20%",
+                        backgroundColor: "var(--highlight-red)"
+                      }}
+                    >
                       Year
                     </Button>
                   </div>

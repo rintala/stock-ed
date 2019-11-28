@@ -11,12 +11,16 @@ const AvatarImage = styled.div`
   background-image: url(${basicAvatar});
   background-size: contain;
   background-repeat: no-repeat;
-  background-position-y: center;
-  width: 100px;
+  background-position: center;
+  width: 100px
+  border-radius: 15px;
+  border-style: solid;
+  border-color: var(--global-link-color);
+
 `;
 
 const UserInfoContainer = styled.div`
-  margin-left: 20px;
+  margin-left: 50px;
 `;
 
 const ProfileWrapper = styled.div`
