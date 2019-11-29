@@ -82,7 +82,7 @@ class StockCard extends Component {
               <Typography variant="h5" component="h2">
                 {this.props.stock.stockId}
               </Typography>
-              <Typography variant="h7" component="h2">
+              <Typography variant="h6" component="h2">
                 {this.props.stock.stockName}
               </Typography>
               <TypographyWrapper style={{ paddingTop: "10px" }}>

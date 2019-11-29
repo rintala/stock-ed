@@ -156,16 +156,13 @@ class Home extends Component {
   } */
 
   onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
-    this.props.firebase
+    const { email, passwordOne } = this.state;
+    let error = this.props.firebase
       .doSignInWithEmailAndPassword(email, passwordOne)
       .then(() => {
-        console.log("successful login");
         this.setState({ username: "", email: "", pass1: "", pass2: "" });
-      })
-      .catch(error => {
-        this.setState({ error });
       });
+
     event.preventDefault();
   };
 

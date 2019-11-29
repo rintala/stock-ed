@@ -78,14 +78,18 @@ export default class App extends React.Component {
       <FirebaseContext.Provider value={this.state.firebase}>
         <BrowserRouter>
           <div className="App">
-            {this.state.authUser && (
-              <Header
-                firebase={this.state.firebase}
-                isCurrentlySelected={"home"}
-              />
-            )}
+            <PrivateRoute
+              authUser={this.state.authUser}
+              path={ROUTES.LANDING}
+              component={props => (
+                <Header
+                  firebase={this.state.firebase}
+                  isCurrentlySelected={"home"}
+                />
+              )}
+            />
             <Route
-              path={ROUTES.SIGN_IN}
+              path={[ROUTES.SIGN_IN]}
               render={props => (
                 <SignIn
                   {...props}

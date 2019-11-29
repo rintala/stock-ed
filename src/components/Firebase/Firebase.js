@@ -16,6 +16,9 @@ class Firebase {
       : firebase.app();
     this.database = firebase.database;
     this.auth = firebase.auth();
+    this.state = {
+      error: null
+    };
   }
 
   componentDidMount() {
@@ -57,6 +60,7 @@ class Firebase {
       .catch(error => {
         // Error Handling
         console.log("error ocurred", error);
+        return error;
         /* this.props.history.push("/signin"); */
       });
   };
