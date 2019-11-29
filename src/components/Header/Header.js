@@ -76,6 +76,7 @@ class Header extends Component {
           <LogoutButton
             onClick={() => {
               this.props.firebase.doSignOut();
+              localStorage.clear();
             }}
           >
             LOGOUT

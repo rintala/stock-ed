@@ -12,21 +12,35 @@ const AvatarImage = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 100px
+  width: 100px;
+  height: 100px;
   border-radius: 15px;
   border-style: solid;
   border-color: var(--global-link-color);
-
 `;
 
 const UserInfoContainer = styled.div`
   margin-left: 50px;
+  @media (max-width: 768px) {
+    margin-left: 0;
+    padding-top: 20px;
+  }
 `;
 
 const ProfileWrapper = styled.div`
+  align-items: center;
   justify-content: center;
   padding: 30px;
   display: flex;
+  width: 100%;
+  justify-content: center;
+  font-size: 24px;
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 0;
+    padding-top: 30px;
+  }
 `;
 
 class MyProfile extends Component {
@@ -70,22 +84,13 @@ class MyProfile extends Component {
         {firebase => (
           <div>
             <ProfileWrapper>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  fontSize: "24px"
-                }}
-              >
-                <AvatarImage />
-                <UserInfoContainer>
-                  <div>First name: {this.state.user.firstName}</div>
-                  <div>Last name: {this.state.user.lastName}</div>
-                  <div>Email: {this.state.user.email}</div>
-                  <div>About: {this.state.user.about}</div>
-                </UserInfoContainer>
-              </div>
+              <AvatarImage />
+              <UserInfoContainer>
+                <div>First name: {this.state.user.firstName}</div>
+                <div>Last name: {this.state.user.lastName}</div>
+                <div>Email: {this.state.user.email}</div>
+                <div>About: {this.state.user.about}</div>
+              </UserInfoContainer>
             </ProfileWrapper>
           </div>
         )}

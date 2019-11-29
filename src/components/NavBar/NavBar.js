@@ -21,6 +21,10 @@ const Button = styled.div`
     color: white;
     box-shadow: 0px 1px 1px #888888;
   }
+
+  @media (max-width: 768px) {
+    width: auto;
+  }
   
   transition: all 0.6s ease;
 `;
@@ -28,6 +32,10 @@ const Button = styled.div`
 const NavBarWrapper = styled.div`
   display: flex;
   justify-content: center;
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
 `;
 
 class NavBar extends Component {
