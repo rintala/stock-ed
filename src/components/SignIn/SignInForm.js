@@ -97,7 +97,7 @@ class SignInForm extends Component {
               ></TextField>
             )}
           </div>
-          <div style={{ paddingBottom: "20px" }}>
+          <div style={{ padding: "10px", paddingBottom: "20px" }}>
             {this.state.error ? (
               <TextField
                 id="pass1"
@@ -125,6 +125,7 @@ class SignInForm extends Component {
             type="submit"
             variant="outlined"
             endIcon={<SendIcon />}
+            style={{ margin: "10px" }}
           >
             Login
           </Button>
@@ -133,6 +134,7 @@ class SignInForm extends Component {
               id="signupButton"
               endIcon={<CreateIcon />}
               variant="outlined"
+              style={{ margin: "10px" }}
             >
               Signup
             </Button>
