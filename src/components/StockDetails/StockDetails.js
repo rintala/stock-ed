@@ -43,6 +43,7 @@ class StockDetails extends Component {
       },
       amountToBuy: null,
       priceToBuyAt: null,
+      totPurchaseAmount: 0,
       currentUser: null,
       currentUserId: null,
       graphPeriod: "last year",
@@ -254,6 +255,9 @@ class StockDetails extends Component {
     this.getChartData();
   }
 
+  computeTotPurchaseAmount = (amountToBuy, priceToBuyAt) => {
+    return amountToBuy * priceToBuyAt;
+  };
   render() {
     return (
       <FirebaseContext.Consumer>
@@ -311,7 +315,23 @@ class StockDetails extends Component {
                     </TableRow>
                   </TableBody>
                 </Table>
+                <div
+                  style={{
+                    padding: "15px",
+                    marginTop: "10px",
+                    fontWeight: "italic"
+                  }}
+                >
+                  Tip: Make sure you have available funds for the purchase to go
+                  through!
+                </div>
                 <Paper style={{ marginTop: "1.2rem" }}>
+                  <TextField
+                    label="Computed total purchase amount"
+                    style={{ width: "100%" }}
+                    value={this.state.totPurchaseAmount}
+                    disabled={true}
+                  />
                   <div
                     style={{
                       display: "flex",
@@ -324,7 +344,13 @@ class StockDetails extends Component {
                       style={{ width: "45%" }}
                       value={this.state.amountToBuy || ""}
                       onChange={e =>
-                        this.setState({ amountToBuy: e.target.value })
+                        this.setState({
+                          amountToBuy: e.target.value,
+                          totPurchaseAmount: this.computeTotPurchaseAmount(
+                            e.target.value,
+                            this.state.currentData.open
+                          )
+                        })
                       }
                     />
                     <TextField
