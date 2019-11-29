@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
-import { FirebaseContext } from "../Firebase";
 import SignInForm from "./SignInForm";
-import Header from "../Header/Header";
 import styled from "styled-components";
-import moneyImg from "./../../img/money.png";
 
 const HeaderContainer = styled.div`
   padding-top: 25px;

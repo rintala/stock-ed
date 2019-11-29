@@ -2,7 +2,6 @@ import app from "firebase/app";
 import "firebase/auth";
 import firebase from "firebase";
 import { envVar } from "../../constants/config";
-import { userInfo } from "os";
 
 const config = Object.keys(envVar).reduce((acc, key) => {
   return Object.assign(acc, { [key]: envVar[key].value });

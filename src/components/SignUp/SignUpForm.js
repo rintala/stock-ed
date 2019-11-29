@@ -13,12 +13,13 @@ class SignUpForm extends Component {
       username: "",
       email: "",
       pass1: "",
-      pass2: ""
+      pass2: "",
+      error: false
     };
   }
 
   onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value, error: false });
   };
 
   componentDidMount() {
@@ -43,7 +44,8 @@ class SignUpForm extends Component {
         this.props.history.push("/home");
       })
       .catch(error => {
-        this.setState({ error });
+        console.log("Error ocurred!");
+        this.setState({ error: true });
       });
     event.preventDefault();
   };
@@ -72,36 +74,75 @@ class SignUpForm extends Component {
         >
           <h2>Sign Up</h2>
           <div style={{ padding: "10px" }}>
-            <TextField
-              id="username"
-              name="username"
-              value={this.state.username}
-              onChange={this.onChange}
-              type="text"
-              label="Email"
-            ></TextField>
+            {this.state.error ? (
+              <TextField
+                id="username"
+                name="username"
+                value={this.state.username}
+                onChange={this.onChange}
+                type="text"
+                label="Email"
+                error
+                helperText="Incorrect email/password"
+              ></TextField>
+            ) : (
+              <TextField
+                id="username"
+                name="username"
+                value={this.state.username}
+                onChange={this.onChange}
+                type="text"
+                label="Email"
+              ></TextField>
+            )}
           </div>
           <div style={{ padding: "10px" }}>
             {/* <label htmlFor="pass1">Password: </label> */}
-            <TextField
-              id="pass1"
-              name="pass1"
-              value={this.state.pass1}
-              onChange={this.onChange}
-              type="password"
-              label="Password"
-            ></TextField>
+            {this.state.error ? (
+              <TextField
+                id="pass1"
+                name="pass1"
+                value={this.state.pass1}
+                onChange={this.onChange}
+                type="password"
+                label="Password"
+                error
+                helperText="Incorrect email/password"
+              ></TextField>
+            ) : (
+              <TextField
+                id="pass1"
+                name="pass1"
+                value={this.state.pass1}
+                onChange={this.onChange}
+                type="password"
+                label="Password"
+              ></TextField>
+            )}
           </div>
           <div style={{ padding: "10px" }}>
             {/* <label htmlFor="pass2">Confirm password: </label> */}
-            <TextField
-              id="pass2"
-              name="pass2"
-              value={this.state.pass2}
-              onChange={this.onChange}
-              type="password"
-              label="Confirm password"
-            ></TextField>
+            {this.state.error ? (
+              <TextField
+                id="pass2"
+                name="pass2"
+                value={this.state.pass2}
+                onChange={this.onChange}
+                type="password"
+                label="Confirm password"
+                error
+                helperText="Incorrect email/password"
+              ></TextField>
+            ) : (
+              <TextField
+                id="pass2"
+                name="pass2"
+                value={this.state.pass2}
+                onChange={this.onChange}
+                type="password"
+                label="Confirm password"
+              ></TextField>
+            )}
           </div>
           <div style={{ padding: "10px" }}>
             <Link to="/signin">
@@ -111,6 +152,7 @@ class SignUpForm extends Component {
                 size="small"
                 // variant="outlined"
                 startIcon={<ArrowbackIcon />}
+                style={{ margin: "10px" }}
               >
                 Back
               </Button>
@@ -120,6 +162,7 @@ class SignUpForm extends Component {
               type="submit"
               variant="outlined"
               endIcon={<SendIcon />}
+              style={{ margin: "10px" }}
             >
               Signup
             </Button>
