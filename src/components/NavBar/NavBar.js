@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+import { sizes } from "./../../constants/sizes";
 
 const Button = styled.div`  
   background-color: ${props =>
@@ -22,7 +23,7 @@ const Button = styled.div`
     box-shadow: 0px 1px 1px #888888;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${sizes.mobileDevice}) {
     width: auto;
   }
   
@@ -32,7 +33,7 @@ const Button = styled.div`
 const NavBarWrapper = styled.div`
   display: flex;
   justify-content: center;
-  @media (max-width: 768px) {
+  @media (max-width: ${sizes.mobileDevice}) {
     flex-wrap: wrap;
     flex-direction: row;
   }

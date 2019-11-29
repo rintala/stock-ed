@@ -5,19 +5,8 @@ import { FirebaseContext } from "../Firebase";
 
 import "../../../node_modules/react-vis/dist/style.css";
 import { XYPlot, LineSeries, RadialChart } from "react-vis";
-
-import CheckIcon from "@material-ui/icons/Check";
-import NavBar from "./../NavBar/NavBar";
 import StockCard from "./../StockCard/StockCard";
 import styled from "styled-components";
-import {
-  Card,
-  Typography,
-  CardContent,
-  Button,
-  CardActions
-} from "@material-ui/core";
-import Header from "../Header/Header";
 
 const StocksWrapper = styled.div`
   display: flex;

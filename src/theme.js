@@ -30,7 +30,7 @@ export const theme = createMuiTheme({
       body: {
         color: grey[200],
 
-        "@media (min-width: 0px)": {
+        "@media (max-width: 768px)": {
           padding: "10px"
         }
       }

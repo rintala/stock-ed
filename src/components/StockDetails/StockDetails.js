@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
-import Header from "../Header/Header";
 import { Paper, Grid } from "@material-ui/core";
 import {
   Table,

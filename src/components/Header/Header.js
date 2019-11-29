@@ -96,7 +96,11 @@ class Header extends Component {
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          <img alt="money-bag" src={moneyImg} style={{ width: "10vw" }} />
+          <img
+            alt="money-bag"
+            src={moneyImg}
+            style={{ width: "10vw", height: "10vw" }}
+          />
         </div>
         <NavBar
           isCurrentlySelected={this.state.isCurrentlySelected}

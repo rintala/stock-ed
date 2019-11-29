@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
-// import NavBar from "./../NavBar/NavBar";
-import Header from "./../Header/Header";
-// import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import { TextField } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
@@ -78,13 +75,13 @@ class StocksSearch extends Component {
   }
 
   filterSearchResults(data) {
-    return data["bestMatches"].filter((stock) => {
+    return data["bestMatches"].filter(stock => {
       if (stock["1. symbol"].indexOf(".") > -1) {
-        return null
+        return null;
       } else {
-        return stock
+        return stock;
       }
-    })
+    });
   }
 
   tableOnClick(event, name, symbol) {

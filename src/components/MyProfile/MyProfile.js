@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
-import NavBar from "./../NavBar/NavBar";
-import Header from "../Header/Header";
 import basicAvatar from "../../img/basic-avatar-color.png";
 import styled from "styled-components";
+import { sizes } from "./../../constants/sizes";
 
 const AvatarImage = styled.div`
   background-image: url(${basicAvatar});
@@ -21,7 +20,7 @@ const AvatarImage = styled.div`
 
 const UserInfoContainer = styled.div`
   margin-left: 50px;
-  @media (max-width: 768px) {
+  @media (max-width: ${sizes.mobileDevice}) {
     margin-left: 0;
     padding-top: 20px;
   }
@@ -35,7 +34,7 @@ const ProfileWrapper = styled.div`
   width: 100%;
   justify-content: center;
   font-size: 24px;
-  @media (max-width: 768px) {
+  @media (max-width: ${sizes.mobileDevice}) {
     flex-wrap: wrap;
     flex-direction: row;
     padding: 0;
