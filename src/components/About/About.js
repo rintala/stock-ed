@@ -81,8 +81,8 @@ class About extends Component {
                 Check out the source code at github.
               </a>
               <ProfileImagesContainer>
-                {profileImages.map(profileImage => (
-                  <div>
+                {profileImages.map((profileImage, idx) => (
+                  <div key={idx}>
                     <ProfileImage imageUrl={profileImage.linkedin} />
                     <a href={"https://github.com/" + profileImage.github}>
                       @{profileImage.github}
