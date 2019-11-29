@@ -386,7 +386,7 @@ class StockDetails extends Component {
                 </Paper>
               </Grid>
               <Grid item>
-                <Paper style={{ height: "20rem", position: "relative" }}>
+                <Paper>
                   {/* Change this so it represents choosen period */}
                   <div style={{ position: "absolute", top: "0" }}>
                     <p style={{ fontSize: "10px", margin: "0px" }}>
@@ -396,7 +396,7 @@ class StockDetails extends Component {
                       {this.state.currentData.lastTraded}
                     </p>
                   </div>
-                  <FlexibleXYPlot style={{ position: "relative" }}>
+                  <FlexibleXYPlot>
                     <VerticalGridLines />
                     <HorizontalGridLines />
                     <XAxis
