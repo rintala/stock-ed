@@ -12,12 +12,13 @@ class SignInForm extends Component {
     this.state = {
       username: "",
       email: "",
-      pass1: ""
+      pass1: "",
+      error: false
     };
   }
 
   onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value, error: false });
   };
 
   componentDidMount() {
@@ -29,21 +30,24 @@ class SignInForm extends Component {
   }
 
   onSubmit = event => {
-    const { username, email, pass1 } = this.state;
+    const { username, pass1 } = this.state;
     this.props.firebase
       .doSignInWithEmailAndPassword(username, pass1)
-      .then(() => {
+      .then(resp => {
         console.log("successful login");
+        if (this.resp.code !== undefined) {
+          this.setState({ error: true });
+        } else {
+          this.setState({ error: false });
+        }
         this.setState({ username: "", email: "", pass1: "" });
-        /* this.props.setIsAuthenticated(true);
-        this.props.history.push("/home"); */
       })
       .then(() => {
         this.props.setIsAuthenticated(true);
       })
       .catch(error => {
         console.log("login error", error);
-        this.setState({ error });
+        this.setState({ error: error });
         this.props.history.push("/signin");
       });
     event.preventDefault();
@@ -59,7 +63,6 @@ class SignInForm extends Component {
           justifyContent: "center"
         }}
       >
-        {/* <Paper style={{ backgroundColor: "none" }}> */}
         <div
           style={{
             backgroundColor: "white",
@@ -72,24 +75,50 @@ class SignInForm extends Component {
           }}
         >
           <div style={{ padding: "10px" }}>
-            <TextField
-              id="username"
-              name="username"
-              value={this.state.username}
-              onChange={this.onChange}
-              type="text"
-              label="Username"
-            ></TextField>
+            {this.state.error ? (
+              <TextField
+                id="username"
+                name="username"
+                value={this.state.username}
+                onChange={this.onChange}
+                type="text"
+                label="Username"
+                error
+                helperText="Incorrect username/password"
+              ></TextField>
+            ) : (
+              <TextField
+                id="username"
+                name="username"
+                value={this.state.username}
+                onChange={this.onChange}
+                type="text"
+                label="Username"
+              ></TextField>
+            )}
           </div>
           <div style={{ paddingBottom: "20px" }}>
-            <TextField
-              id="pass1"
-              name="pass1"
-              value={this.state.pass1}
-              onChange={this.onChange}
-              type="password"
-              label="Password"
-            ></TextField>
+            {this.state.error ? (
+              <TextField
+                id="pass1"
+                name="pass1"
+                value={this.state.pass1}
+                onChange={this.onChange}
+                type="password"
+                label="Password"
+                error
+                helperText="Incorrect username/password"
+              ></TextField>
+            ) : (
+              <TextField
+                id="pass1"
+                name="pass1"
+                value={this.state.pass1}
+                onChange={this.onChange}
+                type="password"
+                label="Password"
+              ></TextField>
+            )}
           </div>
           <Button
             id="loginButton"
