@@ -52,7 +52,7 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) => {
     return this.auth
       .signInWithEmailAndPassword(email, password)
-      .then(function(firebaseUser) {
+      .then(function (firebaseUser) {
         // Success
         window.location.href = "/home";
         this.auth.updateCurrentUser(firebaseUser);
@@ -89,6 +89,7 @@ class Firebase {
         let oldFundsAvailable = this.database()
           .ref()
           .child(userId);
+
         let totFunds = -1;
         oldFundsAvailable
           .once("value", snapshot => {
@@ -183,7 +184,7 @@ class Firebase {
                   .child("totAmountInvested")
                   .set(
                     parseInt(currentStocks[key].totAmountInvested) -
-                      parseInt(sellNumber) * parseInt(sellPrice)
+                    parseInt(sellNumber) * parseInt(sellPrice)
                   );
               }
             }
@@ -232,3 +233,5 @@ class Firebase {
   };
 }
 export default Firebase;
+
+
