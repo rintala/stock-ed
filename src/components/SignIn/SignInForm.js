@@ -34,23 +34,22 @@ class SignInForm extends Component {
     this.props.firebase
       .doSignInWithEmailAndPassword(username, pass1)
       .then(resp => {
-        console.log("successful login");
-        if (this.resp.code !== undefined) {
+        if (resp !== undefined) {
           this.setState({ error: true });
         } else {
           this.setState({ error: false });
         }
         this.setState({ username: "", email: "", pass1: "" });
       })
-      .then(() => {
-        this.props.setIsAuthenticated(true);
-      })
       .catch(error => {
-        console.log("login error", error);
-        this.setState({ error: error });
-        this.props.history.push("/signin");
+        console.log("errror ocurred", error);
+        this.setState({ error: true });
       });
     event.preventDefault();
+
+    /* .then(() => {
+        this.props.setIsAuthenticated(true);
+      }) */
   };
 
   render() {

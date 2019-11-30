@@ -51,16 +51,18 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) => {
     return this.auth
       .signInWithEmailAndPassword(email, password)
-      .then(function (firebaseUser) {
+      .then(function(firebaseUser) {
         window.location.href = "/home";
-        this.auth.updateCurrentUser(firebaseUser);
-      })
-      .catch(error => {
-        // Error Handling
-        console.log("error ocurred", error);
-        return error;
-        /* this.props.history.push("/signin"); */
+
+        /* this.auth.updateCurrentUser(firebaseUser); */
       });
+    /* .catch(error => {
+        // Error Handling
+        /* window.location.href = "/signin";
+        console.log("error ocurred", error); */
+    /*  return error; */
+    /* this.props.history.push("/signin"); */
+    /* });  */
   };
 
   doSignOut = () => this.auth.signOut();
@@ -97,9 +99,11 @@ class Firebase {
               // console.log("snapshot", snapshot.val());
 
               //TODO: Add courtage here
-              const currentFunds = parseInt(snapshot.child("fundsAvailable").val());
+              const currentFunds = parseInt(
+                snapshot.child("fundsAvailable").val()
+              );
               const purchaseCost = parseInt(newStock.totAmountInvested);
-              const courtage = purchaseCost * 0.15 / 100;
+              const courtage = (purchaseCost * 0.15) / 100;
 
               availableFunds = currentFunds - purchaseCost - courtage;
 
@@ -108,12 +112,12 @@ class Firebase {
               }
             })
             .then(data => {
-              console.log(data)
+              console.log(data);
               if (availableFunds < 0) {
-                reject()
+                reject();
                 return;
               }
-              console.log('Has enough funds')
+              console.log("Has enough funds");
               let hasMatch = false;
               // console.log("tot funds", availableFunds);
               // console.log("tot data", data);
@@ -128,11 +132,10 @@ class Firebase {
                   // );
                   // console.log("newStock.stockId", newStock.stockId);
 
-
                   if (currentStocks[key].stockId === newStock.stockId) {
                     if (parseInt(newStock.totAmountInvested) > 0) {
                       hasMatch = true;
-                      console.log('Does this happen?')
+                      console.log("Does this happen?");
 
                       snapshot.ref.child(key).update({
                         totNumberBought:
@@ -146,18 +149,16 @@ class Firebase {
                   }
                 });
 
-
               if (hasMatch === false) {
                 thisPostRef.push().set(newStock);
               }
-              resolve()
-            })
+              resolve();
+            });
         });
-
       } else {
-        reject()
+        reject();
       }
-    })
+    });
   };
 
   sellExistingStock = (userId, stockId, sellNumber, sellPrice) => {
@@ -187,7 +188,7 @@ class Firebase {
 
                 if (numberLeft === 0) {
                   snapshot.ref.remove();
-                  //TODO: What does this remove? 
+                  //TODO: What does this remove?
                 } else {
                   /* console.log("snapshot.ref.child(key)", snapshot.ref.child(key)); */
                   snapshot.ref
@@ -199,11 +200,11 @@ class Firebase {
                     .child("totAmountInvested")
                     .set(
                       parseInt(currentStocks[key].totAmountInvested) -
-                      parseInt(sellNumber) * parseInt(sellPrice)
+                        parseInt(sellNumber) * parseInt(sellPrice)
                     );
                 }
               } else {
-                reject()
+                reject();
               }
             }
           });
@@ -226,11 +227,11 @@ class Firebase {
                   parseInt(sellPrice) * parseInt(sellNumber)
               });
             });
-            resolve()
+            resolve();
           }
         });
       }
-    })
+    });
   };
 
   getUserData = user => {
@@ -252,5 +253,3 @@ class Firebase {
   };
 }
 export default Firebase;
-
-

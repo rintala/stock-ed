@@ -89,16 +89,20 @@ export default class App extends React.Component {
               )}
             />
             <Route
-              path={[ROUTES.SIGN_IN]}
+              path={ROUTES.SIGN_IN}
               render={props => (
-                <SignIn
-                  {...props}
-                  setIsAuthenticated={auth =>
-                    this.setState({ isAuthenticated: auth })
-                  }
-                  firebase={this.state.firebase}
-                  history
-                />
+                <div>
+                  {!this.state.isAuthenticated && (
+                    <SignIn
+                      {...props}
+                      setIsAuthenticated={auth =>
+                        this.setState({ isAuthenticated: auth })
+                      }
+                      firebase={this.state.firebase}
+                      history
+                    />
+                  )}
+                </div>
               )}
             />
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
