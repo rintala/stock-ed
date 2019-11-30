@@ -42,6 +42,7 @@ class SignInForm extends Component {
           console.log("no error");
           this.setState({ error: false });
           this.props.history.push(ROUTES.HOME);
+          this.props.setIsAuthenticated(true);
         }
         this.setState({ username: "", email: "", pass1: "" });
       })
@@ -50,8 +51,6 @@ class SignInForm extends Component {
         this.setState({ error: true });
       });
     event.preventDefault();
-
-    this.props.setIsAuthenticated(true);
   };
 
   render() {
