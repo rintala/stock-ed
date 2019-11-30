@@ -86,6 +86,8 @@ class StockDetails extends Component {
         // The free version of the API allows for 5 request / min or 500 a day
         // The API returns a 200 response even when the API limit has been reached.
         // This is just a validation check if the returned payload containes the data we wanted.
+        console.log("TODO: Loop through the data and see if its undefined")
+        console.log(payload)
         if (payload["Note"]) {
             return false;
         }
@@ -177,12 +179,12 @@ class StockDetails extends Component {
     };
 
     sellExistingStock = () => {
-        console.log("this state", this.state.amountToBuy, this.state.priceToBuyAt);
+        console.log("this state", this.state.amountToBuy, this.state.currentData.open);
         this.props.firebase.sellExistingStock(
             this.state.currentUserId,
             this.state.stockID,
             this.state.amountToBuy,
-            this.state.priceToBuyAt
+            this.state.currentData.open
         ).then(() => {
             console.log('Sell successful')
             this.transferSuccess('sell')
@@ -215,7 +217,6 @@ class StockDetails extends Component {
                                 change: gQ["09. change"],
                                 changePercent: gQ["10. change percent"]
                             },
-                            priceToBuyAt: gQ["05. price"]
                         });
                         resolve();
                     } else {
@@ -407,7 +408,7 @@ class StockDetails extends Component {
 
                                     <Button
                                         onClick={() => {
-                                            this.setState({ amountToBuy: 0, priceToBuyAt: 0 });
+                                            this.setState({ amountToBuy: 0 });
                                             this.buyStock();
                                         }}
                                         style={{ width: "30%" }}
@@ -418,7 +419,7 @@ class StockDetails extends Component {
                                     <Button
                                         onClick={() => {
                                             this.sellExistingStock();
-                                            this.setState({ amountToBuy: 0, priceToBuyAt: 0 });
+                                            this.setState({ amountToBuy: 0 });
                                         }}
                                         style={{ width: "50%" }}
                                     >
