@@ -48,6 +48,7 @@ class Firebase {
       );
   };
 
+<<<<<<< HEAD
   doSignInWithEmailAndPassword = (email, password) => {
     return this.auth
       .signInWithEmailAndPassword(email, password)
@@ -64,6 +65,10 @@ class Firebase {
     /* this.props.history.push("/signin"); */
     /* });  */
   };
+=======
+  doSignInWithEmailAndPassword = (email, password) =>
+    this.auth.signInWithEmailAndPassword(email, password);
+>>>>>>> f94f47b8b283a7cdf437b0c5cdb69ba44bd8e4d0
 
   doSignOut = () => this.auth.signOut();
 
