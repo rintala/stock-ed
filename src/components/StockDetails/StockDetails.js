@@ -49,7 +49,8 @@ class StockDetails extends Component {
             graphPeriod: "last year",
             errorMsg: false,
             errorPurchacheMsg: false,
-            purchacheSuccess: false
+            purchacheSuccess: false,
+            transferMessage: ''
         };
         this.courtage = 0.15; //in percent
     }
@@ -91,14 +92,24 @@ class StockDetails extends Component {
         return true;
     }
 
-    purchacheSuccess() {
+    transferSuccess(type) {
+        if (type === 'buy') {
+            this.setState({ transferMessage: "Purchase Sucessful" })
+        } else if (type === 'sell') {
+            this.setState({ transferMessage: "Sold stocks" })
+        }
         this.setState({ purchacheSuccess: true })
         setTimeout(() => {
             this.setState({ purchacheSuccess: false })
         }, 2000)
     }
 
-    purchacheFail() {
+    transferFail(type) {
+        if (type === 'buy') {
+            this.setState({ transferMessage: "Purchase Failed, make sure you have enough funds for the purchase" })
+        } else if (type === 'sell') {
+            this.setState({ transferMessage: "Selling Failer, make sure you have the amount of stocks you are trying to sell" })
+        }
         this.setState({ errorPurchacheMsg: true })
         setTimeout(() => {
             this.setState({ errorPurchacheMsg: false })
@@ -157,9 +168,9 @@ class StockDetails extends Component {
                     parseInt(this.state.currentData.open)
             }
         ).then(() => {
-            this.purchacheSuccess()
+            this.transferSuccess('buy')
         }).catch(() => {
-            this.purchacheFail()
+            this.transferFail('buy')
         });
 
 
@@ -172,7 +183,13 @@ class StockDetails extends Component {
             this.state.stockID,
             this.state.amountToBuy,
             this.state.priceToBuyAt
-        );
+        ).then(() => {
+            console.log('Sell successful')
+            this.transferSuccess('sell')
+        }).catch(() => {
+            console.log('Sell failed')
+            this.transferFail('sell')
+        });
     };
 
     updateStockData() {
@@ -348,8 +365,8 @@ class StockDetails extends Component {
                                     through!
                 </div>
                                 <Paper style={{ marginTop: "1.2rem" }}>
-                                    <p style={{ color: 'red', display: this.state.errorPurchacheMsg ? 'block' : 'none' }}>Not enought funds for the purchase</p>
-                                    <p style={{ color: 'green', display: this.state.purchacheSuccess ? 'block' : 'none' }}>purchase successful</p>
+                                    <p style={{ color: 'red', display: this.state.errorPurchacheMsg ? 'block' : 'none' }}>{this.state.transferMessage}</p>
+                                    <p style={{ color: 'green', display: this.state.purchacheSuccess ? 'block' : 'none' }}>{this.state.transferMessage}</p>
                                     <TextField
                                         label="Computed total purchase amount, with courtage"
                                         style={{ width: "100%" }}

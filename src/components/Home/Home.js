@@ -163,7 +163,7 @@ class Home extends Component {
       console.log(
         "totamount*totnumberobugh",
         parseInt(this.state.user.portfolio[stockKey].totAmountInvested) *
-          parseInt(this.state.user.portfolio[stockKey].totNumberBought)
+        parseInt(this.state.user.portfolio[stockKey].totNumberBought)
       );
       pieChartData.push({
         angle:
@@ -176,20 +176,7 @@ class Home extends Component {
   };
 
   render() {
-    const data = [
-      { x: 0, y: 8 },
-      { x: 1, y: 5 },
-      { x: 2, y: 4 },
-      { x: 3, y: 9 },
-      { x: 4, y: 1 },
-      { x: 5, y: 7 },
-      { x: 6, y: 6 },
-      { x: 7, y: 3 },
-      { x: 8, y: 2 },
-      { x: 9, y: 0 }
-    ];
-
-    console.log("this.state.user.portfolio", this.state.user.portfolio);
+    // console.log("this.state.user.portfolio", this.state.user.portfolio);
     return (
       <div>
         {console.log("firebase,", this.props.firebase)}
@@ -210,9 +197,9 @@ class Home extends Component {
                         onCardClick={() =>
                           this.props.history.push(
                             "/stockDetails/" +
-                              this.state.user.portfolio[stockKey].stockName +
-                              "/" +
-                              this.state.user.portfolio[stockKey].stockId
+                            this.state.user.portfolio[stockKey].stockName +
+                            "/" +
+                            this.state.user.portfolio[stockKey].stockId
                           )
                         }
                       />
