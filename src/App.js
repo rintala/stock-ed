@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
+
 import "./App.css";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import * as ROUTES from "./constants/routes";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
@@ -16,9 +16,6 @@ import Firebase, { FirebaseContext } from "./components/Firebase";
 import About from "./components/About/About";
 import Header from "./components/Header/Header";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import NavBar from "./components/NavBar/NavBar";
-
-import { withAuthProtection } from "./components/Authentication/withAuthProtection";
 
 function isAllEnvVarSet() {
   const envVars = setEnvVars();
@@ -57,6 +54,7 @@ export default class App extends React.Component {
             authUser
               ? this.setState({ authUser })
               : this.setState({ authUser: null });
+            console.log("authUser:", authUser);
           })
       );
     }
@@ -90,20 +88,20 @@ export default class App extends React.Component {
             />
             <Route
               path={ROUTES.SIGN_IN}
-              render={props => (
-                <div>
-                  {!this.state.isAuthenticated && (
-                    <SignIn
-                      {...props}
-                      setIsAuthenticated={auth =>
-                        this.setState({ isAuthenticated: auth })
-                      }
-                      firebase={this.state.firebase}
-                      history
-                    />
-                  )}
-                </div>
-              )}
+              render={props =>
+                this.state.isAuthenticated ? (
+                  <div></div>
+                ) : (
+                  <SignIn
+                    {...props}
+                    setIsAuthenticated={auth =>
+                      this.setState({ isAuthenticated: auth })
+                    }
+                    firebase={this.state.firebase}
+                    history
+                  />
+                )
+              }
             />
             <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
             <PrivateRoute

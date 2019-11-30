@@ -48,27 +48,8 @@ class Firebase {
       );
   };
 
-<<<<<<< HEAD
-  doSignInWithEmailAndPassword = (email, password) => {
-    return this.auth
-      .signInWithEmailAndPassword(email, password)
-      .then(function (firebaseUser) {
-        window.location.href = "/home";
-
-        /* this.auth.updateCurrentUser(firebaseUser); */
-      });
-    /* .catch(error => {
-        // Error Handling
-        /* window.location.href = "/signin";
-        console.log("error ocurred", error); */
-    /*  return error; */
-    /* this.props.history.push("/signin"); */
-    /* });  */
-  };
-=======
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
->>>>>>> f94f47b8b283a7cdf437b0c5cdb69ba44bd8e4d0
 
   doSignOut = () => this.auth.signOut();
 

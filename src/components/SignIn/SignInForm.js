@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./../../App.css";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Redirect } from "react-router-dom";
 import { FirebaseContext } from "../Firebase";
 import { TextField, Button, Paper, Icon } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import CreateIcon from "@material-ui/icons/Create";
+import * as ROUTES from "./../../constants/routes";
 
 class SignInForm extends Component {
   constructor(props) {
@@ -34,10 +35,14 @@ class SignInForm extends Component {
     this.props.firebase
       .doSignInWithEmailAndPassword(username, pass1)
       .then(resp => {
-        if (resp !== undefined) {
+        if (resp.code !== undefined) {
+          console.log("error!", resp);
           this.setState({ error: true });
         } else {
+          console.log("no error");
           this.setState({ error: false });
+          this.props.history.push(ROUTES.HOME);
+          this.props.setIsAuthenticated(true);
         }
         this.setState({ username: "", email: "", pass1: "" });
       })
@@ -46,10 +51,6 @@ class SignInForm extends Component {
         this.setState({ error: true });
       });
     event.preventDefault();
-
-    /* .then(() => {
-        this.props.setIsAuthenticated(true);
-      }) */
   };
 
   render() {
