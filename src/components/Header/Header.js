@@ -49,6 +49,24 @@ const LogoutButton = styled.div`
 
   transition: all 0.6s ease;
 `;
+
+const LogoutWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const HeaderImage = styled.img`
+  width: 10vw;
+  height: 10vw;
+`;
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +82,7 @@ class Header extends Component {
   render() {
     return (
       <HeaderContainer>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <LogoutWrapper>
           <LogoutButton
             onClick={() => {
               this.props.firebase.doSignOut();
@@ -73,7 +91,7 @@ class Header extends Component {
           >
             LOGOUT
           </LogoutButton>
-        </div>
+        </LogoutWrapper>
         <HeaderTitle>
           <HeaderTitleLink
             onClick={() => {
@@ -85,15 +103,9 @@ class Header extends Component {
             [stock-ed]
           </HeaderTitleLink>
         </HeaderTitle>
-        <div
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
-        >
-          <img
-            alt="money-bag"
-            src={moneyImg}
-            style={{ width: "10vw", height: "10vw" }}
-          />
-        </div>
+        <ContentWrapper>
+          <HeaderImage alt="money-bag" src={moneyImg} />
+        </ContentWrapper>
         <NavBar
           isCurrentlySelected={this.state.isCurrentlySelected}
           setIsCurrentlySelected={subPage => {

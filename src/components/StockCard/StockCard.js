@@ -55,7 +55,6 @@ class StockCard extends Component {
   }
 
   render() {
-    console.log("stock card", this.props.stock);
     return (
       <CardWrapper onClick={this.props.onCardClick}>
         <Card
@@ -74,9 +73,7 @@ class StockCard extends Component {
                   <Typography color="textSecondary" gutterBottom>
                     Last traded: {this.props.stock.currentData.lastTraded}
                   </Typography>
-                  <Typography color="textSecondary" gutterBottom>
-                    {/* SELL: {this.props.stock.sell} */}
-                  </Typography>
+                  <Typography color="textSecondary" gutterBottom></Typography>
                 </StockHeader>
               </TypographyWrapperTitle>
               <Typography variant="h5" component="h2">
