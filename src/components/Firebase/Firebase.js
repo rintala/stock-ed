@@ -1,7 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import firebase from "firebase";
-import { envVar } from "../../constants/config";
+import { envVar, setEnvVars } from "../../constants/config";
 
 const config = Object.keys(envVar).reduce((acc, key) => {
   return Object.assign(acc, { [key]: envVar[key].value });
@@ -148,29 +148,30 @@ class Firebase {
   };
 
   sellExistingStock = (userId, stockId, sellNumber, sellPrice) => {
-    console.log('Trying to sell stock')
-    console.log('selling amount: ', sellNumber)
-    console.log('selling price: ', sellPrice)
+    console.log("Trying to sell stock");
+    console.log("selling amount: ", sellNumber);
+    console.log("selling price: ", sellPrice);
     const soldAmount = parseInt(sellNumber);
 
     return new Promise((resolve, reject) => {
-      console.log("Inside the promise")
+      console.log("Inside the promise");
       if (sellNumber > 0 && sellPrice > 0) {
-
         let thisPostRef = this.database()
           .ref()
           .child(userId)
           .child("portfolio");
 
-        console.log("Before once")
+        console.log("Before once");
         thisPostRef.once("value", snapshot => {
-          console.log("In once")
+          console.log("In once");
           let currentStocks = {};
-          console.log(snapshot.val())
+          console.log(snapshot.val());
           if (!snapshot.val()) {
-            console.log("trying to sell a stock which isn't in the portfolio, rejecting")
-            reject()
-            return
+            console.log(
+              "trying to sell a stock which isn't in the portfolio, rejecting"
+            );
+            reject();
+            return;
           }
           Object.keys(snapshot.val()).forEach(key => {
             currentStocks[key] = snapshot.val()[key];
@@ -180,37 +181,42 @@ class Firebase {
             if (currentStocks[key].stockId === stockId) {
               // Stock in portfolio
               if (stocksLeftInPortfolio < 0) {
-                console.log("trying to sell more stocks than owned, rejecting")
+                console.log("trying to sell more stocks than owned, rejecting");
                 reject();
                 return;
               }
               if (stocksLeftInPortfolio === 0) {
                 // Removing the stock from the portfolio
-
-                //TODO: Remove stock from portfolio!!
-
-                console.log("All stocks in portfolio sold")
-                console.log(this.database().ref().child(stockId))
-                // this.database().ref().child(stockId).remove()
-                // this.database().ref().set({ [stockId]: null })
-                // snapshot.ref.child(stockId).remove()
-                this.database().ref().child(stockId).removeValue();
-
+                snapshot.ref
+                  .child(key)
+                  .remove()
+                  .then(() => {
+                    console.log("Remove succeeded.");
+                  })
+                  .catch(function(error) {
+                    console.log("Remove failed: " + error.message);
+                  });
               } else {
                 // Didn't sell all the stocks
-                console.log("part of the stocks in portfolio sold")
-                snapshot.ref.child(key).child("totNumberBought").set(
-                  stocksLeftInPortfolio
-                );
-                snapshot.ref.child(key).child("totAmountInvested").set(
-                  parseInt(currentStocks[key].totAmountInvested) -
-                  soldAmount * parseInt(sellPrice)
-                );
+                console.log("part of the stocks in portfolio sold");
+                snapshot.ref
+                  .child(key)
+                  .child("totNumberBought")
+                  .set(stocksLeftInPortfolio);
+                this.firebase
+                  .reference()
+                  .child(key)
+                  .child("totAmountInvested")
+                  .set(
+                    parseInt(currentStocks[key].totAmountInvested) -
+                      soldAmount * parseInt(sellPrice)
+                  );
               }
 
-
               // Stocks sold, now updating the funds amount
-              const oldFundsAvailable = this.database().ref().child(userId);
+              const oldFundsAvailable = this.database()
+                .ref()
+                .child(userId);
 
               oldFundsAvailable.once("value", snapshot => {
                 snapshot.ref.update({
@@ -219,18 +225,18 @@ class Firebase {
                     parseInt(sellPrice) * soldAmount
                 });
               });
-              console.log("The funds are now updated, resolving")
+              console.log("The funds are now updated, resolving");
               resolve();
-              return
+              return;
             } else {
-              console.log("This isn't the stock we're selling, countinue")
+              console.log("This isn't the stock we're selling, countinue");
             }
           });
         });
       } else {
-        console.log("Sell price or sell number are 0 or below, rejecting")
-        reject("Sell price or sell number are 0 or below")
-        return
+        console.log("Sell price or sell number are 0 or below, rejecting");
+        reject("Sell price or sell number are 0 or below");
+        return;
       }
     });
   };
