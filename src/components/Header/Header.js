@@ -29,14 +29,6 @@ const HeaderTitleLink = styled(Link)`
   transition: all 0.3s ease-in-out;
 `;
 
-const HeaderSubTitle = styled.div`
-  font-size: 20px;
-  padding: 10px;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-`;
-
 const LogoutButton = styled.div`
   height: 30px;
   padding-right: 10px;

@@ -52,22 +52,12 @@ class SignUp extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  componentDidMount() {
-    /* this.props.firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged");
-      }
-    }); */
-  }
-
   onSubmit = event => {
-    console.log("this props", this.props);
     const { username, email, passwordOne } = this.state;
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ username: "", email: "", pass1: "", pass2: "" });
-        console.log("user signed up", authUser);
       })
       .catch(error => {
         this.setState({ error });

@@ -1,4 +1,3 @@
-import app from "firebase/app";
 import "firebase/auth";
 import firebase from "firebase";
 import { envVar, setEnvVars } from "../../constants/config";
@@ -9,7 +8,6 @@ const config = Object.keys(envVar).reduce((acc, key) => {
 
 class Firebase {
   constructor() {
-    console.log("FIREBASE", firebase);
     this.app = !firebase.apps.length
       ? firebase.initializeApp(config)
       : firebase.app();
@@ -18,10 +16,6 @@ class Firebase {
     this.state = {
       error: null
     };
-  }
-
-  componentDidMount() {
-    /* this.getUserData(); */
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -105,23 +99,14 @@ class Firebase {
               }
               console.log("Has enough funds");
               let hasMatch = false;
-              // console.log("tot funds", availableFunds);
-              // console.log("tot data", data);
               let currentStocks = {};
               snapshot.val() &&
                 Object.keys(snapshot.val()).forEach(key => {
                   currentStocks[key] = snapshot.val()[key];
-                  // console.log("key", key);
-                  // console.log(
-                  //   "currentStocks[key].stockId",
-                  //   currentStocks[key].stockId
-                  // );
-                  // console.log("newStock.stockId", newStock.stockId);
 
                   if (currentStocks[key].stockId === newStock.stockId) {
                     if (parseInt(newStock.totAmountInvested) > 0) {
                       hasMatch = true;
-                      console.log("Does this happen?");
 
                       snapshot.ref.child(key).update({
                         totNumberBought:

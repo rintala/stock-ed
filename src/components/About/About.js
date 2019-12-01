@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./../../App.css";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 const PortfolioWrapper = styled.div`
@@ -66,7 +66,6 @@ class About extends Component {
           : localStorage.removeItem("authUser");
       }
     });
-    console.log("mounted about", this.props);
   }
 
   render() {

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import "./../../App.css";
-import { withRouter, Link } from "react-router-dom";
-import { FirebaseContext } from "../Firebase";
+import { withRouter } from "react-router-dom";
 
 import "../../../node_modules/react-vis/dist/style.css";
-import { XYPlot, LineSeries, RadialChart } from "react-vis";
+import { RadialChart } from "react-vis";
 import StockCard from "./../StockCard/StockCard";
 import styled from "styled-components";
 
@@ -24,12 +23,6 @@ const PortfolioWrapper = styled.div`
 
 const GraphAndTextWrapper = styled.div`
   padding: 30px;
-`;
-
-const GraphAndText = styled.div`
-  font-size: 30px;
-  font-weight: 700;
-  color: #2dffc6;
 `;
 
 const GraphAndTextTitle = styled.div`
@@ -75,8 +68,6 @@ class Home extends Component {
   };
 
   componentDidMount = () => {
-    console.log("home mounted", this.props);
-
     this.props.firebase.auth.onAuthStateChanged(authUser => {
       if (authUser) {
         authUser
@@ -84,7 +75,6 @@ class Home extends Component {
           : localStorage.removeItem("authUser");
 
         this.props.firebase.getUserData(authUser).then(userData => {
-          console.log("userdata,", userData);
           this.setState(
             {
               user: {
@@ -98,51 +88,10 @@ class Home extends Component {
       }
     });
 
-    console.log("firebase", this.props.firebase);
-    /* const user = this.props.firebase.getUserData(); */
-
-    console.log("htis, auth curr user", this.props.firebase.auth.currentUser);
     if (this.props.firebase.auth.currentUser) {
       this.props.firebase.getUserData(this.props.firebase.auth.currentUser);
     }
   };
-
-  /* componentDidUpdate(prevProps, prevState) {
-    let user = this.props.firebase.auth.currentUser;
-    console.log("User comp did update", user);
-    let newUser = {
-      user: {
-        ...user,
-        email: user.email
-      }
-    };
-    console.log(
-      "newUserr",
-      this.props.location.state,
-      prevProps.location.state
-    );
-
-    if (this.props.location.state !== prevProps.location.state) {
-      this.setState({ locationState: this.props.location.state });
-    }
-    if (prevState.locationState !== this.state.locationState) {
-      console.log("user logged");
-      console.log("User", user);
-
-      this.props.firebase.getUserData(user).then(userData => {
-        console.log("userdata,", userData);
-        this.setState(
-          {
-            user: {
-              ...userData,
-              email: user.email
-            }
-          },
-          () => this.generatePieChartData()
-        );
-      });
-    }
-  } */
 
   onSubmit = event => {
     const { email, passwordOne } = this.state;
@@ -158,13 +107,6 @@ class Home extends Component {
   generatePieChartData = () => {
     let pieChartData = [];
     Object.keys(this.state.user.portfolio).map(stockKey => {
-      console.log("stock pie", this.state.user.portfolio[stockKey]);
-      // todo: calc actual angle by summing up portfolio value and dividing on number stocks
-      console.log(
-        "totamount*totnumberobugh",
-        parseInt(this.state.user.portfolio[stockKey].totAmountInvested) *
-        parseInt(this.state.user.portfolio[stockKey].totNumberBought)
-      );
       pieChartData.push({
         angle:
           parseInt(this.state.user.portfolio[stockKey].totAmountInvested) *
@@ -176,7 +118,6 @@ class Home extends Component {
   };
 
   render() {
-    // console.log("this.state.user.portfolio", this.state.user.portfolio);
     return (
       <div>
         {console.log("firebase,", this.props.firebase)}
@@ -197,9 +138,9 @@ class Home extends Component {
                         onCardClick={() =>
                           this.props.history.push(
                             "/stockDetails/" +
-                            this.state.user.portfolio[stockKey].stockName +
-                            "/" +
-                            this.state.user.portfolio[stockKey].stockId
+                              this.state.user.portfolio[stockKey].stockName +
+                              "/" +
+                              this.state.user.portfolio[stockKey].stockId
                           )
                         }
                       />
@@ -228,21 +169,6 @@ class Home extends Component {
                 </div>
               </GraphAndTextWrapper>
             )}
-            {/* <GraphAndTextWrapper>
-              <GraphAndTextTitle>GRAPH 2</GraphAndTextTitle>
-              <div>
-                Ut aliqua officia duis voluptate adipisicing cillum ut minim
-                minim tempor velit sunt esse.
-              </div>
-            </GraphAndTextWrapper> */}
-            {/*  <GraphAndTextWrapper>
-              <GraphAndTextTitle>Portfolio Performance</GraphAndTextTitle>
-              <div>
-                <XYPlot height={300} width={300}>
-                  <LineSeries data={data} />
-                </XYPlot>
-              </div>
-            </GraphAndTextWrapper> */}
           </PortfolioWrapper>
         </div>
       </div>

@@ -15,8 +15,8 @@
 
 a {
   color: var(--global-link-color);
+  text-decoration: none;
 }
-/*https://www.colorhexa.com/00ffba*/
 
 .tableRow:hover {
   background-color: var(--on-hover);
@@ -37,10 +37,6 @@ a {
 
 .App-link {
   color: #09d3ac;
-}
-
-a {
-  text-decoration: none;
 }
 
 .contentBody {

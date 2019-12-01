@@ -22,24 +22,14 @@ class SignInForm extends Component {
     this.setState({ [event.target.name]: event.target.value, error: false });
   };
 
-  componentDidMount() {
-    /* this.props.firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged");
-      }
-    }); */
-  }
-
   onSubmit = event => {
     const { username, pass1 } = this.state;
     this.props.firebase
       .doSignInWithEmailAndPassword(username, pass1)
       .then(resp => {
         if (resp.code !== undefined) {
-          console.log("error!", resp);
           this.setState({ error: true });
         } else {
-          console.log("no error");
           this.setState({ error: false });
           this.props.history.push(ROUTES.HOME);
           this.props.setIsAuthenticated(true);
@@ -47,7 +37,6 @@ class SignInForm extends Component {
         this.setState({ username: "", email: "", pass1: "" });
       })
       .catch(error => {
-        console.log("errror ocurred", error);
         this.setState({ error: true });
       });
     event.preventDefault();
@@ -140,7 +129,6 @@ class SignInForm extends Component {
             </Button>
           </Link>
         </div>
-        {/*  </Paper> */}
       </form>
     );
   }

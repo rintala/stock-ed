@@ -47,12 +47,9 @@ class StocksSearch extends Component {
 
   debounce(event, wait) {
     this.debounceCounter++;
-    console.log("Waiting: ", this.debounceCounter);
     setTimeout(() => {
       this.debounceCounter--;
-      console.log("Checking: ", this.debounceCounter);
       if (this.debounceCounter <= 0) {
-        console.log("fireing request");
         event();
       }
     }, wait);
@@ -86,7 +83,6 @@ class StocksSearch extends Component {
 
   tableOnClick(event, name, symbol) {
     event.stopPropagation();
-    // console.log(event)
     if (event.ctrlKey || event.metaKey) {
       console.log("cmd click, opening in tab");
       window.open("/stockDetails/" + symbol);
@@ -130,7 +126,6 @@ class StocksSearch extends Component {
           </TableRow>
         );
       } else if (this.state.searchDone && this.state.searchQuery.length > 0) {
-        // console.log('no mathce')
         return (
           <TableRow>
             <TableCell>No matches</TableCell>
@@ -187,7 +182,6 @@ class StocksSearch extends Component {
                     <TableCell align="left">Region</TableCell>
                   </TableRow>
                 </TableHead>
-                {/* style={{ display: this.state.showMenu ? 'block' : 'none' }} */}
                 <TableBody>{this.getSearchResults()}</TableBody>
               </Table>
             </div>

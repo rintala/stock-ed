@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "./App.css";
 import { Route } from "react-router-dom";
@@ -42,8 +42,6 @@ export default class App extends React.Component {
         prevState => {
           const firebase =
             prevState.firebase != null ? prevState.firebase : new Firebase();
-          console.log("FIREBASE!!", firebase);
-          console.log("FIREBASE!!", firebase.auth.currentUser);
           return {
             firebase: firebase,
             isAllEnvVarSet: true
@@ -62,12 +60,9 @@ export default class App extends React.Component {
 
   randomGen() {
     const randInt = Math.random();
-    console.log("xxx", randInt);
     return randInt;
   }
   render() {
-    console.log("App loaded");
-
     return !this.state.isAllEnvVarSet ? (
       <div className="App">
         <Error errors={setEnvVars()} />

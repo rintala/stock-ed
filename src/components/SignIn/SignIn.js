@@ -28,14 +28,6 @@ const HeaderTitleLink = styled(Link)`
   transition: all 0.3s ease-in-out;
 `;
 
-const HeaderSubTitle = styled.div`
-  font-size: 20px;
-  padding: 10px;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-`;
-
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -51,14 +43,8 @@ class SignIn extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  componentDidMount() {
-    console.log("THISPROPS", this.props);
-    console.log("firebasee", this.props.firebase);
-  }
   render() {
     return (
-      /*  <FirebaseContext.Consumer>
-        {firebase => ( */
       <div className="App" style={{ alignItems: "center" }}>
         <HeaderContainer>
           <HeaderTitle>
@@ -75,8 +61,6 @@ class SignIn extends Component {
           firebase={this.props.firebase}
         />
       </div>
-      /*   )}
-      </FirebaseContext.Consumer> */
     );
   }
 }

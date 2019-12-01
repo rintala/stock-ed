@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./../../App.css";
-import { withRouter, Link } from "react-router-dom";
-import { FirebaseContext } from "../Firebase";
+import { withRouter } from "react-router-dom";
+
 import basicAvatar from "../../img/basic-avatar-color.png";
 import styled from "styled-components";
 import { sizes } from "./../../constants/sizes";
@@ -62,16 +62,12 @@ class MyProfile extends Component {
           : localStorage.removeItem("authUser");
 
         this.props.firebase.getUserData(authUser).then(userData => {
-          console.log("userdata,", userData);
-          this.setState(
-            {
-              user: {
-                ...userData,
-                email: authUser.email
-              }
-            },
-            console.log("uthisr", this.state)
-          );
+          this.setState({
+            user: {
+              ...userData,
+              email: authUser.email
+            }
+          });
         });
       }
     });
@@ -79,21 +75,15 @@ class MyProfile extends Component {
 
   render() {
     return (
-      <FirebaseContext.Consumer>
-        {firebase => (
-          <div>
-            <ProfileWrapper>
-              <AvatarImage />
-              <UserInfoContainer>
-                <div>First name: {this.state.user.firstName}</div>
-                <div>Last name: {this.state.user.lastName}</div>
-                <div>Email: {this.state.user.email}</div>
-                <div>About: {this.state.user.about}</div>
-              </UserInfoContainer>
-            </ProfileWrapper>
-          </div>
-        )}
-      </FirebaseContext.Consumer>
+      <ProfileWrapper>
+        <AvatarImage />
+        <UserInfoContainer>
+          <div>First name: {this.state.user.firstName}</div>
+          <div>Last name: {this.state.user.lastName}</div>
+          <div>Email: {this.state.user.email}</div>
+          <div>About: {this.state.user.about}</div>
+        </UserInfoContainer>
+      </ProfileWrapper>
     );
   }
 }

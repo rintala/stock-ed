@@ -22,28 +22,15 @@ class SignUpForm extends Component {
     this.setState({ [event.target.name]: event.target.value, error: false });
   };
 
-  componentDidMount() {
-    /* this.props.firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged");
-      }
-    }); */
-  }
-
-  componentDidMount() {}
-
   onSubmit = event => {
-    console.log("this props", this.props);
     const { username, email, pass1 } = this.state;
     this.props.firebase
       .doCreateUserWithEmailAndPassword(username, pass1)
       .then(authUser => {
         this.setState({ username: "", email: "", pass1: "", pass2: "" });
-        console.log("user signed up", authUser);
-        /* return <Redirect to="/home" push />; */
         this.props.history.push("/home");
       })
-      .catch(error => {
+      .catch(() => {
         console.log("Error ocurred!");
         this.setState({ error: true });
       });
@@ -60,7 +47,6 @@ class SignUpForm extends Component {
           justifyContent: "center"
         }}
       >
-        {/* <label htmlFor="username">User: </label> */}
         <div
           style={{
             backgroundColor: "white",
@@ -121,7 +107,6 @@ class SignUpForm extends Component {
             )}
           </div>
           <div style={{ padding: "10px" }}>
-            {/* <label htmlFor="pass2">Confirm password: </label> */}
             {this.state.error ? (
               <TextField
                 id="pass2"
@@ -150,7 +135,6 @@ class SignUpForm extends Component {
                 style={{ color: "grey" }}
                 id="backButton"
                 size="small"
-                // variant="outlined"
                 startIcon={<ArrowbackIcon />}
                 style={{ margin: "10px" }}
               >
