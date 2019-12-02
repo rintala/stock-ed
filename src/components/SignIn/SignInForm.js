@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./../../App.css";
-import { withRouter, Link, Redirect } from "react-router-dom";
-import { FirebaseContext } from "../Firebase";
-import { TextField, Button, Paper, Icon } from "@material-ui/core";
+import { withRouter, Link } from "react-router-dom";
+import { TextField, Button } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import CreateIcon from "@material-ui/icons/Create";
 import * as ROUTES from "./../../constants/routes";
@@ -76,15 +75,15 @@ class SignInForm extends Component {
                 helperText="Incorrect username/password"
               ></TextField>
             ) : (
-              <TextField
-                id="username"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChange}
-                type="text"
-                label="Username"
-              ></TextField>
-            )}
+                <TextField
+                  id="username"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.onChange}
+                  type="text"
+                  label="Username"
+                ></TextField>
+              )}
           </div>
           <div style={{ padding: "10px", paddingBottom: "20px" }}>
             {this.state.error ? (
@@ -99,15 +98,15 @@ class SignInForm extends Component {
                 helperText="Incorrect username/password"
               ></TextField>
             ) : (
-              <TextField
-                id="pass1"
-                name="pass1"
-                value={this.state.pass1}
-                onChange={this.onChange}
-                type="password"
-                label="Password"
-              ></TextField>
-            )}
+                <TextField
+                  id="pass1"
+                  name="pass1"
+                  value={this.state.pass1}
+                  onChange={this.onChange}
+                  type="password"
+                  label="Password"
+                ></TextField>
+              )}
           </div>
           <Button
             id="loginButton"

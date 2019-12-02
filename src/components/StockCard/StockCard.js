@@ -1,10 +1,5 @@
 import React, { Component } from "react";
 import "./../../App.css";
-import { withRouter, Link } from "react-router-dom";
-import { FirebaseContext } from "../Firebase";
-
-import CheckIcon from "@material-ui/icons/Check";
-import NavBar from "./../NavBar/NavBar";
 import styled from "styled-components";
 
 import {

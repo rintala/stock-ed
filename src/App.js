@@ -52,7 +52,7 @@ export default class App extends React.Component {
             authUser
               ? this.setState({ authUser })
               : this.setState({ authUser: null });
-            console.log("authUser:", authUser);
+            // console.log("authUser:", authUser);
           })
       );
     }
@@ -68,91 +68,91 @@ export default class App extends React.Component {
         <Error errors={setEnvVars()} />
       </div>
     ) : (
-      <FirebaseContext.Provider value={this.state.firebase}>
-        <BrowserRouter>
-          <div className="App">
-            <PrivateRoute
-              authUser={this.state.authUser}
-              path={ROUTES.LANDING}
-              component={props => (
-                <Header
-                  firebase={this.state.firebase}
-                  isCurrentlySelected={"home"}
-                />
-              )}
-            />
-            <Route
-              path={ROUTES.SIGN_IN}
-              render={props =>
-                this.state.isAuthenticated ? (
-                  <div></div>
-                ) : (
-                  <SignIn
+        <FirebaseContext.Provider value={this.state.firebase}>
+          <BrowserRouter>
+            <div className="App">
+              <PrivateRoute
+                authUser={this.state.authUser}
+                path={ROUTES.LANDING}
+                component={props => (
+                  <Header
+                    firebase={this.state.firebase}
+                    isCurrentlySelected={"home"}
+                  />
+                )}
+              />
+              <Route
+                path={ROUTES.SIGN_IN}
+                render={props =>
+                  this.state.isAuthenticated ? (
+                    <div></div>
+                  ) : (
+                      <SignIn
+                        {...props}
+                        setIsAuthenticated={auth =>
+                          this.setState({ isAuthenticated: auth })
+                        }
+                        firebase={this.state.firebase}
+                        history
+                      />
+                    )
+                }
+              />
+              <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
+              <PrivateRoute
+                authUser={this.state.authUser}
+                path={ROUTES.HOME}
+                key={this.randomGen()}
+                keyProp={this.randomGen()}
+                component={props => (
+                  <Home
+                    key={this.randomGen()}
+                    history
+                    firebase={this.state.firebase}
                     {...props}
-                    setIsAuthenticated={auth =>
-                      this.setState({ isAuthenticated: auth })
-                    }
+                  />
+                )}
+              />
+              <PrivateRoute
+                authUser={this.state.authUser}
+                path={ROUTES.STOCK_DETAILS + "/:stockName/:stockID"}
+                component={props => (
+                  <StockDetails
+                    history
+                    firebase={this.state.firebase}
+                    {...props}
+                  />
+                )}
+              />
+              <PrivateRoute
+                authUser={this.state.authUser}
+                path={ROUTES.ABOUT}
+                component={props => (
+                  <About history firebase={this.state.firebase} {...props} />
+                )}
+              />
+              <PrivateRoute
+                path={ROUTES.SEARCH}
+                authUser={this.state.authUser}
+                firebase={this.state.firebase}
+                component={props => (
+                  <StocksSearch
                     firebase={this.state.firebase}
                     history
+                    {...props}
                   />
-                )
-              }
-            />
-            <Route path={ROUTES.SIGN_UP} render={() => <SignUp history />} />
-            <PrivateRoute
-              authUser={this.state.authUser}
-              path={ROUTES.HOME}
-              key={this.randomGen()}
-              keyProp={this.randomGen()}
-              component={props => (
-                <Home
-                  key={this.randomGen()}
-                  history
-                  firebase={this.state.firebase}
-                  {...props}
-                />
-              )}
-            />
-            <PrivateRoute
-              authUser={this.state.authUser}
-              path={ROUTES.STOCK_DETAILS + "/:stockName/:stockID"}
-              component={props => (
-                <StockDetails
-                  history
-                  firebase={this.state.firebase}
-                  {...props}
-                />
-              )}
-            />
-            <PrivateRoute
-              authUser={this.state.authUser}
-              path={ROUTES.ABOUT}
-              component={props => (
-                <About history firebase={this.state.firebase} {...props} />
-              )}
-            />
-            <PrivateRoute
-              path={ROUTES.SEARCH}
-              authUser={this.state.authUser}
-              firebase={this.state.firebase}
-              component={props => (
-                <StocksSearch
-                  firebase={this.state.firebase}
-                  history
-                  {...props}
-                />
-              )}
-            />
-            <PrivateRoute
-              path={ROUTES.MY_PROFILE}
-              authUser={this.state.authUser}
-              component={props => (
-                <MyProfile history firebase={this.state.firebase} {...props} />
-              )}
-            />
-          </div>
-        </BrowserRouter>
-      </FirebaseContext.Provider>
-    );
+                )}
+              />
+              <PrivateRoute
+                path={ROUTES.MY_PROFILE}
+                authUser={this.state.authUser}
+                component={props => (
+                  <MyProfile history firebase={this.state.firebase} {...props} />
+                )}
+              />
+            </div>
+          </BrowserRouter>
+        </FirebaseContext.Provider>
+      );
   }
 }

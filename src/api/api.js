@@ -16,7 +16,7 @@ function getURL(options) {
 export function alphaVantageApiCall(options) {
     // Symbol search options = query
     // Detail search options = interval [1, 5, 15, 30, 60](min) and symbol (e.g. GOOL) outputsize = compact / full
-    console.log('this is from the api call', options)
+    // console.log('this is from the api call', options)
     return fetch(getURL(options), {
         method: 'GET'
     })

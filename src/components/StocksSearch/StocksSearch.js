@@ -84,7 +84,7 @@ class StocksSearch extends Component {
   tableOnClick(event, name, symbol) {
     event.stopPropagation();
     if (event.ctrlKey || event.metaKey) {
-      console.log("cmd click, opening in tab");
+      // console.log("cmd click, opening in tab");
       window.open("/stockDetails/" + symbol);
     } else {
       this.props.history.push("/stockDetails/" + name + "/" + symbol);

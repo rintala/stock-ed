@@ -12,8 +12,6 @@ import {
   HorizontalGridLines,
   VerticalBarSeries,
   HorizontalBarSeries,
-  HorizontalBarSeriesCanvas,
-  BarSeries,
   DiscreteColorLegend
 } from "react-vis";
 import StockCard from "./../StockCard/StockCard";
@@ -109,7 +107,7 @@ class Home extends Component {
 
   onSubmit = event => {
     const { email, passwordOne } = this.state;
-    let error = this.props.firebase
+    this.props.firebase
       .doSignInWithEmailAndPassword(email, passwordOne)
       .then(() => {
         this.setState({ username: "", email: "", pass1: "", pass2: "" });
@@ -126,7 +124,7 @@ class Home extends Component {
 
   generatePieChartData = () => {
     let pieChartData = [];
-    Object.keys(this.state.user.portfolio).map(stockKey => {
+    Object.keys(this.state.user.portfolio).forEach(stockKey => {
       pieChartData.push({
         angle:
           parseInt(this.state.user.portfolio[stockKey].totAmountInvested) *
@@ -139,7 +137,7 @@ class Home extends Component {
 
   generateBarChartData = () => {
     let barChartData = [];
-    Object.keys(this.state.user.portfolio).map(stockKey => {
+    Object.keys(this.state.user.portfolio).forEach(stockKey => {
       barChartData.push({
         x: this.state.user.portfolio[stockKey].stockId,
         y: parseInt(this.state.user.portfolio[stockKey].totNumberBought)
@@ -151,7 +149,7 @@ class Home extends Component {
   generateInvestedVsCashChartData = () => {
     let fundsAvailable = this.state.user.fundsAvailable;
     let investedFunds = 0;
-    Object.keys(this.state.user.portfolio).map(stockKey => {
+    Object.keys(this.state.user.portfolio).forEach(stockKey => {
       investedFunds += parseInt(
         this.state.user.portfolio[stockKey].totAmountInvested
       );
@@ -178,7 +176,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        {console.log("firebase,", this.props.firebase)}
+        {/* {console.log("firebase,", this.props.firebase)} */}
         <div className="App">
           <PortfolioWrapper>
             <GraphAndTextWrapper>
@@ -197,9 +195,9 @@ class Home extends Component {
                         onCardClick={() =>
                           this.props.history.push(
                             "/stockDetails/" +
-                              this.state.user.portfolio[stockKey].stockName +
-                              "/" +
-                              this.state.user.portfolio[stockKey].stockId
+                            this.state.user.portfolio[stockKey].stockName +
+                            "/" +
+                            this.state.user.portfolio[stockKey].stockId
                           )
                         }
                       />

@@ -75,7 +75,7 @@ class StockDetails extends Component {
                 this.getChartData();
             })
             .catch(error => {
-                console.error(error);
+                // console.error(error);
                 this.noValidData();
             });
 

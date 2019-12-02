@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./../../App.css";
 import { withRouter, Link } from "react-router-dom";
-import { FirebaseContext } from "../Firebase";
-import { TextField, Button, Paper, Icon } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import ArrowbackIcon from "@material-ui/icons/ArrowBack";
 
@@ -23,7 +22,7 @@ class SignUpForm extends Component {
   };
 
   onSubmit = event => {
-    const { username, email, pass1 } = this.state;
+    const { username, pass1 } = this.state;
     this.props.firebase
       .doCreateUserWithEmailAndPassword(username, pass1)
       .then(authUser => {
@@ -31,7 +30,7 @@ class SignUpForm extends Component {
         this.props.history.push("/home");
       })
       .catch(() => {
-        console.log("Error ocurred!");
+        // console.log("Error ocurred!");
         this.setState({ error: true });
       });
     event.preventDefault();
@@ -72,15 +71,15 @@ class SignUpForm extends Component {
                 helperText="Incorrect email/password"
               ></TextField>
             ) : (
-              <TextField
-                id="username"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChange}
-                type="text"
-                label="Email"
-              ></TextField>
-            )}
+                <TextField
+                  id="username"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.onChange}
+                  type="text"
+                  label="Email"
+                ></TextField>
+              )}
           </div>
           <div style={{ padding: "10px" }}>
             {/* <label htmlFor="pass1">Password: </label> */}
@@ -96,15 +95,15 @@ class SignUpForm extends Component {
                 helperText="Incorrect email/password"
               ></TextField>
             ) : (
-              <TextField
-                id="pass1"
-                name="pass1"
-                value={this.state.pass1}
-                onChange={this.onChange}
-                type="password"
-                label="Password"
-              ></TextField>
-            )}
+                <TextField
+                  id="pass1"
+                  name="pass1"
+                  value={this.state.pass1}
+                  onChange={this.onChange}
+                  type="password"
+                  label="Password"
+                ></TextField>
+              )}
           </div>
           <div style={{ padding: "10px" }}>
             {this.state.error ? (
@@ -119,24 +118,23 @@ class SignUpForm extends Component {
                 helperText="Incorrect email/password"
               ></TextField>
             ) : (
-              <TextField
-                id="pass2"
-                name="pass2"
-                value={this.state.pass2}
-                onChange={this.onChange}
-                type="password"
-                label="Confirm password"
-              ></TextField>
-            )}
+                <TextField
+                  id="pass2"
+                  name="pass2"
+                  value={this.state.pass2}
+                  onChange={this.onChange}
+                  type="password"
+                  label="Confirm password"
+                ></TextField>
+              )}
           </div>
           <div style={{ padding: "10px" }}>
             <Link to="/signin">
               <Button
-                style={{ color: "grey" }}
+                style={{ color: "grey", margin: "10px" }}
                 id="backButton"
                 size="small"
                 startIcon={<ArrowbackIcon />}
-                style={{ margin: "10px" }}
               >
                 Back
               </Button>

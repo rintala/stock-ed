@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./../../App.css";
-import { withRouter, Link } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { sizes } from "./../../constants/sizes";
 
 const Button = styled.div`  
@@ -40,11 +40,8 @@ const NavBarWrapper = styled.div`
 `;
 
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
-  }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.props.isHomeSelected && this.props.setIsCurrentlySelected("home");
   }
 

@@ -29,13 +29,14 @@ const HeaderTitleLink = styled(Link)`
   transition: all 0.3s ease-in-out;
 `;
 
-const HeaderSubTitle = styled.div`
-  font-size: 20px;
-  padding: 10px;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-`;
+// const HeaderSubTitle = styled.div`
+//   font-size: 20px;
+//   padding: 10px;
+//   display: flex;
+//   width: 100%;
+//   justify-content: center;
+// `;
+// Never used!
 
 class SignUp extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class SignUp extends Component {
   };
 
   onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
+    const {  email, passwordOne } = this.state;
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
