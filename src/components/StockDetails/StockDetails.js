@@ -158,7 +158,6 @@ class StockDetails extends Component {
                 outputsize: "full"
             }
         };
-        console.log("Sending ", dataChart[this.state.graphPeriod]);
         alphaVantageApiCall(dataChart[this.state.graphPeriod]).then(response => {
             response.json().then(data => {
                 if (this.responseChecker(data)) {
@@ -167,7 +166,6 @@ class StockDetails extends Component {
                         errorMsg: false
                     });
                 } else {
-                    // console.log('this is triggered')
                     this.noValidData();
                 }
             });
@@ -175,9 +173,6 @@ class StockDetails extends Component {
     }
 
     buyStock = () => {
-        // console.log("writing new stock to user:", this.state.currentUserId);
-        // console.log("user data:", this.state.currentData, this.props.firebase);
-
         this.props.firebase
             .writeNewStock(this.state.currentUserId, this.state.currentUser, {
                 stockId: this.state.stockID,
@@ -197,11 +192,6 @@ class StockDetails extends Component {
     };
 
     sellExistingStock = () => {
-        console.log(
-            "this state",
-            this.state.amountToBuy,
-            this.state.currentData.open
-        );
         this.props.firebase
             .sellExistingStock(
                 this.state.currentUserId,
@@ -210,23 +200,19 @@ class StockDetails extends Component {
                 this.state.currentData.open
             )
             .then(() => {
-                console.log("Sell successful");
                 this.transferSuccess("sell");
             })
             .catch(() => {
-                console.log("Sell failed");
                 this.transferFail("sell");
             });
     };
 
     updateStockData() {
-        // console.log("chartData");
         return new Promise((resolve, reject) => {
             alphaVantageApiCall({
                 type: "stockQuote",
                 symbol: this.state.stockID
             }).then(response => {
-                // console.log('update stock response: ', response.status)
                 response.json().then(data => {
                     if (this.responseChecker(data)) {
                         const gQ = data["Global Quote"];
@@ -287,7 +273,6 @@ class StockDetails extends Component {
         });
 
         return filteredTimeStamps.map(timeStamp => {
-            // console.log('sending ' + timeStamp + ' to plot')
             return {
                 x: new Date(timeStamp),
                 y: data[dataKey][timeStamp]["1. open"]
@@ -296,16 +281,12 @@ class StockDetails extends Component {
     }
 
     labelFormatter(input) {
-        // console.log(input)
         const date = new Date(input);
         const dateAsString = date.toISOString();
-        // console.log(dateAsString)
         // 2019-11-27T14:13:20.000Z <-- This is the format of an ISO String
         if (this.state.graphPeriod === "last day") {
-            // console.log(dateAsString.substring(11, 16))
             return dateAsString.substring(11, 16);
         } else {
-            // console.log(dateAsString.substring(5, 10))
             return dateAsString.substring(5, 10);
         }
     }
@@ -316,7 +297,6 @@ class StockDetails extends Component {
 
     async changeChartView(period) {
         await this.setState({ graphPeriod: period });
-        console.log("period", this.state.graphPeriod);
         this.getChartData();
     }
 
@@ -346,7 +326,7 @@ class StockDetails extends Component {
                             >
                                 Due to limitation in the API we could not fetch the data, please
                                 wait a minute and then refresh.
-              </div>
+                            </div>
                         )}
                         <Grid container spacing={2}>
                             <Grid item>
@@ -391,7 +371,7 @@ class StockDetails extends Component {
                                 >
                                     Tip: Make sure you have available funds for the purchase to go
                                     through!
-                </div>
+                                </div>
                                 <Paper style={{ marginTop: "1.2rem" }}>
                                     <p
                                         style={{
@@ -461,8 +441,7 @@ class StockDetails extends Component {
                                         style={{ width: "30%" }}
                                     >
                                         Buy
-                  </Button>
-
+                                    </Button>
                                     <Button
                                         onClick={() => {
                                             this.sellExistingStock();
@@ -471,7 +450,7 @@ class StockDetails extends Component {
                                         style={{ width: "50%" }}
                                     >
                                         Sell
-                  </Button>
+                                     </Button>
                                 </Paper>
                             </Grid>
                             <Grid item>
@@ -512,8 +491,7 @@ class StockDetails extends Component {
                                                 }}
                                             >
                                                 Today
-                      </Button>
-
+                                            </Button>
                                             <Button
                                                 style={{
                                                     width: "20%",
@@ -524,7 +502,7 @@ class StockDetails extends Component {
                                                 }}
                                             >
                                                 Month
-                      </Button>
+                                            </Button>
                                             <Button
                                                 style={{
                                                     width: "20%",
@@ -535,9 +513,9 @@ class StockDetails extends Component {
                                                 }}
                                             >
                                                 Year
-                      </Button>
+                                            </Button>
                                         </div>
-                                    </Paper>{" "}
+                                    </Paper>
                                 </XYPlotWrapper>
                             </Grid>
                         </Grid>
