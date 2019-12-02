@@ -3,7 +3,19 @@ import "./../../App.css";
 import { withRouter } from "react-router-dom";
 
 import "../../../node_modules/react-vis/dist/style.css";
-import { RadialChart } from "react-vis";
+import {
+  RadialChart,
+  XYPlot,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
+  VerticalBarSeries,
+  HorizontalBarSeries,
+  HorizontalBarSeriesCanvas,
+  BarSeries,
+  DiscreteColorLegend
+} from "react-vis";
 import StockCard from "./../StockCard/StockCard";
 import styled from "styled-components";
 
@@ -59,6 +71,8 @@ class Home extends Component {
       pass2: "",
       stocks: [],
       pieChartData: [],
+      barChartData: [],
+      investedVsCashChartData: [],
       isFlushed: false
     };
   }
@@ -82,7 +96,7 @@ class Home extends Component {
                 email: authUser.email
               }
             },
-            () => this.state.user.portfolio && this.generatePieChartData()
+            () => this.state.user.portfolio && this.generateChartData()
           );
         });
       }
@@ -104,6 +118,12 @@ class Home extends Component {
     event.preventDefault();
   };
 
+  generateChartData = () => {
+    this.generatePieChartData();
+    this.generateBarChartData();
+    this.generateInvestedVsCashChartData();
+  };
+
   generatePieChartData = () => {
     let pieChartData = [];
     Object.keys(this.state.user.portfolio).map(stockKey => {
@@ -117,6 +137,44 @@ class Home extends Component {
     this.setState({ pieChartData: pieChartData });
   };
 
+  generateBarChartData = () => {
+    let barChartData = [];
+    Object.keys(this.state.user.portfolio).map(stockKey => {
+      barChartData.push({
+        x: this.state.user.portfolio[stockKey].stockId,
+        y: parseInt(this.state.user.portfolio[stockKey].totNumberBought)
+      });
+    });
+    this.setState({ barChartData: barChartData });
+  };
+
+  generateInvestedVsCashChartData = () => {
+    let fundsAvailable = this.state.user.fundsAvailable;
+    let investedFunds = 0;
+    Object.keys(this.state.user.portfolio).map(stockKey => {
+      investedFunds += parseInt(
+        this.state.user.portfolio[stockKey].totAmountInvested
+      );
+    });
+    let newInvestedVsCashChartData = [];
+    newInvestedVsCashChartData.push({
+      y: 1,
+      x: investedFunds,
+      label: "funds-invested",
+      title: "Funds Invested",
+      color: "var(--highlight-red)"
+    });
+    newInvestedVsCashChartData.push({
+      y: 2,
+      x: fundsAvailable,
+      label: "cash-invested",
+      title: "Cash Available",
+      color: "#12939A"
+    });
+
+    this.setState({ investedVsCashChartData: newInvestedVsCashChartData });
+  };
+
   render() {
     return (
       <div>
@@ -127,6 +185,7 @@ class Home extends Component {
               <GraphAndTextTitleCard>
                 Funds available: $ {this.state.user.fundsAvailable}
               </GraphAndTextTitleCard>
+
               {this.state.user.portfolio && (
                 <div>
                   <GraphAndTextTitle>Stocks</GraphAndTextTitle>
@@ -149,7 +208,50 @@ class Home extends Component {
                 </div>
               )}
             </GraphAndTextWrapper>
+            {this.state.user.portfolio && (
+              <GraphAndTextWrapper>
+                <GraphAndTextTitle>Invested capital vs. cash</GraphAndTextTitle>
 
+                <XYPlot
+                  width={300}
+                  height={300}
+                  stackBy="x"
+                  showLabels
+                  style={{
+                    text: { stroke: "var(--global-link-color)" }
+                  }}
+                >
+                  <DiscreteColorLegend
+                    style={{
+                      position: "absolute",
+                      left: "50px",
+                      top: "0px"
+                    }}
+                    orientation="horizontal"
+                    items={[
+                      {
+                        title: "Cash",
+                        color: "#12939A"
+                      },
+                      {
+                        title: "Invested",
+                        color: "var(--highlight-red)"
+                      }
+                    ]}
+                  />
+
+                  <VerticalGridLines />
+                  <XAxis />
+
+                  <HorizontalBarSeries
+                    barWidth={0.5}
+                    showLabels
+                    colorType="literal"
+                    data={this.state.investedVsCashChartData}
+                  />
+                </XYPlot>
+              </GraphAndTextWrapper>
+            )}
             {this.state.user.portfolio && (
               <GraphAndTextWrapper>
                 <GraphAndTextTitle>Portfolio value split</GraphAndTextTitle>
@@ -167,6 +269,33 @@ class Home extends Component {
                     labelsRadiusMultiplier={0.8}
                   />
                 </div>
+              </GraphAndTextWrapper>
+            )}
+
+            {this.state.user.portfolio && (
+              <GraphAndTextWrapper>
+                <GraphAndTextTitle>Number stocks split</GraphAndTextTitle>
+
+                <XYPlot
+                  margin={{ bottom: 70 }}
+                  xType="ordinal"
+                  width={300}
+                  height={300}
+                  animation
+                  style={{
+                    text: { stroke: "var(--global-link-color)" }
+                  }}
+                >
+                  <HorizontalGridLines />
+                  <XAxis
+                    tickLabelAngle={-45}
+                    style={{
+                      text: { stroke: "var(--global-link-color)" }
+                    }}
+                  />
+                  <YAxis />
+                  <VerticalBarSeries data={this.state.barChartData} />
+                </XYPlot>
               </GraphAndTextWrapper>
             )}
           </PortfolioWrapper>
