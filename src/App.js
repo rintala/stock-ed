@@ -77,7 +77,7 @@ export default class App extends React.Component {
               component={props => (
                 <Header
                   firebase={this.state.firebase}
-                  isCurrentlySelected={"home"}
+                  isCurrentlySelected={"about"}
                 />
               )}
             />
@@ -124,13 +124,7 @@ export default class App extends React.Component {
                 />
               )}
             />
-            <PrivateRoute
-              authUser={this.state.authUser}
-              path={ROUTES.ABOUT}
-              component={props => (
-                <About history firebase={this.state.firebase} {...props} />
-              )}
-            />
+            <Route path={ROUTES.ABOUT} render={() => <About history />} />
             <PrivateRoute
               path={ROUTES.SEARCH}
               authUser={this.state.authUser}

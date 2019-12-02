@@ -31,7 +31,7 @@ class SignInForm extends Component {
           this.setState({ error: true });
         } else {
           this.setState({ error: false });
-          this.props.history.push(ROUTES.HOME);
+          this.props.history.push(ROUTES.ABOUT);
           this.props.setIsAuthenticated(true);
         }
         this.setState({ username: "", email: "", pass1: "" });
