@@ -43,3 +43,12 @@ a {
   width: 80%;
   margin: auto;
 }
+
+.rv-discrete-color-legend-item.horizontal,
+.rv-discrete-color-legend-item__title,
+.rv-xy-plot__axis__tick__text {
+  color: white;
+  fill: white;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

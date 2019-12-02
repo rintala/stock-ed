@@ -23,6 +23,8 @@ const UserInfoContainer = styled.div`
   @media (max-width: ${sizes.mobileDevice}) {
     margin-left: 0;
     padding-top: 20px;
+    width: 100%;
+    text-align: center;
   }
 `;
 
@@ -39,6 +41,7 @@ const ProfileWrapper = styled.div`
     flex-direction: row;
     padding: 0;
     padding-top: 30px;
+    width: 100%;
   }
 `;
 
