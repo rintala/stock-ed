@@ -58,16 +58,6 @@ class About extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  componentDidMount() {
-    this.props.firebase.auth.onAuthStateChanged(authUser => {
-      if (authUser) {
-        authUser
-          ? localStorage.setItem("authUser", JSON.stringify(authUser))
-          : localStorage.removeItem("authUser");
-      }
-    });
-  }
-
   render() {
     return (
       <div>

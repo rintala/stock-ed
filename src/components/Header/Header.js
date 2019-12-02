@@ -75,7 +75,7 @@ class Header extends Component {
       isCurrentlySelected:
         localStorage.getItem("currentPage") != null
           ? localStorage.getItem("currentPage")
-          : ""
+          : this.props.isCurrentlySelected
     };
   }
 
